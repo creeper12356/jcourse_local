@@ -34,12 +34,8 @@ bool Client::initialize()
         mAccount.account = clientJsonObject["account"].toObject()["account"].toString();
         mAccount.password = clientJsonObject["account"].toObject()["password"].toString();
         //读入Cookies
-        mCookies.readFromJsonObject(clientJsonObject["cookies"].toObject());
-        qDebug() << clientJsonObject["cookies"].toObject();
+        mCookies.readFromJsonArray(clientJsonObject["cookies"].toArray());
     }
-    qDebug() << "after read from file: ";
-    qDebug() << mAccount.toJsonObject();
-    qDebug() << mCookies.toJsonObject();
     mMainWindow->show();
     return true;
     //control never reaches here
@@ -107,7 +103,7 @@ Client::~Client()
     writer.open(QIODevice::WriteOnly);
     QJsonObject clientJsonObject;
     clientJsonObject.insert("account",mAccount.toJsonObject());
-    clientJsonObject.insert("cookies",mCookies.toJsonObject());
+    clientJsonObject.insert("cookies",mCookies.toJsonArray());
     writer.write(QJsonDocument(clientJsonObject).toJson());
     writer.close();
 }
@@ -147,6 +143,9 @@ QNetworkReply *Client::getWithCookies(const QUrl &apiUrl)
 
 void Client::updateCookies()
 {
+    //清除之前的Cookies
+    mCookies.clear();
+
     QNetworkRequest loginRequest(LOGIN_URL);
     loginRequest.setHeader(QNetworkRequest::ContentTypeHeader, "application/x-www-form-urlencoded");
     QUrlQuery postData;
@@ -163,8 +162,6 @@ void Client::updateCookies()
     //说明之前的Cookies过期
     //解析并更新cookies
     qDebug() << "new cookies updated.";
-//    parseCookies(reply->rawHeader("set-cookie"));
-    qDebug() << mCookies.toJsonObject();
     reply->deleteLater();
 }
 
@@ -194,33 +191,50 @@ QList<QNetworkCookie> MyNetworkCookieJar::allCookies() const
     return QNetworkCookieJar::allCookies();
 }
 
-QJsonObject MyNetworkCookieJar::toJsonObject() const
+QJsonArray MyNetworkCookieJar::toJsonArray() const
 {
-    QJsonObject obj;
-    qDebug() << "start transforming to jsonobject: ";
-    for(auto cookie : allCookies()){
-        qDebug() << cookie;
-        qDebug() << "cookie-name: " << cookie.name();
-        qDebug() << "cookie-value: " << cookie.value();
-        obj.insert(QString::fromUtf8(cookie.name()),QString::fromUtf8(cookie.value()));
+    QJsonArray cookiesJsonArray;
+    for(auto& cookie : allCookies()){
+        qDebug() << "cookie: " <<cookie;
+        QJsonObject cookieJsonObject;
+        cookieJsonObject.insert("name",QString::fromUtf8(cookie.name()));
+        cookieJsonObject.insert("value",QString::fromUtf8(cookie.value()));
+        cookieJsonObject.insert("expirationDate",cookie.expirationDate().toString());
+        cookieJsonObject.insert("domain",cookie.domain());
+        cookieJsonObject.insert("secure",cookie.isSecure());
+        cookieJsonObject.insert("path",cookie.path());
+        cookieJsonObject.insert("httpOnly",cookie.isHttpOnly());
+        cookiesJsonArray.append(cookieJsonObject);
     }
-    qDebug() << "end transforming ";
-    return obj;
+    return cookiesJsonArray;
 }
 
-bool MyNetworkCookieJar::readFromJsonObject(const QJsonObject &obj)
+bool MyNetworkCookieJar::readFromJsonArray(const QJsonArray &arr)
 {
     //清除所有cookies
     setAllCookies({});
-    //插入键值对
-    for(auto it = obj.begin();it != obj.end(); ++it){
-        if(!it.value().isString()){
-            //保证json格式正确
-            return false;
-        }
-        insertCookie(QNetworkCookie(it.key().toUtf8(),it.value().toString().toUtf8()));
+
+    for(auto it = arr.begin();it != arr.end();++it){
+        //TODO : 检查json格式
+        QNetworkCookie cookie;
+        QJsonObject cookieJsonObject = (*it).toObject();
+        cookie.setName(cookieJsonObject["name"].toString().toUtf8());
+        cookie.setValue(cookieJsonObject["value"].toString().toUtf8());
+        cookie.setExpirationDate(QDateTime::fromString(cookieJsonObject["expirationDate"].toString()));
+        cookie.setDomain(cookieJsonObject["domain"].toString());
+        cookie.setSecure(cookieJsonObject["secure"].toBool());
+        cookie.setPath(cookieJsonObject["path"].toString());
+        cookie.setHttpOnly(cookieJsonObject["httpOnly"].toBool());
+
+        qDebug() << "cookie: " << cookie;
+        insertCookie(cookie);
     }
     return true;
+}
+
+void MyNetworkCookieJar::clear()
+{
+    setAllCookies({});
 }
 
 QJsonObject Account::toJsonObject() const

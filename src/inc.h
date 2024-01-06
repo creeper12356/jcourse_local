@@ -20,9 +20,12 @@
 #include <QJsonValue>
 #include <QJsonDocument>
 #include <QJsonObject>
+#include <QJsonArray>
 
 #include <QFile>
 #include <QDir>
+
+#include <QDateTime>
 
 #include <QDebug>
 

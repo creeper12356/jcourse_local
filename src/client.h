@@ -16,8 +16,9 @@ public:
     MyNetworkCookieJar(QObject *parent = 0);
 
     QList<QNetworkCookie> allCookies() const;
-    QJsonObject toJsonObject() const;
-    bool readFromJsonObject(const QJsonObject& obj);
+    QJsonArray toJsonArray() const;
+    bool readFromJsonArray(const QJsonArray &arr);
+    void clear();
 };
 
 class Client : public QObject
@@ -32,7 +33,7 @@ public:
     QNetworkReply *getWithCookies(const QUrl &apiUrl);
     void updateCookies();
 private:
-    //从服务器回应的raw cookies中获取对应键的值
+    //(*now useless*)从服务器回应的raw cookies中获取对应键的值
     QByteArray rawCookiesValueAt(const QByteArray& rawCookies,const QString& key);
 
 private:
