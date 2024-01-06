@@ -20,6 +20,7 @@ Client::Client(QApplication *app)
 
 bool Client::initialize()
 {
+    mManager->setCookieJar(&mCookies);
     //read from file
     //TODO : 封装readFromFile 方法
     //TODO : 异常处理
@@ -33,18 +34,18 @@ bool Client::initialize()
         mAccount.account = clientJsonObject["account"].toObject()["account"].toString();
         mAccount.password = clientJsonObject["account"].toObject()["password"].toString();
         //读入Cookies
-        QJsonObject cookiesJsonObject = clientJsonObject["cookies"].toObject();
-        qDebug() << "after read from file: ";
-        qDebug() << mAccount.toJsonObject();
-        for(auto it = cookiesJsonObject.begin();it != cookiesJsonObject.end() ; ++it){
-            //assert mCookies is empty
-            mCookies.insertCookie(QNetworkCookie(it.key().toUtf8(),it.value().toString().toUtf8()));
-        }
+        mCookies.readFromJsonObject(clientJsonObject["cookies"].toObject());
+        qDebug() << clientJsonObject["cookies"].toObject();
     }
-    //只需要在初始化时设置一次
-    mManager->setCookieJar(&mCookies);
+    qDebug() << "after read from file: ";
+    qDebug() << mAccount.toJsonObject();
+    qDebug() << mCookies.toJsonObject();
     mMainWindow->show();
     return true;
+    //control never reaches here
+
+
+
     //登录
     //TODO : 请求失败时弹出登录窗口
 
@@ -80,8 +81,7 @@ bool Client::initialize()
         }
         qDebug() << reply->attribute(QNetworkRequest::HttpStatusCodeAttribute);
         //解析cookies
-        parseCookies(reply->rawHeader("set-cookie"));
-        mManager->setCookieJar(&mCookies);
+//        parseCookies(reply->rawHeader("set-cookie"));
         reply->deleteLater();
     }
     //to here
@@ -161,21 +161,13 @@ void Client::updateCookies()
     }
     //请求获得Cookies成功
     //说明之前的Cookies过期
-        //TODO : 封装parseCookies
     //解析并更新cookies
     qDebug() << "new cookies updated.";
-    parseCookies(reply->rawHeader("set-cookie"));
+//    parseCookies(reply->rawHeader("set-cookie"));
     qDebug() << mCookies.toJsonObject();
     reply->deleteLater();
 }
 
-
-void Client::parseCookies(const QByteArray &rawCookies)
-{
-    mCookies.deleteAllCookies();
-    mCookies.insertCookie(QNetworkCookie("csrftoken",rawCookiesValueAt(rawCookies,"csrftoken")));
-    mCookies.insertCookie(QNetworkCookie("sessionid",rawCookiesValueAt(rawCookies,"sessionid")));
-}
 
 QByteArray Client::rawCookiesValueAt(const QByteArray &rawCookies, const QString &key)
 {
@@ -191,26 +183,45 @@ QByteArray Client::rawCookiesValueAt(const QByteArray &rawCookies, const QString
     return rawCookies.mid(valueIndex,semicolonIndex - valueIndex);
 }
 
-MyNetWorkCookieJar::MyNetWorkCookieJar(QObject *parent)
+MyNetworkCookieJar::MyNetworkCookieJar(QObject *parent)
     :QNetworkCookieJar(parent)
 {
 
 }
 
-QJsonObject MyNetWorkCookieJar::toJsonObject() const
+QList<QNetworkCookie> MyNetworkCookieJar::allCookies() const
+{
+    return QNetworkCookieJar::allCookies();
+}
+
+QJsonObject MyNetworkCookieJar::toJsonObject() const
 {
     QJsonObject obj;
+    qDebug() << "start transforming to jsonobject: ";
     for(auto cookie : allCookies()){
+        qDebug() << cookie;
+        qDebug() << "cookie-name: " << cookie.name();
+        qDebug() << "cookie-value: " << cookie.value();
         obj.insert(QString::fromUtf8(cookie.name()),QString::fromUtf8(cookie.value()));
     }
+    qDebug() << "end transforming ";
     return obj;
 }
 
-void MyNetWorkCookieJar::deleteAllCookies()
+bool MyNetworkCookieJar::readFromJsonObject(const QJsonObject &obj)
 {
+    //清除所有cookies
     setAllCookies({});
+    //插入键值对
+    for(auto it = obj.begin();it != obj.end(); ++it){
+        if(!it.value().isString()){
+            //保证json格式正确
+            return false;
+        }
+        insertCookie(QNetworkCookie(it.key().toUtf8(),it.value().toString().toUtf8()));
+    }
+    return true;
 }
-
 
 QJsonObject Account::toJsonObject() const
 {

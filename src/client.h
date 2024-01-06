@@ -10,12 +10,14 @@ public:
     Account() {}
     QJsonObject toJsonObject() const;
 };
-class MyNetWorkCookieJar: public QNetworkCookieJar
+class MyNetworkCookieJar : public QNetworkCookieJar
 {
 public:
-    explicit MyNetWorkCookieJar(QObject* parent = 0);
+    MyNetworkCookieJar(QObject *parent = 0);
+
+    QList<QNetworkCookie> allCookies() const;
     QJsonObject toJsonObject() const;
-    void deleteAllCookies();
+    bool readFromJsonObject(const QJsonObject& obj);
 };
 
 class Client : public QObject
@@ -30,14 +32,12 @@ public:
     QNetworkReply *getWithCookies(const QUrl &apiUrl);
     void updateCookies();
 private:
-    //解析raw cookies 并更新mCookies字段
-    void parseCookies(const QByteArray &rawCookies);
     //从服务器回应的raw cookies中获取对应键的值
     QByteArray rawCookiesValueAt(const QByteArray& rawCookies,const QString& key);
 
 private:
     Account mAccount;
-    MyNetWorkCookieJar mCookies;
+    MyNetworkCookieJar mCookies;
 private:
     LoginWindow* mLoginWindow = nullptr;
     MainWindow* mMainWindow = nullptr;
