@@ -44,7 +44,7 @@ public:
     QNetworkReply *getWithCookies(const QUrl &apiUrl);
 
     //向服务器发送带有账号密码的post请求，更新cookies
-    void updateCookies();
+    bool updateCookies();
 private:
     //(*now useless*)从服务器回应的raw cookies中获取对应键的值
     QByteArray rawCookiesValueAt(const QByteArray& rawCookies,const QString& key);

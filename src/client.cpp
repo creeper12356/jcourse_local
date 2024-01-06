@@ -12,10 +12,11 @@ Client::Client(QApplication *app)
     mLoginWindow = new LoginWindow(nullptr);
     mMainWindow = new MainWindow(nullptr);
     connect(mMainWindow,&MainWindow::search,this,[this](QString query){
-       this->search(query);
+        this->search(query);
     });
 
     connect(mManager,&QNetworkAccessManager::finished,mEventLoop,&QEventLoop::quit);
+    connect(mLoginWindow,&LoginWindow::rejected,mApp,&QApplication::quit);
 }
 
 bool Client::initialize()
@@ -76,7 +77,7 @@ bool Client::initialize()
             break;
         }
         qDebug() << reply->attribute(QNetworkRequest::HttpStatusCodeAttribute);
-        reply->deleteLater();
+//        reply->deleteLater();
     }
     //to here
     if(mLoginStatus == 200){
@@ -129,13 +130,25 @@ QNetworkReply *Client::getWithCookies(const QUrl &apiUrl)
             qDebug() << reply->attribute(QNetworkRequest::HttpStatusCodeAttribute);
             qDebug() << QString::fromUtf8(reply->readAll());
             //使用Cookies出现问题
-            try{
-                updateCookies();
+            while(!updateCookies()){
+                mMainWindow->close();
+                mLoginWindow->show();
+
+                if(!mLoginWindow->login()){
+                    //用户取消登录
+                    mLoginStatus = -1;
+                    //关闭程序
+                    mLoginWindow->reject();
+                    qDebug() << "canceled";
+                }
+                //获取账号密码
+                mAccount.account = mLoginWindow->getAccount();
+                mAccount.password = mLoginWindow->getPassword();
+                qDebug() << "登录账号： " << mAccount.account;
             }
-            catch(QNetworkReply::NetworkError error){
-                qDebug() << "需要登录";
-                //TODO : 处理问题
-            }
+
+            mMainWindow->show();
+            mLoginWindow->accept();
 
             delete reply;
             continue;
@@ -146,29 +159,23 @@ QNetworkReply *Client::getWithCookies(const QUrl &apiUrl)
     return reply;
 }
 
-void Client::updateCookies()
+bool Client::updateCookies()
 {
     //清除之前的Cookies
     mCookieJar.clear();
 
+    //更新Cookies
     QNetworkRequest loginRequest(LOGIN_URL);
     loginRequest.setHeader(QNetworkRequest::ContentTypeHeader, "application/x-www-form-urlencoded");
     QUrlQuery postData;
     postData.addQueryItem("account",mAccount.account);
     postData.addQueryItem("password",mAccount.password);
+    qDebug() << "account: " << mAccount.account;
     QNetworkReply* reply = mManager->post(loginRequest,postData.toString(QUrl::FullyEncoded).toUtf8());
     mEventLoop->exec();
-    if(reply->error() != QNetworkReply::NoError){
-        auto error = reply->error();
-        delete reply;
-        reply->deleteLater();
-        throw error;
-    }
-    //请求获得Cookies成功
-    //说明之前的Cookies过期
-    //解析并更新cookies
-    qDebug() << "new cookies updated.";
+    auto error = reply->error();
     delete reply;
+    return error == QNetworkReply::NoError;
 }
 
 
