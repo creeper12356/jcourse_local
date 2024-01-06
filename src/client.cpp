@@ -20,7 +20,7 @@ Client::Client(QApplication *app)
 
 bool Client::initialize()
 {
-    mManager->setCookieJar(&mCookies);
+    mManager->setCookieJar(&mCookieJar);
     //read from file
     //TODO : 封装readFromFile 方法
     //TODO : 异常处理
@@ -34,7 +34,7 @@ bool Client::initialize()
         mAccount.account = clientJsonObject["account"].toObject()["account"].toString();
         mAccount.password = clientJsonObject["account"].toObject()["password"].toString();
         //读入Cookies
-        mCookies.readFromJsonArray(clientJsonObject["cookies"].toArray());
+        mCookieJar.readFromJsonArray(clientJsonObject["cookies"].toArray());
     }
     mMainWindow->show();
     return true;
@@ -76,8 +76,6 @@ bool Client::initialize()
             break;
         }
         qDebug() << reply->attribute(QNetworkRequest::HttpStatusCodeAttribute);
-        //解析cookies
-//        parseCookies(reply->rawHeader("set-cookie"));
         reply->deleteLater();
     }
     //to here
@@ -103,7 +101,7 @@ Client::~Client()
     writer.open(QIODevice::WriteOnly);
     QJsonObject clientJsonObject;
     clientJsonObject.insert("account",mAccount.toJsonObject());
-    clientJsonObject.insert("cookies",mCookies.toJsonArray());
+    clientJsonObject.insert("cookies",mCookieJar.toJsonArray());
     writer.write(QJsonDocument(clientJsonObject).toJson());
     writer.close();
 }
@@ -114,7 +112,7 @@ bool Client::search(const QString &query)
     //TODO : analyze reply
     qDebug() << QString::fromUtf8(reply->readAll());
 
-    reply->deleteLater();
+    delete reply;
     return true;
 }
 
@@ -131,8 +129,15 @@ QNetworkReply *Client::getWithCookies(const QUrl &apiUrl)
             qDebug() << reply->attribute(QNetworkRequest::HttpStatusCodeAttribute);
             qDebug() << QString::fromUtf8(reply->readAll());
             //使用Cookies出现问题
-            updateCookies();
-//            reply->deleteLater();
+            try{
+                updateCookies();
+            }
+            catch(QNetworkReply::NetworkError error){
+                qDebug() << "需要登录";
+                //TODO : 处理问题
+            }
+
+            delete reply;
             continue;
         }
         break;
@@ -144,7 +149,7 @@ QNetworkReply *Client::getWithCookies(const QUrl &apiUrl)
 void Client::updateCookies()
 {
     //清除之前的Cookies
-    mCookies.clear();
+    mCookieJar.clear();
 
     QNetworkRequest loginRequest(LOGIN_URL);
     loginRequest.setHeader(QNetworkRequest::ContentTypeHeader, "application/x-www-form-urlencoded");
@@ -154,15 +159,16 @@ void Client::updateCookies()
     QNetworkReply* reply = mManager->post(loginRequest,postData.toString(QUrl::FullyEncoded).toUtf8());
     mEventLoop->exec();
     if(reply->error() != QNetworkReply::NoError){
+        auto error = reply->error();
+        delete reply;
         reply->deleteLater();
-        qDebug() << "throw " << reply->attribute(QNetworkRequest::HttpStatusCodeAttribute);
-        throw reply->error();
+        throw error;
     }
     //请求获得Cookies成功
     //说明之前的Cookies过期
     //解析并更新cookies
     qDebug() << "new cookies updated.";
-    reply->deleteLater();
+    delete reply;
 }
 
 
