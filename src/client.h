@@ -8,6 +8,14 @@ public:
     QString password = "";
 
     Account() {}
+    QJsonObject toJsonObject() const;
+};
+class MyNetWorkCookieJar: public QNetworkCookieJar
+{
+public:
+    explicit MyNetWorkCookieJar(QObject* parent = 0);
+    QJsonObject toJsonObject() const;
+    void deleteAllCookies();
 };
 
 class Client : public QObject
@@ -19,6 +27,8 @@ public:
     bool initialize();
     ~Client();
     bool search(const QString& query);
+    QNetworkReply *getWithCookies(const QUrl &apiUrl);
+    void updateCookies();
 private:
     //解析raw cookies 并更新mCookies字段
     void parseCookies(const QByteArray &rawCookies);
@@ -27,7 +37,7 @@ private:
 
 private:
     Account mAccount;
-    QNetworkCookieJar mCookies;
+    MyNetWorkCookieJar mCookies;
 private:
     LoginWindow* mLoginWindow = nullptr;
     MainWindow* mMainWindow = nullptr;

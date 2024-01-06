@@ -21,6 +21,9 @@
 #include <QJsonDocument>
 #include <QJsonObject>
 
+#include <QFile>
+#include <QDir>
+
 #include <QDebug>
 
 
