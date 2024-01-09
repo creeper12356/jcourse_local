@@ -14,7 +14,6 @@ bool AppModel::readFromFile(const QString &fileName)
     if(!reader.isOpen()){
         return false;
     }
-    //TODO : parse failed ?
     QJsonDocument clientJsonDoc = QJsonDocument::fromJson(reader.readAll());
     reader.close();
     if(!clientJsonDoc.isObject()){
