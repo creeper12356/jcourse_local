@@ -1,31 +1,6 @@
 #ifndef CLIENT_H
 #define CLIENT_H
 #include "inc.h"
-class Account
-{
-    //选课社区账号
-public:
-    QString account = "";
-    QString password = "";
-
-    Account() {}
-    QJsonObject toJsonObject() const;
-};
-class MyNetworkCookieJar : public QNetworkCookieJar
-{
-    //管理Cookies的类
-public:
-    MyNetworkCookieJar(QObject *parent = 0);
-
-    //cookies列表
-    QList<QNetworkCookie> allCookies() const;
-    //删除所有cookies
-    void clear();
-    //从JSON数组读取
-    bool readFromJsonArray(const QJsonArray &arr);
-    //转成JSON数组
-    QJsonArray toJsonArray() const;
-};
 
 class Client : public QObject
 {
@@ -50,15 +25,13 @@ private:
     QByteArray rawCookiesValueAt(const QByteArray& rawCookies,const QString& key);
 
 private:
-    Account mAccount;
-    MyNetworkCookieJar mCookieJar;
-private:
     LoginWindow* mLoginWindow = nullptr;
     MainWindow* mMainWindow = nullptr;
 private:
     QApplication *mApp = nullptr;
     QEventLoop *mEventLoop = nullptr;
     QNetworkAccessManager* mManager = nullptr;
+    AppModel* mAppModel = nullptr;
     int mLoginStatus = 400;
 };
 

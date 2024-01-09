@@ -36,5 +36,7 @@
 class MainWindow;
 class LoginWindow;
 class Account;
+class MyNetworkCookieJar;
+class AppModel;
 
 #endif // INC_H
