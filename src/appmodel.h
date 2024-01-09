@@ -34,7 +34,7 @@ class AppModel : public QObject
     //存储客户端数据的类
     Q_OBJECT
 public:
-    explicit AppModel(QObject *parent = nullptr);
+    AppModel(MainWindow* mainWindow, QObject *parent = nullptr);
 
 public:
     //从JSON文件中读取数据，返回读取结果
@@ -48,12 +48,20 @@ public:
 
     void setAccount(const Account& account);
     void setAccount(const QString& account , const QString& password);
+    void setCache(const QString& cache);
 
+signals:
+    void cacheChanged(QString cache) const;
+
+private:
+    //显示界面
+    MainWindow* mMainWindow = nullptr;
 private:
     Account mAccount;
     MyNetworkCookieJar mCookieJar;
+    //test
+    QString mCache;
 
-signals:
 
 };
 

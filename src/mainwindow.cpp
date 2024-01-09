@@ -1,17 +1,31 @@
 #include "mainwindow.h"
-#include <QHBoxLayout>
-#include <QLineEdit>
+#include "ui_mainwindow.h"
+
 MainWindow::MainWindow(QWidget *parent)
+    :QMainWindow(parent)
+    ,ui(new Ui::MainWindow)
 {
-    QLineEdit* apiLineEdit = new QLineEdit(this);
-    connect(apiLineEdit,&QLineEdit::returnPressed,this,[this,apiLineEdit](){
-       emit search(apiLineEdit->text());
-       apiLineEdit->clear();
-    });
+    ui->setupUi(this);
+    ui->search_edit->setPlaceholderText(
+                "搜索课程名/课号/教师姓名/教师姓名拼音"
+                );
+    connect(ui->search_button,&QPushButton::clicked,this,&MainWindow::searchTriggered);
+    connect(ui->search_edit,&QLineEdit::returnPressed,this,&MainWindow::searchTriggered);
 }
 
 MainWindow::~MainWindow()
 {
+}
+
+void MainWindow::searchTriggered()
+{
+    emit search(ui->search_edit->text());
+    ui->search_edit->clear();
+}
+
+void MainWindow::cacheChangedSlot(QString cache)
+{
+    ui->result_browser->setText(cache);
 }
 
 

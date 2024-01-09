@@ -20,9 +20,6 @@ public:
 
     //向服务器发送带有账号密码的post请求，更新cookies
     bool updateCookies();
-private:
-    //(*now useless*)从服务器回应的raw cookies中获取对应键的值
-    QByteArray rawCookiesValueAt(const QByteArray& rawCookies,const QString& key);
 
 private:
     LoginWindow* mLoginWindow = nullptr;
@@ -32,7 +29,6 @@ private:
     QEventLoop *mEventLoop = nullptr;
     QNetworkAccessManager* mManager = nullptr;
     AppModel* mAppModel = nullptr;
-    int mLoginStatus = 400;
 };
 
 #endif // CLIENT_H

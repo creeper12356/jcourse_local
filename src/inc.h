@@ -26,6 +26,7 @@
 #include <QDir>
 
 #include <QDateTime>
+#include <QTimer>
 
 #include <QDebug>
 
