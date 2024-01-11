@@ -52,6 +52,7 @@ public:
 
 signals:
     void cacheChanged(QString cache) const;
+    void userNameChanged(QString userName) const;
 
 private:
     //显示界面

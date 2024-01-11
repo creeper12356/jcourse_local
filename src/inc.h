@@ -5,6 +5,11 @@
 #include <QDialog>
 #include <QTextBrowser>
 #include <QPushButton>
+#include <QToolBar>
+#include <QLabel>
+#include <QHBoxLayout>
+#include <QVBoxLayout>
+#include <QListWidgetItem>
 
 #include <QEventLoop>
 #include <QApplication>
@@ -27,6 +32,8 @@
 
 #include <QDateTime>
 #include <QTimer>
+
+#include <QPainter>
 
 #include <QDebug>
 

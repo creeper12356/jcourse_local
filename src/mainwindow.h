@@ -20,6 +20,7 @@ private slots:
     void searchTriggered();
 public slots:
     void cacheChangedSlot(QString cache);
+    void userNameChangedSlot(QString userName);
 signals:
     void search(QString query);
 };

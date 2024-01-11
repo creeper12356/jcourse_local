@@ -5,6 +5,7 @@ AppModel::AppModel(MainWindow *mainWindow, QObject *parent)
     , mMainWindow(mainWindow)
 {
     connect(this,&AppModel::cacheChanged,mMainWindow,&MainWindow::cacheChangedSlot);
+    connect(this,&AppModel::userNameChanged,mMainWindow,&MainWindow::userNameChangedSlot);
 }
 
 bool AppModel::readFromFile(const QString &fileName)
@@ -22,8 +23,8 @@ bool AppModel::readFromFile(const QString &fileName)
     }
     QJsonObject clientJsonObject = clientJsonDoc.object();
     //读入账号密码
-    mAccount.account = clientJsonObject["account"].toObject()["account"].toString();
-    mAccount.password = clientJsonObject["account"].toObject()["password"].toString();
+    setAccount(clientJsonObject["account"].toObject()["account"].toString(),
+            clientJsonObject["account"].toObject()["password"].toString());
     //读入Cookies
     mCookieJar.readFromJsonArray(clientJsonObject["cookies"].toArray());
     return true;
@@ -59,12 +60,14 @@ MyNetworkCookieJar *AppModel::cookieJarPtr()
 void AppModel::setAccount(const Account &account)
 {
     mAccount = account;
+    emit userNameChanged(mAccount.account);
 }
 
 void AppModel::setAccount(const QString &arg_account, const QString &arg_password)
 {
     mAccount.account = arg_account;
     mAccount.password = arg_password;
+    emit userNameChanged(mAccount.account);
 }
 
 void AppModel::setCache(const QString &cache)

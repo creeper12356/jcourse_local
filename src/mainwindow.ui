@@ -14,10 +14,7 @@
    <string>MainWindow</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <layout class="QVBoxLayout" name="verticalLayout" stretch="1,10">
-    <property name="spacing">
-     <number>20</number>
-    </property>
+   <layout class="QVBoxLayout" name="verticalLayout" stretch="0,0,1">
     <item>
      <layout class="QHBoxLayout" name="horizontalLayout">
       <item>
@@ -49,7 +46,23 @@
      </layout>
     </item>
     <item>
-     <widget class="QTextBrowser" name="result_browser"/>
+     <widget class="UserHead" name="user_head" native="true">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Fixed" vsizetype="Ignored">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="minimumSize">
+       <size>
+        <width>0</width>
+        <height>0</height>
+       </size>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QListWidget" name="course_item_list"/>
     </item>
    </layout>
   </widget>
@@ -65,6 +78,14 @@
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>UserHead</class>
+   <extends>QWidget</extends>
+   <header location="global">userhead.h</header>
+   <container>1</container>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections/>
 </ui>
