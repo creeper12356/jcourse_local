@@ -34,8 +34,8 @@ PaginationWidget::PaginationWidget(QWidget *parent) : QWidget(parent)
     connect(mNextButton,&QPushButton::clicked,this,&PaginationWidget::nextPageClicked);
     connect(mLastButton,&QPushButton::clicked,this,&PaginationWidget::lastPageClicked);
     this->setLayout(layout);
-    setCurrent(1);
     setCount(1);
+    setCurrent(1);
 }
 
 PaginationWidget::~PaginationWidget()
