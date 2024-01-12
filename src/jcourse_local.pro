@@ -24,6 +24,8 @@ SOURCES += \
     main.cpp \
     mainwindow.cpp \
     paginationwidget.cpp \
+    reviewitem.cpp \
+    reviewlistwidget.cpp \
     userhead.cpp
 
 HEADERS += \
@@ -35,6 +37,8 @@ HEADERS += \
     loginwindow.h \
     mainwindow.h \
     paginationwidget.h \
+    reviewitem.h \
+    reviewlistwidget.h \
     userhead.h
 
 # Default rules for deployment.

@@ -21,7 +21,6 @@ private slots:
     void searchPageTriggered(int page);
     //用户触发查看课程评价
     void checkReviewTriggered(int courseid);
-
 public slots:
     //Client::searchFinished的槽函数
     void displaySearchResult(QByteArray result);

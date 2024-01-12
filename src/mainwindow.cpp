@@ -1,6 +1,7 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include "courseitem.h"
+#include "reviewitem.h"
 
 MainWindow::MainWindow(QWidget *parent)
     :QMainWindow(parent)
@@ -29,6 +30,10 @@ MainWindow::~MainWindow()
     while(ui->course_item_list->count() > 0){
         delete ui->course_item_list->takeItem(0);
     }
+    while(ui->review_item_list->count() > 0){
+        delete ui->review_item_list->takeItem(0);
+    }
+
     qDebug() << "delete ui";
     delete ui;
 }
@@ -79,7 +84,19 @@ void MainWindow::displaySearchResult(QByteArray result)
 
 void MainWindow::displayCheckReviewResult(QByteArray result)
 {
-    ui->result_browser->setText(QString::fromUtf8(result));
+    //TODO : 合并courseListWidget 和 reviewListWidget
+
+    QJsonObject resultJsonObject = QJsonDocument::fromJson(result).object();
+    QJsonArray resultsJsonArray = resultJsonObject["results"].toArray();
+    while(ui->review_item_list->count() > 0){
+        delete ui->review_item_list->takeItem(0);
+    }
+
+    for(auto it = resultsJsonArray.begin();it != resultsJsonArray.end(); ++it){
+        ReviewItem *newItem = new ReviewItem;
+        newItem->updateReviewInfo((*it).toObject());
+        newItem->addToList(ui->review_item_list);
+    }
 }
 
 void MainWindow::userNameChangedSlot(QString userName)
