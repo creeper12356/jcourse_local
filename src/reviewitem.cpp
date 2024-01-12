@@ -36,7 +36,7 @@ void ReviewItem::updateReviewInfo(const QJsonObject &reviewJsonObject)
     //修改显示内容
     mRatingLabel->setText("推荐指数：" + QString::number(reviewJsonObject["rating"].toInt()));
     mSemesterLabel->setText("学期：" + reviewJsonObject["semester"].toString());
-    mCommentBrowser->setHtml(reviewJsonObject["comment"].toString());
+    mCommentBrowser->setText(reviewJsonObject["comment"].toString());
     int approves = reviewJsonObject["reactions"].toObject()["approves"].toInt();
     int disapproves = reviewJsonObject["reactions"].toObject()["disapproves"].toInt();
     qDebug() << disapproves;
