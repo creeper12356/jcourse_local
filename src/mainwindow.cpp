@@ -18,8 +18,9 @@ MainWindow::MainWindow(QWidget *parent)
 
     connect(ui->search_button,&QPushButton::clicked,this,&MainWindow::searchBarTriggered);
     connect(ui->search_edit,&QLineEdit::returnPressed,this,&MainWindow::searchBarTriggered);
-
     connect(ui->pagination_widget,&PaginationWidget::currentPageChanged,this,&MainWindow::searchPageTriggered);
+
+    connect(ui->course_item_list,&CourseListWidget::courseSelected,this,&MainWindow::checkReviewTriggered);
 }
 
 MainWindow::~MainWindow()
@@ -55,6 +56,11 @@ void MainWindow::searchPageTriggered(int page)
     emit search(mLastQuery,page);
 }
 
+void MainWindow::checkReviewTriggered(int courseid)
+{
+    emit checkReview(courseid,1);
+}
+
 void MainWindow::displaySearchResult(QByteArray result)
 {
     QJsonObject resultJsonObject = QJsonDocument::fromJson(result).object();
@@ -69,6 +75,11 @@ void MainWindow::displaySearchResult(QByteArray result)
         newItem->addToList(ui->course_item_list);
     }
     ui->pagination_widget->setCount(resultJsonObject["count"].toInt() / PAGE_SIZE + 1);
+}
+
+void MainWindow::displayCheckReviewResult(QByteArray result)
+{
+    ui->result_browser->setText(QString::fromUtf8(result));
 }
 
 void MainWindow::userNameChangedSlot(QString userName)

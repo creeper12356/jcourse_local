@@ -12,7 +12,10 @@ public:
     bool initialize();
     ~Client();
 
+    //发起内容为query的检索，检索页面page
     bool search(const QString& query, int page = 1);
+    //查看课号为courseid的评价，检索页面page
+    bool checkReview(int courseid, int page = 1);
 
     //向服务器发起带有cookies的get请求，返回服务器回应
     //返回指针指向内存需要手动释放
@@ -32,6 +35,8 @@ private:
 signals:
     //向MainWindow发送搜索结果,使用JSON格式
     void searchFinished(QByteArray result);
+    //向MainWindow发送查看选课评价结果，使用JSON格式
+    void checkReviewFinished(QByteArray result);
 };
 
 #endif // CLIENT_H

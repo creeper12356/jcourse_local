@@ -19,6 +19,7 @@ SOURCES += \
     appmodel.cpp \
     client.cpp \
     courseitem.cpp \
+    courselistwidget.cpp \
     loginwindow.cpp \
     main.cpp \
     mainwindow.cpp \
@@ -29,6 +30,7 @@ HEADERS += \
     appmodel.h \
     client.h \
     courseitem.h \
+    courselistwidget.h \
     inc.h \
     loginwindow.h \
     mainwindow.h \

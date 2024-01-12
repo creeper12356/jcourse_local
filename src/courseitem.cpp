@@ -40,6 +40,11 @@ CourseItem::~CourseItem()
 
 void CourseItem::updateCourseInfo(const QJsonObject &courseJsonObject)
 {
+    //暂存课程id
+    mCourseid = courseJsonObject["id"].toInt();
+//    qDebug() << "id: " << mCourseid;
+
+    //修改显示内容
     QString title = "%1 %2 (%3)";
     title = title.arg(
             courseJsonObject["code"].toString(),
@@ -64,4 +69,9 @@ void CourseItem::addToList(QListWidget *list)
 {
     list->addItem(this);
     list->setItemWidget(this,mWidget);
+}
+
+int CourseItem::courseid() const
+{
+    return mCourseid;
 }

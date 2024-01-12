@@ -14,7 +14,7 @@
    <string>MainWindow</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <layout class="QVBoxLayout" name="verticalLayout" stretch="0,0,10,1">
+   <layout class="QVBoxLayout" name="verticalLayout" stretch="0,0,10,0,1">
     <item>
      <layout class="QHBoxLayout" name="horizontalLayout">
       <item>
@@ -62,7 +62,10 @@
      </widget>
     </item>
     <item>
-     <widget class="QListWidget" name="course_item_list"/>
+     <widget class="CourseListWidget" name="course_item_list"/>
+    </item>
+    <item>
+     <widget class="QTextBrowser" name="result_browser"/>
     </item>
     <item>
      <widget class="PaginationWidget" name="pagination_widget" native="true"/>
@@ -93,6 +96,11 @@
    <extends>QWidget</extends>
    <header location="global">paginationwidget.h</header>
    <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>CourseListWidget</class>
+   <extends>QListWidget</extends>
+   <header location="global">courselistwidget.h</header>
   </customwidget>
  </customwidgets>
  <resources/>

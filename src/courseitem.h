@@ -11,18 +11,17 @@ public:
     virtual ~CourseItem();
 public:
     void updateCourseInfo(const QJsonObject &courseJsonObject);
-    //将条目添加到列表view中
+    //将条目添加到列表list
     void addToList(QListWidget* list);
+    int courseid() const;
 private:
     QLabel *mTitleLabel = nullptr;
     QLabel *mDetailLabel = nullptr;
     QLabel *mRatingAvgLabel = nullptr;
     QLabel *mRatingCountLabel = nullptr;
     QWidget* mWidget = nullptr;
-
-signals:
-
-
+private:
+    int mCourseid;
 };
 
 #endif // COURSEITEM_H

@@ -19,6 +19,9 @@ Client::Client(QApplication *app)
     connect(mMainWindow,&MainWindow::search,this,&Client::search);
     connect(this,&Client::searchFinished,mMainWindow,&MainWindow::displaySearchResult);
 
+    connect(mMainWindow,&MainWindow::checkReview,this,&Client::checkReview);
+    connect(this,&Client::checkReviewFinished,mMainWindow,&MainWindow::displayCheckReviewResult);
+
     connect(mManager,&QNetworkAccessManager::finished,mEventLoop,&QEventLoop::quit);
     connect(mLoginWindow,&LoginWindow::rejected,mApp,&QApplication::quit);
 }
@@ -45,10 +48,19 @@ Client::~Client()
 
 bool Client::search(const QString &query,int page)
 {
-    qDebug() << SEARCH_URL(query,page);
     auto reply = getWithCookies(SEARCH_URL(query,page));
     //TODO : no error
     emit searchFinished(reply->readAll());
+    delete reply;
+    return true;
+}
+
+bool Client::checkReview(int courseid, int page)
+{
+    qDebug() << REVIEW_URL(courseid,page);
+    auto reply = getWithCookies(REVIEW_URL(courseid,page));
+    //TODO : no error
+    emit checkReviewFinished(reply->readAll());
     delete reply;
     return true;
 }

@@ -28,3 +28,7 @@
     }
     ```
 https://course.sjtu.plus/api/course/16333/review/?&page=1&size=20
+
+* 使用信号槽的问题
+
+    在Qt中使用信号槽需要直接或间接继承于QObject , 并添加Q_OBJECT宏， 如果构建失败，删除构建目录重新构建即可解决。
