@@ -22,6 +22,11 @@ MainWindow::MainWindow(QWidget *parent)
 
 MainWindow::~MainWindow()
 {
+    qDebug() << "delete items";
+    while(ui->course_item_list->count() > 0){
+        delete ui->course_item_list->takeItem(0);
+    }
+    qDebug() << "delete ui";
     delete ui;
 }
 
@@ -34,7 +39,7 @@ void MainWindow::searchTriggered()
 void MainWindow::cacheChangedSlot(QString cache)
 {
 //    ui->result_browser->setText(cache);
-    qDebug() << cache;
+//    qDebug() << cache;
     QJsonObject cacheJsonObject = QJsonDocument::fromJson(cache.toUtf8()).object();
     QJsonArray resultsJsonArray = cacheJsonObject["results"].toArray();
     while(ui->course_item_list->count() > 0){

@@ -33,9 +33,14 @@ CourseItem::CourseItem()
 
 CourseItem::~CourseItem()
 {
+    static int count = 0;
+    qDebug() << "delete course item "  << ++count;
+    delete mTitleLabel;
+    delete mDetailLabel;
+    delete mRatingAvgLabel;
+    delete mRatingCountLabel;
+    delete mWidget;
     //TODO: 退出内存泄漏问题
-    mWidget->deleteLater();
-//    delete mWidget;
 }
 
 void CourseItem::updateCourseInfo(const QJsonObject &courseJsonObject)
@@ -46,14 +51,14 @@ void CourseItem::updateCourseInfo(const QJsonObject &courseJsonObject)
             courseJsonObject["name"].toString(),
             courseJsonObject["teacher"].toString());
     mTitleLabel->setText(title);
-    qDebug() << title;
+//    qDebug() << title;
 
     QString detail = "%1学分 %2";
     detail = detail.arg(
              QString::number(courseJsonObject["credit"].toInt()),
              courseJsonObject["department"].toString());
     mDetailLabel->setText(detail);
-    qDebug() << detail;
+//    qDebug() << detail;
 
     mRatingAvgLabel->setText(QString::number(courseJsonObject["rating"].toObject()["avg"].toDouble()));
 
