@@ -7,6 +7,7 @@
 #include <QPushButton>
 #include <QToolBar>
 #include <QLabel>
+#include <QLineEdit>
 #include <QHBoxLayout>
 #include <QVBoxLayout>
 #include <QListWidgetItem>
@@ -37,9 +38,12 @@
 
 #include <QDebug>
 
+#define PAGE_SIZE 20
 
 #define LOGIN_URL QUrl("https://course.sjtu.plus/oauth/email/login/")
-#define SEARCH_URL(query) QUrl(QString("https://course.sjtu.plus/api/search/?q=%1&page=1&size=20").arg(query))
+#define SEARCH_URL(query,page) \
+    QUrl(QString("https://course.sjtu.plus/api/search/?q=%1&page=%2&size=%3")\
+    .arg(query,QString::number(page),QString::number(PAGE_SIZE)))
 
 class MainWindow;
 class LoginWindow;

@@ -12,7 +12,7 @@ public:
     bool initialize();
     ~Client();
 
-    bool search(const QString& query);
+    bool search(const QString& query, int page = 1);
 
     //向服务器发起带有cookies的get请求，返回服务器回应
     //返回指针指向内存需要手动释放
@@ -29,6 +29,9 @@ private:
     QEventLoop *mEventLoop = nullptr;
     QNetworkAccessManager* mManager = nullptr;
     AppModel* mAppModel = nullptr;
+signals:
+    //向MainWindow发送搜索结果,使用JSON格式
+    void searchFinished(QByteArray result);
 };
 
 #endif // CLIENT_H

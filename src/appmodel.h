@@ -48,21 +48,15 @@ public:
 
     void setAccount(const Account& account);
     void setAccount(const QString& account , const QString& password);
-    void setCache(const QString& cache);
 
 signals:
-    void cacheChanged(QString cache) const;
     void userNameChanged(QString userName) const;
-
 private:
     //显示界面
     MainWindow* mMainWindow = nullptr;
 private:
     Account mAccount;
     MyNetworkCookieJar mCookieJar;
-    //test
-    QString mCache;
-
 
 };
 

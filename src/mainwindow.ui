@@ -14,7 +14,7 @@
    <string>MainWindow</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <layout class="QVBoxLayout" name="verticalLayout" stretch="0,0,1">
+   <layout class="QVBoxLayout" name="verticalLayout" stretch="0,0,10,1">
     <item>
      <layout class="QHBoxLayout" name="horizontalLayout">
       <item>
@@ -64,6 +64,9 @@
     <item>
      <widget class="QListWidget" name="course_item_list"/>
     </item>
+    <item>
+     <widget class="PaginationWidget" name="pagination_widget" native="true"/>
+    </item>
    </layout>
   </widget>
   <widget class="QMenuBar" name="menubar">
@@ -83,6 +86,12 @@
    <class>UserHead</class>
    <extends>QWidget</extends>
    <header location="global">userhead.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>PaginationWidget</class>
+   <extends>QWidget</extends>
+   <header location="global">paginationwidget.h</header>
    <container>1</container>
   </customwidget>
  </customwidgets>

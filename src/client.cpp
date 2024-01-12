@@ -15,9 +15,9 @@ Client::Client(QApplication *app)
     mMainWindow = new MainWindow(nullptr);
 
     mAppModel = new AppModel(mMainWindow);
-    connect(mMainWindow,&MainWindow::search,this,[this](QString query){
-        this->search(query);
-    });
+
+    connect(mMainWindow,&MainWindow::search,this,&Client::search);
+    connect(this,&Client::searchFinished,mMainWindow,&MainWindow::displaySearchResult);
 
     connect(mManager,&QNetworkAccessManager::finished,mEventLoop,&QEventLoop::quit);
     connect(mLoginWindow,&LoginWindow::rejected,mApp,&QApplication::quit);
@@ -43,12 +43,12 @@ Client::~Client()
     delete mAppModel;
 }
 
-bool Client::search(const QString &query)
+bool Client::search(const QString &query,int page)
 {
-    auto reply = getWithCookies(SEARCH_URL(query));
-    //TODO : analyze reply
-    QJsonDocument resultJsonDoc = QJsonDocument::fromJson(reply->readAll());
-    mAppModel->setCache(resultJsonDoc.toJson());
+    qDebug() << SEARCH_URL(query,page);
+    auto reply = getWithCookies(SEARCH_URL(query,page));
+    //TODO : no error
+    emit searchFinished(reply->readAll());
     delete reply;
     return true;
 }

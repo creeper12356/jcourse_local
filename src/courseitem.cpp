@@ -3,7 +3,6 @@
 CourseItem::CourseItem()
     : QListWidgetItem(nullptr)
 {
-    //TODO : 内存泄漏
     mWidget = new QWidget(nullptr);
     mTitleLabel = new QLabel(nullptr);
     mDetailLabel = new QLabel(nullptr);
@@ -33,14 +32,10 @@ CourseItem::CourseItem()
 
 CourseItem::~CourseItem()
 {
-    static int count = 0;
-    qDebug() << "delete course item "  << ++count;
-    delete mTitleLabel;
-    delete mDetailLabel;
-    delete mRatingAvgLabel;
-    delete mRatingCountLabel;
+//    static int count = 0;
+//    qDebug() << "delete course item "  << ++count;
+    //Qt框架会自动回收mWidget的layout, children widgets的动态内存
     delete mWidget;
-    //TODO: 退出内存泄漏问题
 }
 
 void CourseItem::updateCourseInfo(const QJsonObject &courseJsonObject)
@@ -51,14 +46,12 @@ void CourseItem::updateCourseInfo(const QJsonObject &courseJsonObject)
             courseJsonObject["name"].toString(),
             courseJsonObject["teacher"].toString());
     mTitleLabel->setText(title);
-//    qDebug() << title;
 
     QString detail = "%1学分 %2";
     detail = detail.arg(
              QString::number(courseJsonObject["credit"].toInt()),
              courseJsonObject["department"].toString());
     mDetailLabel->setText(detail);
-//    qDebug() << detail;
 
     mRatingAvgLabel->setText(QString::number(courseJsonObject["rating"].toObject()["avg"].toDouble()));
 

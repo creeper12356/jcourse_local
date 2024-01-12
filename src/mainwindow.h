@@ -14,15 +14,25 @@ public:
     explicit MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
-private:
-    Ui::MainWindow *ui;
 private slots:
-    void searchTriggered();
+    //搜索框被触发
+    void searchBarTriggered();
+    //换页按钮被触发
+    void searchPageTriggered(int page);
+
 public slots:
-    void cacheChangedSlot(QString cache);
+    //Client::searchFinished的槽函数
+    void displaySearchResult(QByteArray result);
+
     void userNameChangedSlot(QString userName);
 signals:
-    void search(QString query);
+    //检索信号
+    void search(QString query,int page);
+private:
+    //上一次的检索信息
+    QString mLastQuery;
+private:
+    Ui::MainWindow *ui;
 };
 
 #endif // MAINWINDOW_H

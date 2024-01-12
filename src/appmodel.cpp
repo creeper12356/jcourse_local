@@ -4,7 +4,6 @@ AppModel::AppModel(MainWindow *mainWindow, QObject *parent)
     : QObject(parent)
     , mMainWindow(mainWindow)
 {
-    connect(this,&AppModel::cacheChanged,mMainWindow,&MainWindow::cacheChangedSlot);
     connect(this,&AppModel::userNameChanged,mMainWindow,&MainWindow::userNameChangedSlot);
 }
 
@@ -68,12 +67,6 @@ void AppModel::setAccount(const QString &arg_account, const QString &arg_passwor
     mAccount.account = arg_account;
     mAccount.password = arg_password;
     emit userNameChanged(mAccount.account);
-}
-
-void AppModel::setCache(const QString &cache)
-{
-    mCache = cache;
-    emit cacheChanged(mCache);
 }
 
 QJsonObject Account::toJsonObject() const

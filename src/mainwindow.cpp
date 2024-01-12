@@ -16,8 +16,10 @@ MainWindow::MainWindow(QWidget *parent)
     toolBar->addWidget(ui->user_head);
     this->addToolBar(Qt::TopToolBarArea,toolBar);
 
-    connect(ui->search_button,&QPushButton::clicked,this,&MainWindow::searchTriggered);
-    connect(ui->search_edit,&QLineEdit::returnPressed,this,&MainWindow::searchTriggered);
+    connect(ui->search_button,&QPushButton::clicked,this,&MainWindow::searchBarTriggered);
+    connect(ui->search_edit,&QLineEdit::returnPressed,this,&MainWindow::searchBarTriggered);
+
+    connect(ui->pagination_widget,&PaginationWidget::currentPageChanged,this,&MainWindow::searchPageTriggered);
 }
 
 MainWindow::~MainWindow()
@@ -30,18 +32,33 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-void MainWindow::searchTriggered()
+void MainWindow::searchBarTriggered()
 {
-    emit search(ui->search_edit->text());
+    ui->pagination_widget->setCurrent(1);
+    //保存请求
+    mLastQuery = ui->search_edit->text();
     ui->search_edit->clear();
+    if(mLastQuery.isEmpty()){
+        qDebug() << "empty query are not allowed";
+        return ;
+    }
+    emit search(mLastQuery,1);
 }
 
-void MainWindow::cacheChangedSlot(QString cache)
+void MainWindow::searchPageTriggered(int page)
 {
-//    ui->result_browser->setText(cache);
-//    qDebug() << cache;
-    QJsonObject cacheJsonObject = QJsonDocument::fromJson(cache.toUtf8()).object();
-    QJsonArray resultsJsonArray = cacheJsonObject["results"].toArray();
+    ui->pagination_widget->setCurrent(page);
+    if(mLastQuery.isEmpty()){
+        qDebug() << "empty query are not allowed";
+        return ;
+    }
+    emit search(mLastQuery,page);
+}
+
+void MainWindow::displaySearchResult(QByteArray result)
+{
+    QJsonObject resultJsonObject = QJsonDocument::fromJson(result).object();
+    QJsonArray resultsJsonArray = resultJsonObject["results"].toArray();
     while(ui->course_item_list->count() > 0){
         delete ui->course_item_list->takeItem(0);
     }
@@ -51,11 +68,10 @@ void MainWindow::cacheChangedSlot(QString cache)
         newItem->updateCourseInfo((*it).toObject());
         newItem->addToList(ui->course_item_list);
     }
+    ui->pagination_widget->setCount(resultJsonObject["count"].toInt() / PAGE_SIZE + 1);
 }
 
 void MainWindow::userNameChangedSlot(QString userName)
 {
     ui->user_head->setUserName(userName);
 }
-
-
