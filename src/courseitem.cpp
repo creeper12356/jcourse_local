@@ -1,9 +1,8 @@
 #include "courseitem.h"
 
 CourseItem::CourseItem()
-    : QListWidgetItem(nullptr)
+    :AbstractItem()
 {
-    mWidget = new QWidget(nullptr);
     mTitleLabel = new QLabel(nullptr);
     mDetailLabel = new QLabel(nullptr);
     mRatingAvgLabel = new QLabel(nullptr);
@@ -22,23 +21,19 @@ CourseItem::CourseItem()
     bottomLayout->addWidget(mDetailLabel,1);
     bottomLayout->addWidget(mRatingCountLabel,1);
 
-    QVBoxLayout* layout = new QVBoxLayout(mWidget);
+    QVBoxLayout* layout = new QVBoxLayout(widget());
     layout->addLayout(topLayout,1);
     layout->addLayout(bottomLayout,1);
 
-    mWidget->setLayout(layout);
+    widget()->setLayout(layout);
     setSizeHint(QSize(sizeHint().width(),70));
 }
 
 CourseItem::~CourseItem()
 {
-//    static int count = 0;
-//    qDebug() << "delete course item "  << ++count;
-    //Qt框架会自动回收mWidget的layout, children widgets的动态内存
-    delete mWidget;
 }
 
-void CourseItem::updateCourseInfo(const QJsonObject &courseJsonObject)
+void CourseItem::updateItemInfo(const QJsonObject &courseJsonObject)
 {
     //暂存课程id
     mCourseid = courseJsonObject["id"].toInt();
@@ -63,12 +58,6 @@ void CourseItem::updateCourseInfo(const QJsonObject &courseJsonObject)
     QString ratingCount = "%1人评价";
     ratingCount = ratingCount.arg(courseJsonObject["rating"].toObject()["count"].toInt());
     mRatingCountLabel->setText(ratingCount);
-}
-
-void CourseItem::addToList(QListWidget *list)
-{
-    list->addItem(this);
-    list->setItemWidget(this,mWidget);
 }
 
 int CourseItem::courseid() const

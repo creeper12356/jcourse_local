@@ -62,12 +62,12 @@ void MainWindow::searchPageTriggered(int page)
         qDebug() << "empty query are not allowed";
         return ;
     }
-    ui->pagination_widget->setCurrent(page);
     emit search(mLastQuery,page);
 }
 
 void MainWindow::checkReviewTriggered(int courseid)
 {
+    //用户进行搜索时，重新回到第一页
     ui->pagination_widget_2->setCurrent(1);
     //保存请求
     mLastCourseid = courseid;
@@ -76,7 +76,6 @@ void MainWindow::checkReviewTriggered(int courseid)
 
 void MainWindow::checkReviewPageTriggered(int page)
 {
-    ui->pagination_widget_2->setCurrent(page);
     emit checkReview(mLastCourseid,page);
 }
 
@@ -90,7 +89,7 @@ void MainWindow::displaySearchResult(QByteArray result)
 
     for(auto it = resultsJsonArray.begin();it != resultsJsonArray.end(); ++it){
         CourseItem *newItem = new CourseItem;
-        newItem->updateCourseInfo((*it).toObject());
+        newItem->updateItemInfo((*it).toObject());
         newItem->addToList(ui->course_item_list);
     }
     ui->pagination_widget->setCount(resultJsonObject["count"].toInt() / PAGE_SIZE + 1);
@@ -108,7 +107,7 @@ void MainWindow::displayCheckReviewResult(QByteArray result)
 
     for(auto it = resultsJsonArray.begin();it != resultsJsonArray.end(); ++it){
         ReviewItem *newItem = new ReviewItem;
-        newItem->updateReviewInfo((*it).toObject());
+        newItem->updateItemInfo((*it).toObject());
         newItem->addToList(ui->review_item_list);
     }
     ui->pagination_widget_2->setCount(resultJsonObject["count"].toInt() / PAGE_SIZE + 1);

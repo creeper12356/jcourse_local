@@ -16,6 +16,8 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    abstractitem.cpp \
+    abstractlistwidget.cpp \
     appmodel.cpp \
     client.cpp \
     courseitem.cpp \
@@ -29,6 +31,8 @@ SOURCES += \
     userhead.cpp
 
 HEADERS += \
+    abstractitem.h \
+    abstractlistwidget.h \
     appmodel.h \
     client.h \
     courseitem.h \

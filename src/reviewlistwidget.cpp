@@ -1,7 +1,7 @@
 #include "reviewlistwidget.h"
 
 ReviewListWidget::ReviewListWidget(QWidget *parent)
-    :QListWidget(parent)
+    : AbstractListWidget(parent)
 {
     this->setVerticalScrollMode(QAbstractItemView::ScrollPerPixel);
 }

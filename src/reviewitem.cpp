@@ -1,8 +1,7 @@
 #include "reviewitem.h"
 ReviewItem::ReviewItem()
-    : QListWidgetItem(nullptr)
+    : AbstractItem()
 {
-    mWidget = new QWidget(nullptr);
     mRatingLabel = new QLabel(nullptr);
     mSemesterLabel = new QLabel(nullptr);
     mCommentBrowser = new QTextBrowser(nullptr);
@@ -13,23 +12,21 @@ ReviewItem::ReviewItem()
     topLayout->addWidget(mRatingLabel);
     topLayout->addWidget(mSemesterLabel);
 
-    QVBoxLayout* layout = new QVBoxLayout(mWidget);
+    QVBoxLayout* layout = new QVBoxLayout(widget());
     layout->addLayout(topLayout,0);
     layout->addWidget(mCommentBrowser,1);
     layout->addWidget(mReactionLabel,0);
 
-    mWidget->setLayout(layout);
+    widget()->setLayout(layout);
     //TODO : 调整item高度（自适应）
     this->setSizeHint(QSize(sizeHint().width(),600));
-
 }
 
 ReviewItem::~ReviewItem()
 {
-    delete mWidget;
 }
 
-void ReviewItem::updateReviewInfo(const QJsonObject &reviewJsonObject)
+void ReviewItem::updateItemInfo(const QJsonObject &reviewJsonObject)
 {
     //暂存评价id
     mReviewid = reviewJsonObject["id"].toInt();
@@ -44,12 +41,6 @@ void ReviewItem::updateReviewInfo(const QJsonObject &reviewJsonObject)
 
     mReactionLabel->setText(QString("∆%1   ∇%2").arg(QString::number(approves),
                                                               QString::number(disapproves)));
-}
-
-void ReviewItem::addToList(QListWidget *list)
-{
-    list->addItem(this);
-    list->setItemWidget(this,mWidget);
 }
 
 int ReviewItem::reviewid() const

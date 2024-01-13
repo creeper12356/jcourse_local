@@ -16,8 +16,8 @@ public:
     bool setCount(int count);
     //返回mCurrent字段是否被成功修改
     bool setCurrent(int current);
-    const int count() const;
-    const int current() const;
+    int count() const;
+    int current() const;
 signals:
     //由于用户的点击
     //页面发生变化

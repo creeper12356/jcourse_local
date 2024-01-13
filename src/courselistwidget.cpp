@@ -1,9 +1,8 @@
 #include "courselistwidget.h"
 #include "courseitem.h"
 CourseListWidget::CourseListWidget(QWidget *parent)
-    : QListWidget(parent)
+    : AbstractListWidget(parent)
 {
-    connect(this,&CourseListWidget::itemClicked,this,&CourseListWidget::itemClickedSlot);
 }
 
 void CourseListWidget::itemClickedSlot(QListWidgetItem *item)

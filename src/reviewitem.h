@@ -2,24 +2,24 @@
 #define REVIEWITEM_H
 
 #include "inc.h"
+#include "abstractitem.h"
 
-class ReviewItem : public QListWidgetItem
+class ReviewItem : public AbstractItem
 {
     //评价条目
 public:
     ReviewItem();
     virtual ~ReviewItem();
 public:
-    void updateReviewInfo(const QJsonObject &reviewJsonObject);
+    virtual void updateItemInfo(const QJsonObject &reviewJsonObject) override;
     //将条目添加到列表list
-    void addToList(QListWidget* list);
     int reviewid() const;
+
 private:
     QLabel *mRatingLabel = nullptr;
     QLabel *mSemesterLabel = nullptr;
     QTextBrowser* mCommentBrowser = nullptr;
     QLabel *mReactionLabel = nullptr;
-    QWidget *mWidget = nullptr;
 private:
     int mReviewid;
 };

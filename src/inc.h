@@ -53,5 +53,6 @@ class LoginWindow;
 class Account;
 class MyNetworkCookieJar;
 class AppModel;
+class PaginationWidget;
 
 #endif // INC_H

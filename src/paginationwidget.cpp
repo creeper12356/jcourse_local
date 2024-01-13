@@ -71,12 +71,12 @@ bool PaginationWidget::setCurrent(int current)
     return true;
 }
 
-const int PaginationWidget::count() const
+int PaginationWidget::count() const
 {
     return mCount;
 }
 
-const int PaginationWidget::current() const
+int PaginationWidget::current() const
 {
     return mCurrent;
 }
