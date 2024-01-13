@@ -1,7 +1,14 @@
 #ifndef CLIENT_H
 #define CLIENT_H
 #include "inc.h"
+namespace client {
+//客户端运行模式 ：
+//在线模式： 所有资源从api获得，同时缓存入本地文件
+//离线模式： 所有资源从缓存文件获得
+//两种模式共享相同的接口
 
+enum Mode {Online , Offline};
+}
 class Client : public QObject
 {
     //客户端类
@@ -32,6 +39,8 @@ private:
     QEventLoop *mEventLoop = nullptr;
     QNetworkAccessManager* mManager = nullptr;
     AppModel* mAppModel = nullptr;
+    //客户端模式
+    client::Mode mMode = client::Online;
 signals:
     //向MainWindow发送搜索结果,使用JSON格式
     void searchFinished(QByteArray result);

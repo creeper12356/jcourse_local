@@ -57,11 +57,40 @@ bool Client::search(const QString &query,int page)
 
 bool Client::checkReview(int courseid, int page)
 {
-    qDebug() << REVIEW_URL(courseid,page);
-    auto reply = getWithCookies(REVIEW_URL(courseid,page));
-    //TODO : no error
-    emit checkReviewFinished(reply->readAll());
-    delete reply;
+    QByteArray replyData;
+    if(mMode == client::Online){
+        qDebug() << REVIEW_URL(courseid,page);
+        auto reply = getWithCookies(REVIEW_URL(courseid,page));
+        //TODO : check reply error?
+        replyData = reply->readAll();
+
+        //缓存资源
+        QFile downloader;
+        downloader.setFileName(QString("visited/%1_%2.json").arg(QString::number(courseid),QString::number(page)));
+        qDebug() << "cache to file: " << downloader.fileName();
+        downloader.open(QIODevice::WriteOnly);
+        downloader.write(replyData);
+        downloader.close();
+
+        delete reply;
+    }
+    else if(mMode == client::Offline){
+        QFile loader;
+        loader.setFileName(QString("visited/%1_%2.json").arg(QString::number(courseid),QString::number(page)));
+        loader.open(QIODevice::ReadOnly);
+        if(loader.isOpen()){
+            qDebug() << "read from cached file: " << loader.fileName();
+            replyData = loader.readAll();
+            loader.close();
+        }
+        else{
+            qDebug() << "no cache can be read";
+            //空JSON
+            replyData = "{\"count\":0}";
+        }
+    }
+
+    emit checkReviewFinished(replyData);
     return true;
 }
 

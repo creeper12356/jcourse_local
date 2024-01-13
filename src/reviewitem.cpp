@@ -37,7 +37,6 @@ void ReviewItem::updateItemInfo(const QJsonObject &reviewJsonObject)
     mCommentBrowser->setText(reviewJsonObject["comment"].toString());
     int approves = reviewJsonObject["reactions"].toObject()["approves"].toInt();
     int disapproves = reviewJsonObject["reactions"].toObject()["disapproves"].toInt();
-    qDebug() << disapproves;
 
     mReactionLabel->setText(QString("∆%1   ∇%2").arg(QString::number(approves),
                                                               QString::number(disapproves)));
