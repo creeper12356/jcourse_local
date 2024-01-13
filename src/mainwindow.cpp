@@ -20,6 +20,7 @@ MainWindow::MainWindow(QWidget *parent)
     connect(ui->search_button,&QPushButton::clicked,this,&MainWindow::searchBarTriggered);
     connect(ui->search_edit,&QLineEdit::returnPressed,this,&MainWindow::searchBarTriggered);
     connect(ui->pagination_widget,&PaginationWidget::currentPageChanged,this,&MainWindow::searchPageTriggered);
+    connect(ui->pagination_widget_2,&PaginationWidget::currentPageChanged,this,&MainWindow::checkReviewPageTriggered);
 
     connect(ui->course_item_list,&CourseListWidget::courseSelected,this,&MainWindow::checkReviewTriggered);
 }
@@ -40,30 +41,43 @@ MainWindow::~MainWindow()
 
 void MainWindow::searchBarTriggered()
 {
-    ui->pagination_widget->setCurrent(1);
-    //保存请求
-    mLastQuery = ui->search_edit->text();
-    ui->search_edit->clear();
-    if(mLastQuery.isEmpty()){
+    if(ui->search_edit->text().isEmpty()){
+        //不允许空白检索
         qDebug() << "empty query are not allowed";
         return ;
     }
+
+    ui->pagination_widget->setCurrent(1);
+    //保存请求
+    mLastQuery = ui->search_edit->text();
+
+    ui->search_edit->clear();
     emit search(mLastQuery,1);
 }
 
 void MainWindow::searchPageTriggered(int page)
 {
-    ui->pagination_widget->setCurrent(page);
     if(mLastQuery.isEmpty()){
+        //不允许空白检索
         qDebug() << "empty query are not allowed";
         return ;
     }
+    ui->pagination_widget->setCurrent(page);
     emit search(mLastQuery,page);
 }
 
 void MainWindow::checkReviewTriggered(int courseid)
 {
+    ui->pagination_widget_2->setCurrent(1);
+    //保存请求
+    mLastCourseid = courseid;
     emit checkReview(courseid,1);
+}
+
+void MainWindow::checkReviewPageTriggered(int page)
+{
+    ui->pagination_widget_2->setCurrent(page);
+    emit checkReview(mLastCourseid,page);
 }
 
 void MainWindow::displaySearchResult(QByteArray result)
@@ -97,6 +111,7 @@ void MainWindow::displayCheckReviewResult(QByteArray result)
         newItem->updateReviewInfo((*it).toObject());
         newItem->addToList(ui->review_item_list);
     }
+    ui->pagination_widget_2->setCount(resultJsonObject["count"].toInt() / PAGE_SIZE + 1);
 }
 
 void MainWindow::userNameChangedSlot(QString userName)

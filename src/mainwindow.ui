@@ -72,7 +72,14 @@
      </layout>
     </item>
     <item>
-     <widget class="PaginationWidget" name="pagination_widget" native="true"/>
+     <layout class="QHBoxLayout" name="horizontalLayout_3">
+      <item>
+       <widget class="PaginationWidget" name="pagination_widget" native="true"/>
+      </item>
+      <item>
+       <widget class="PaginationWidget" name="pagination_widget_2" native="true"/>
+      </item>
+     </layout>
     </item>
    </layout>
   </widget>

@@ -1,5 +1,4 @@
 #include "reviewitem.h"
-
 ReviewItem::ReviewItem()
     : QListWidgetItem(nullptr)
 {
@@ -15,12 +14,14 @@ ReviewItem::ReviewItem()
     topLayout->addWidget(mSemesterLabel);
 
     QVBoxLayout* layout = new QVBoxLayout(mWidget);
-    layout->addLayout(topLayout,1);
+    layout->addLayout(topLayout,0);
     layout->addWidget(mCommentBrowser,1);
-    layout->addWidget(mReactionLabel,1);
+    layout->addWidget(mReactionLabel,0);
 
     mWidget->setLayout(layout);
-    this->setSizeHint(QSize(sizeHint().width(),200));
+    //TODO : 调整item高度（自适应）
+    this->setSizeHint(QSize(sizeHint().width(),600));
+
 }
 
 ReviewItem::~ReviewItem()
