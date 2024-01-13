@@ -19,8 +19,8 @@ MainWindow::MainWindow(QWidget *parent)
 
     connect(ui->search_button,&QPushButton::clicked,this,&MainWindow::searchBarTriggered);
     connect(ui->search_edit,&QLineEdit::returnPressed,this,&MainWindow::searchBarTriggered);
-    connect(ui->pagination_widget,&PaginationWidget::currentPageChanged,this,&MainWindow::searchPageTriggered);
-    connect(ui->pagination_widget_2,&PaginationWidget::currentPageChanged,this,&MainWindow::checkReviewPageTriggered);
+    connect(ui->course_page_widget,&PaginationWidget::currentPageChanged,this,&MainWindow::searchPageTriggered);
+    connect(ui->review_page_widget,&PaginationWidget::currentPageChanged,this,&MainWindow::checkReviewPageTriggered);
 
     connect(ui->course_item_list,&CourseListWidget::courseSelected,this,&MainWindow::checkReviewTriggered);
 }
@@ -47,7 +47,7 @@ void MainWindow::searchBarTriggered()
         return ;
     }
 
-    ui->pagination_widget->setCurrent(1);
+    ui->course_page_widget->setCurrent(1);
     //保存请求
     mLastQuery = ui->search_edit->text();
 
@@ -67,8 +67,8 @@ void MainWindow::searchPageTriggered(int page)
 
 void MainWindow::checkReviewTriggered(int courseid)
 {
-    //用户进行搜索时，重新回到第一页
-    ui->pagination_widget_2->setCurrent(1);
+    //after requesting new query , go back to first page
+    ui->review_page_widget->setCurrent(1);
     //保存请求
     mLastCourseid = courseid;
     emit checkReview(courseid,1);
@@ -92,7 +92,7 @@ void MainWindow::displaySearchResult(QByteArray result)
         newItem->updateItemInfo((*it).toObject());
         newItem->addToList(ui->course_item_list);
     }
-    ui->pagination_widget->setCount(resultJsonObject["count"].toInt() / PAGE_SIZE + 1);
+    ui->course_page_widget->setCount(PaginationWidget::divideTotal(resultJsonObject["count"].toInt(),PAGE_SIZE));
 }
 
 void MainWindow::displayCheckReviewResult(QByteArray result)
@@ -110,7 +110,7 @@ void MainWindow::displayCheckReviewResult(QByteArray result)
         newItem->updateItemInfo((*it).toObject());
         newItem->addToList(ui->review_item_list);
     }
-    ui->pagination_widget_2->setCount(resultJsonObject["count"].toInt() / PAGE_SIZE + 1);
+    ui->review_page_widget->setCount(PaginationWidget::divideTotal(resultJsonObject["count"].toInt(),PAGE_SIZE));
 }
 
 void MainWindow::userNameChangedSlot(QString userName)

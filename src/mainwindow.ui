@@ -74,10 +74,10 @@
     <item>
      <layout class="QHBoxLayout" name="horizontalLayout_3">
       <item>
-       <widget class="PaginationWidget" name="pagination_widget" native="true"/>
+       <widget class="PaginationWidget" name="course_page_widget" native="true"/>
       </item>
       <item>
-       <widget class="PaginationWidget" name="pagination_widget_2" native="true"/>
+       <widget class="PaginationWidget" name="review_page_widget" native="true"/>
       </item>
      </layout>
     </item>

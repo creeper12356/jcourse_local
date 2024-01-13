@@ -16,6 +16,8 @@ public:
     bool setCount(int count);
     //返回mCurrent字段是否被成功修改
     bool setCurrent(int current);
+    //根据给定的item总数和每页item数 ， 计算需要的总页数，通常与setCurrent一起使用
+    static int divideTotal(int itemCount , int itemCountPerPage);
     int count() const;
     int current() const;
 signals:
