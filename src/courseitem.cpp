@@ -53,11 +53,17 @@ void CourseItem::updateItemInfo(const QJsonObject &courseJsonObject)
              courseJsonObject["department"].toString());
     mDetailLabel->setText(detail);
 
-    mRatingAvgLabel->setText(QString::number(courseJsonObject["rating"].toObject()["avg"].toDouble()));
 
-    QString ratingCount = "%1人评价";
-    ratingCount = ratingCount.arg(courseJsonObject["rating"].toObject()["count"].toInt());
-    mRatingCountLabel->setText(ratingCount);
+    if(courseJsonObject["rating"].toObject()["count"].toInt()){
+        mRatingAvgLabel->setText(QString::number(courseJsonObject["rating"].toObject()["avg"].toDouble(),'f',1));
+        QString ratingCount = "%1人评价";
+        ratingCount = ratingCount.arg(courseJsonObject["rating"].toObject()["count"].toInt());
+        mRatingCountLabel->setText(ratingCount);
+    }
+    else{
+        mRatingAvgLabel->setText("暂无点评");
+        mRatingCountLabel->clear();
+    }
 }
 
 int CourseItem::courseid() const

@@ -11,6 +11,7 @@
 #include <QHBoxLayout>
 #include <QVBoxLayout>
 #include <QListWidgetItem>
+#include <QComboBox>
 
 #include <QEventLoop>
 #include <QApplication>

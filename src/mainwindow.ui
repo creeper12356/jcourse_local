@@ -7,55 +7,24 @@
     <x>0</x>
     <y>0</y>
     <width>800</width>
-    <height>600</height>
+    <height>684</height>
    </rect>
   </property>
   <property name="windowTitle">
-   <string>MainWindow</string>
+   <string>jCourse Client</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <layout class="QVBoxLayout" name="verticalLayout" stretch="0,0,0,1,0">
+   <layout class="QVBoxLayout" name="verticalLayout_2" stretch="0,0">
     <item>
-     <layout class="QHBoxLayout" name="horizontalLayout">
+     <layout class="QHBoxLayout" name="top_layout">
       <item>
-       <widget class="QLineEdit" name="search_edit">
+       <widget class="UserHead" name="user_head" native="true">
         <property name="sizePolicy">
-         <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+         <sizepolicy hsizetype="Fixed" vsizetype="Ignored">
           <horstretch>0</horstretch>
           <verstretch>0</verstretch>
          </sizepolicy>
         </property>
-        <property name="placeholderText">
-         <string/>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QPushButton" name="search_button">
-        <property name="sizePolicy">
-         <sizepolicy hsizetype="Minimum" vsizetype="Expanding">
-          <horstretch>0</horstretch>
-          <verstretch>0</verstretch>
-         </sizepolicy>
-        </property>
-        <property name="text">
-         <string>Search</string>
-        </property>
-       </widget>
-      </item>
-     </layout>
-    </item>
-    <item>
-     <layout class="QHBoxLayout" name="horizontalLayout_4" stretch="1,1">
-      <item>
-       <widget class="QLabel" name="label">
-        <property name="text">
-         <string>模式选择</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="SwitchButton" name="switch_button" native="true">
         <property name="minimumSize">
          <size>
           <width>0</width>
@@ -67,40 +36,157 @@
      </layout>
     </item>
     <item>
-     <widget class="UserHead" name="user_head" native="true">
-      <property name="sizePolicy">
-       <sizepolicy hsizetype="Fixed" vsizetype="Ignored">
-        <horstretch>0</horstretch>
-        <verstretch>0</verstretch>
-       </sizepolicy>
+     <widget class="QTabWidget" name="tab_widget">
+      <property name="tabPosition">
+       <enum>QTabWidget::South</enum>
       </property>
-      <property name="minimumSize">
-       <size>
-        <width>0</width>
-        <height>0</height>
-       </size>
+      <property name="tabShape">
+       <enum>QTabWidget::Rounded</enum>
       </property>
+      <property name="currentIndex">
+       <number>1</number>
+      </property>
+      <widget class="QWidget" name="search_tab">
+       <attribute name="title">
+        <string>搜索</string>
+       </attribute>
+       <layout class="QHBoxLayout" name="horizontalLayout_6">
+        <item>
+         <layout class="QVBoxLayout" name="verticalLayout" stretch="0,0,1,0">
+          <item>
+           <layout class="QHBoxLayout" name="horizontalLayout">
+            <item>
+             <widget class="QLineEdit" name="search_edit">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="placeholderText">
+               <string/>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QPushButton" name="search_button">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Minimum" vsizetype="Expanding">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="text">
+               <string>Search</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+          <item>
+           <layout class="QHBoxLayout" name="horizontalLayout_4" stretch="1,1">
+            <item>
+             <widget class="QLabel" name="label">
+              <property name="text">
+               <string>模式选择</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="SwitchButton" name="switch_button" native="true">
+              <property name="minimumSize">
+               <size>
+                <width>0</width>
+                <height>0</height>
+               </size>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+          <item>
+           <layout class="QHBoxLayout" name="horizontalLayout_2">
+            <item>
+             <widget class="CourseListWidget" name="course_item_list"/>
+            </item>
+            <item>
+             <widget class="ReviewListWidget" name="review_item_list"/>
+            </item>
+           </layout>
+          </item>
+          <item>
+           <layout class="QHBoxLayout" name="horizontalLayout_3">
+            <item>
+             <widget class="PaginationWidget" name="course_page_widget" native="true"/>
+            </item>
+            <item>
+             <widget class="PaginationWidget" name="review_page_widget" native="true"/>
+            </item>
+           </layout>
+          </item>
+         </layout>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="settings_tab">
+       <attribute name="title">
+        <string>设置</string>
+       </attribute>
+       <layout class="QVBoxLayout" name="verticalLayout_4">
+        <item>
+         <layout class="QVBoxLayout" name="verticalLayout_3" stretch="1,1">
+          <item>
+           <widget class="QLabel" name="user_label">
+            <property name="text">
+             <string/>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignHCenter|Qt::AlignTop</set>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <layout class="QHBoxLayout" name="horizontalLayout_5">
+            <item>
+             <spacer name="horizontalSpacer">
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>40</width>
+                <height>20</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
+            <item>
+             <widget class="QPushButton" name="logout_button">
+              <property name="text">
+               <string>登出</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <spacer name="horizontalSpacer_2">
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>40</width>
+                <height>20</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
+           </layout>
+          </item>
+         </layout>
+        </item>
+       </layout>
+      </widget>
      </widget>
-    </item>
-    <item>
-     <layout class="QHBoxLayout" name="horizontalLayout_2">
-      <item>
-       <widget class="CourseListWidget" name="course_item_list"/>
-      </item>
-      <item>
-       <widget class="ReviewListWidget" name="review_item_list"/>
-      </item>
-     </layout>
-    </item>
-    <item>
-     <layout class="QHBoxLayout" name="horizontalLayout_3">
-      <item>
-       <widget class="PaginationWidget" name="course_page_widget" native="true"/>
-      </item>
-      <item>
-       <widget class="PaginationWidget" name="review_page_widget" native="true"/>
-      </item>
-     </layout>
     </item>
    </layout>
   </widget>
