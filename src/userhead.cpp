@@ -15,7 +15,7 @@ void UserHead::setUserName(const QString &userName)
 
 void UserHead::paintEvent(QPaintEvent *event)
 {
-    int size = qMax(width() , height());
+    int size = qMin(width() , height());
     QPainter painter(this);
     painter.setBrush(mBgColor);
     painter.setRenderHints(QPainter::Antialiasing | QPainter::TextAntialiasing);

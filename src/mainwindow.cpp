@@ -29,6 +29,8 @@ MainWindow::MainWindow(QWidget *parent)
     connect(ui->review_page_widget,&PaginationWidget::currentPageChanged,this,&MainWindow::checkReviewPageTriggered);
 
     connect(ui->course_item_list,&CourseListWidget::courseSelected,this,&MainWindow::checkReviewTriggered);
+
+    connect(ui->logout_button,&QPushButton::clicked,this,&MainWindow::logout);
 }
 
 MainWindow::~MainWindow()

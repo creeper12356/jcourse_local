@@ -22,6 +22,8 @@ Client::Client(QApplication *app)
     connect(mMainWindow,&MainWindow::checkReview,this,&Client::checkReview);
     connect(this,&Client::checkReviewFinished,mMainWindow,&MainWindow::displayCheckReviewResult);
 
+    connect(mMainWindow,&MainWindow::logout,this,&Client::logout);
+
     connect(mManager,&QNetworkAccessManager::finished,mEventLoop,&QEventLoop::quit);
     connect(mLoginWindow,&LoginWindow::rejected,mApp,&QApplication::quit);
 }
@@ -95,6 +97,16 @@ bool Client::checkReview(int courseid, int page)
 
     emit checkReviewFinished(replyData);
     return true;
+}
+
+void Client::logout()
+{
+    //TODO : login logout routine
+    auto reply = getWithCookies(LOGOUT_URL);
+    qDebug() << reply->readAll();
+    delete reply;
+    mLoginWindow->show();
+    mMainWindow->hide();
 }
 
 QNetworkReply *Client::getWithCookies(const QUrl &apiUrl)
