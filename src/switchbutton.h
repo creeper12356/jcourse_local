@@ -7,6 +7,7 @@
 #include <QColor>
 //开关控件
 //源代码：https://segmentfault.com/a/1190000041525786
+
 class SwitchButton : public QWidget
 {
     Q_OBJECT
@@ -105,7 +106,7 @@ private:
     int m_step;
     //滑块开始X轴坐标
     int m_startX;
-    //滑块介绍X轴坐标
+    //滑块结束X轴坐标
     int m_endX;
 
 };

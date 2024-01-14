@@ -47,7 +47,9 @@ MainWindow::~MainWindow()
 
 void MainWindow::searchBarTriggered()
 {
-    if(ui->search_edit->text().isEmpty()){
+    QString query = ui->search_edit->text();
+    query = query.trimmed();
+    if(query.isEmpty()){
         //不允许空白检索
         qDebug() << "empty query are not allowed";
         return ;
@@ -55,7 +57,7 @@ void MainWindow::searchBarTriggered()
 
     ui->course_page_widget->setCurrent(1);
     //保存请求
-    mLastQuery = ui->search_edit->text();
+    mLastQuery = query;
 
     ui->search_edit->clear();
     emit search(mLastQuery,1);

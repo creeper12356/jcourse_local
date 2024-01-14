@@ -254,6 +254,7 @@ void SwitchButton::setChecked(bool checked)
 {
     if (m_checked != checked) {
         m_checked = checked;
+        m_startX = checked ? (width() - height()) : 0;
         update();
     }
 }
