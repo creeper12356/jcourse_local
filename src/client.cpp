@@ -30,6 +30,7 @@ bool Client::initialize()
 {
     mManager->setCookieJar(mAppModel->cookieJarPtr());
     mAppModel->readFromFile("./client.json");
+    mAppModel->setCacheDirectory("cache");
     mMainWindow->show();
     return true;
 }
@@ -57,11 +58,42 @@ bool Client::search(const QString &query,int page)
 
 bool Client::checkReview(int courseid, int page)
 {
-    qDebug() << REVIEW_URL(courseid,page);
-    auto reply = getWithCookies(REVIEW_URL(courseid,page));
-    //TODO : no error
-    emit checkReviewFinished(reply->readAll());
-    delete reply;
+    QByteArray replyData;
+    QString cacheReviewFileName = mAppModel->cacheDirectory() + "/" + CACHE_REVIEW_BASENAME(courseid,page);
+    qDebug() << "cacheReviewFileName: "  << cacheReviewFileName;
+    if(mAppModel->isOnline()){
+        qDebug() << REVIEW_URL(courseid,page);
+        auto reply = getWithCookies(REVIEW_URL(courseid,page));
+        //TODO : check reply error?
+        replyData = reply->readAll();
+
+        //缓存资源
+        QFile downloader;
+        downloader.setFileName(cacheReviewFileName);
+        qDebug() << "cache to file: " << downloader.fileName();
+        downloader.open(QIODevice::WriteOnly);
+        downloader.write(replyData);
+        downloader.close();
+
+        delete reply;
+    }
+    else{
+        QFile loader;
+        loader.setFileName(cacheReviewFileName);
+        loader.open(QIODevice::ReadOnly);
+        if(loader.isOpen()){
+            qDebug() << "read from cached file: " << loader.fileName();
+            replyData = loader.readAll();
+            loader.close();
+        }
+        else{
+            qDebug() << "no cache can be read";
+            //空JSON
+            replyData = "{\"count\":0}";
+        }
+    }
+
+    emit checkReviewFinished(replyData);
     return true;
 }
 
@@ -97,7 +129,7 @@ QNetworkReply *Client::getWithCookies(const QUrl &apiUrl)
                     qDebug() << "canceled";
                 }
                 //获取账号密码
-                mAppModel->setAccount(mLoginWindow->getAccount(),mLoginWindow->getPassword());
+                mAppModel->setAccountAndNotify(mLoginWindow->getAccount(),mLoginWindow->getPassword());
                 qDebug() << "登录账号： " << mAppModel->account().account;
             } while(!updateCookies());
             mMainWindow->show();

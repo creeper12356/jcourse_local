@@ -18,7 +18,9 @@ public:
 private:
     QLabel *mRatingLabel = nullptr;
     QLabel *mSemesterLabel = nullptr;
+    QLabel *mScoreLabel = nullptr;
     QTextBrowser* mCommentBrowser = nullptr;
+    QLabel *mTimeLabel = nullptr;
     QLabel *mReactionLabel = nullptr;
 private:
     int mReviewid;

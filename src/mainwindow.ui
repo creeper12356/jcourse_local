@@ -14,7 +14,7 @@
    <string>MainWindow</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <layout class="QVBoxLayout" name="verticalLayout" stretch="0,0,1,0">
+   <layout class="QVBoxLayout" name="verticalLayout" stretch="0,0,0,1,0">
     <item>
      <layout class="QHBoxLayout" name="horizontalLayout">
       <item>
@@ -40,6 +40,27 @@
         </property>
         <property name="text">
          <string>Search</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </item>
+    <item>
+     <layout class="QHBoxLayout" name="horizontalLayout_4" stretch="1,1">
+      <item>
+       <widget class="QLabel" name="label">
+        <property name="text">
+         <string>模式选择</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="SwitchButton" name="switch_button" native="true">
+        <property name="minimumSize">
+         <size>
+          <width>0</width>
+          <height>0</height>
+         </size>
         </property>
        </widget>
       </item>
@@ -117,6 +138,12 @@
    <class>ReviewListWidget</class>
    <extends>QListWidget</extends>
    <header location="global">reviewlistwidget.h</header>
+  </customwidget>
+  <customwidget>
+   <class>SwitchButton</class>
+   <extends>QWidget</extends>
+   <header location="global">switchbutton.h</header>
+   <container>1</container>
   </customwidget>
  </customwidgets>
  <resources/>

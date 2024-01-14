@@ -73,6 +73,10 @@ bool PaginationWidget::setCurrent(int current)
 
 int PaginationWidget::divideTotal(int itemCount, int itemCountPerPage)
 {
+    if(itemCount == 0){
+        return 1;
+    }
+
     if(itemCount % itemCountPerPage == 0){
         return itemCount / itemCountPerPage;
     }

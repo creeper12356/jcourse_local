@@ -30,12 +30,16 @@ public slots:
     //Client::checkReviewFinished的槽函数
     void displayCheckReviewResult(QByteArray result);
 
+    //AppModel::userNameChanged的槽函数
     void userNameChangedSlot(QString userName);
+    void onlineChangedSlot(bool isOnline);
 signals:
     //检索信号，发送给Client
     void search(QString query,int page);
     //查看课程评价信号，发送给Client
     void checkReview(int courseid,int page);
+    //改变客户端状态信号，发送给Client
+    void changeOnline(bool checked);
 private:
     //上一次的检索信息
     QString mLastQuery;
