@@ -40,6 +40,8 @@ signals:
     void checkReview(int courseid,int page);
     //改变客户端状态信号，发送给Client
     void changeOnline(bool checked);
+    //登出信号，发送给Client
+    void logout();
 private:
     //上一次的检索信息
     QString mLastQuery;

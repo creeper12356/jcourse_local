@@ -42,6 +42,8 @@
 #define PAGE_SIZE 20
 
 #define LOGIN_URL QUrl("https://course.sjtu.plus/oauth/email/login/")
+#define LOGOUT_URL QUrl("https://course.sjtu.plus/oauth/logout/")
+
 #define SEARCH_URL(query,page) \
     QUrl(QString("https://course.sjtu.plus/api/search/?q=%1&page=%2&size=%3")\
     .arg(query,QString::number(page),QString::number(PAGE_SIZE)))

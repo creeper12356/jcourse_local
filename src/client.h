@@ -23,6 +23,7 @@ public slots:
     bool search(const QString& query, int page = 1);
     //查看课号为courseid的评价，检索页面page
     bool checkReview(int courseid, int page = 1);
+    void logout();
 
 public:
     //向服务器发起带有cookies的get请求，返回服务器回应
