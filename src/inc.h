@@ -48,6 +48,11 @@
     QUrl(QString("https://course.sjtu.plus/api/course/%1/review/?&page=%2&size=%3")\
     .arg(QString::number(courseid),QString::number(page),QString::number(PAGE_SIZE)))
 
+//缓存评价文件名
+//int courseid , int page
+#define CACHE_REVIEW_BASENAME(courseid,page) \
+        QString("review_%1_%2.json").arg(QString::number(courseid),QString::number(page))
+
 class MainWindow;
 class LoginWindow;
 class Account;

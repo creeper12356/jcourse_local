@@ -5,6 +5,9 @@ AppModel::AppModel(MainWindow *mainWindow, QObject *parent)
     , mMainWindow(mainWindow)
 {
     connect(this,&AppModel::userNameChanged,mMainWindow,&MainWindow::userNameChangedSlot);
+
+    connect(this,&AppModel::onlineChanged,mMainWindow,&MainWindow::onlineChangedSlot);
+    connect(mMainWindow,&MainWindow::changeOnline,this,&AppModel::setOnline);
 }
 
 bool AppModel::readFromFile(const QString &fileName)
@@ -12,6 +15,7 @@ bool AppModel::readFromFile(const QString &fileName)
     QFile reader(fileName);
     reader.open(QIODevice::ReadOnly);
     if(!reader.isOpen()){
+        //配置文件不存在
         return false;
     }
     QJsonDocument clientJsonDoc = QJsonDocument::fromJson(reader.readAll());
@@ -22,10 +26,13 @@ bool AppModel::readFromFile(const QString &fileName)
     }
     QJsonObject clientJsonObject = clientJsonDoc.object();
     //读入账号密码
-    setAccount(clientJsonObject["account"].toObject()["account"].toString(),
+    setAccountAndNotify(clientJsonObject["account"].toObject()["account"].toString(),
             clientJsonObject["account"].toObject()["password"].toString());
     //读入Cookies
     mCookieJar.readFromJsonArray(clientJsonObject["cookies"].toArray());
+
+    setOnlineAndNotify(clientJsonObject["isOnline"].toBool());
+
     return true;
 }
 
@@ -36,6 +43,8 @@ bool AppModel::writeToFile(const QString &fileName)
     QJsonObject clientJsonObject;
     clientJsonObject.insert("account",mAccount.toJsonObject());
     clientJsonObject.insert("cookies",mCookieJar.toJsonArray());
+    clientJsonObject.insert("isOnline",mOnline);
+
     writer.write(QJsonDocument(clientJsonObject).toJson());
     writer.close();
     return true;
@@ -56,17 +65,46 @@ MyNetworkCookieJar *AppModel::cookieJarPtr()
     return &mCookieJar;
 }
 
-void AppModel::setAccount(const Account &account)
+const QString &AppModel::cacheDirectory() const
+{
+    return mCacheDirectory;
+}
+
+bool AppModel::isOnline() const
+{
+    return mOnline;
+}
+
+void AppModel::setAccountAndNotify(const Account &account)
 {
     mAccount = account;
     emit userNameChanged(mAccount.account);
 }
 
-void AppModel::setAccount(const QString &arg_account, const QString &arg_password)
+void AppModel::setAccountAndNotify(const QString &arg_account, const QString &arg_password)
 {
     mAccount.account = arg_account;
     mAccount.password = arg_password;
     emit userNameChanged(mAccount.account);
+}
+
+void AppModel::setCacheDirectory(const QString& cacheDirectory)
+{
+    if(!QDir(cacheDirectory).exists()){
+        QDir::current().mkdir(cacheDirectory);
+    }
+    mCacheDirectory = cacheDirectory;
+}
+
+void AppModel::setOnline(bool isOnline)
+{
+    mOnline = isOnline;
+}
+
+void AppModel::setOnlineAndNotify(bool isOnline)
+{
+    mOnline = isOnline;
+    emit onlineChanged(isOnline);
 }
 
 QJsonObject Account::toJsonObject() const

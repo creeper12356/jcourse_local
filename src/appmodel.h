@@ -31,7 +31,7 @@ public:
 
 class AppModel : public QObject
 {
-    //存储客户端数据的类
+    //存储客户端的所有永久性数据
     Q_OBJECT
 public:
     AppModel(MainWindow* mainWindow, QObject *parent = nullptr);
@@ -42,21 +42,39 @@ public:
     //将数据写入JSON文件，返回写入结果
     bool writeToFile(const QString& fileName);
 public:
+    //getters
     const Account& account() const;
     const MyNetworkCookieJar& cookieJar () const;
     MyNetworkCookieJar* cookieJarPtr();
-
-    void setAccount(const Account& account);
-    void setAccount(const QString& account , const QString& password);
+    const QString& cacheDirectory() const;
+    bool isOnline() const;
+public slots:
+    //setters
+    //setProperty 直接设置，不发出propertyChanged信号
+    //setPropertyAndNotify 设置，且发送propertyChanged信号，MainWindow接受该信号，界面作出响应
+    void setAccountAndNotify(const Account& account);
+    void setAccountAndNotify(const QString& account , const QString& password);
+    void setCacheDirectory(const QString &cacheDirectory);
+    void setOnline(bool isOnline);
+    void setOnlineAndNotify(bool isOnline);
 
 signals:
-    void userNameChanged(QString userName) const;
+    //发送给MainWindow的信号，更新显示数据
+    void userNameChanged(QString userName) ;
+    void onlineChanged(bool online);
 private:
     //显示界面
     MainWindow* mMainWindow = nullptr;
 private:
+    //选课社区邮箱账号密码
     Account mAccount;
     MyNetworkCookieJar mCookieJar;
+    //是否为在线模式
+    //在线模式：从url获取资源，缓存到本地
+    //离线模式：从本地缓存获取资源
+    bool mOnline;
+    //缓存路径,默认为cache
+    QString mCacheDirectory;
 
 };
 

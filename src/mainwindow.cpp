@@ -13,6 +13,12 @@ MainWindow::MainWindow(QWidget *parent)
                 );
 
     ui->user_head->setMinimumSize(50,50);
+
+    ui->switch_button->setFixedSize(70,30);
+    ui->switch_button->setTextOn("在线");
+    ui->switch_button->setTextOff("离线");
+    connect(ui->switch_button,&SwitchButton::statusChanged,this,&MainWindow::changeOnline);
+
     QToolBar* toolBar = new QToolBar(this);
     toolBar->addWidget(ui->user_head);
     this->addToolBar(Qt::TopToolBarArea,toolBar);
@@ -116,4 +122,9 @@ void MainWindow::displayCheckReviewResult(QByteArray result)
 void MainWindow::userNameChangedSlot(QString userName)
 {
     ui->user_head->setUserName(userName);
+}
+
+void MainWindow::onlineChangedSlot(bool isOnline)
+{
+    ui->switch_button->setChecked(isOnline);
 }

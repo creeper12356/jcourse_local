@@ -28,6 +28,7 @@ SOURCES += \
     paginationwidget.cpp \
     reviewitem.cpp \
     reviewlistwidget.cpp \
+    switchbutton.cpp \
     userhead.cpp
 
 HEADERS += \
@@ -43,6 +44,7 @@ HEADERS += \
     paginationwidget.h \
     reviewitem.h \
     reviewlistwidget.h \
+    switchbutton.h \
     userhead.h
 
 # Default rules for deployment.
