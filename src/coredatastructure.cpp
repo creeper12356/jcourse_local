@@ -11,6 +11,116 @@ CoreData::~CoreData()
     }
 }
 
+bool CoreData::readFromJsonObject(const QJsonObject &obj)
+{
+    QJsonArray coursesJsonArray = obj["courses"].toArray();
+    QJsonArray teachersJsonArray = obj["teachers"].toArray();
+    QJsonArray mappingsJsonArray = obj["mappings"].toArray();
+    QMap<int , Course*> courseMap;
+    QMap<QString , Teacher*> teacherMap;
+    bool ok;
+
+    for(auto it = coursesJsonArray.begin();it != coursesJsonArray.end();++it){
+        Course* course = addCourse((*it).toObject()["id"].toInt(),(*it).toObject()["name"].toString(),&ok);
+        if(!ok){
+            return false;
+        }
+
+        //new course added
+        course->code = (*it).toObject()["code"].toString();
+        course->credit = (*it).toObject()["credit"].toInt();
+        course->department = (*it).toObject()["department"].toString();
+        course->ratingAvg = (*it).toObject()["ratingAvg"].toDouble();
+        course->ratingCount = (*it).toObject()["ratingCount"].toInt();
+        //add to course map
+        courseMap.insert(course->id,course);
+    }
+    for(auto it = teachersJsonArray.begin();it != teachersJsonArray.end();++it){
+        Teacher* teacher = addTeacher((*it).toObject()["name"].toString(),(*it).toObject()["pinyin"].toString(),&ok);
+        if(!ok){
+            return false;
+        }
+
+        //new teacher added
+        //add to teacher map
+        teacherMap.insert(teacher->name,teacher);
+    }
+    for(auto it = mappingsJsonArray.begin();it != mappingsJsonArray.end();++it){
+        Teacher* teacher = teacherMap[(*it).toObject()["teacherName"].toString()];
+        Course* course = courseMap[(*it).toObject()["courseid"].toInt()];
+        bool ok = addMapping(teacher,course);
+        if(!ok){
+            return false;
+        }
+    }
+    return true;
+}
+
+QJsonObject CoreData::toJsonObject() const
+{
+    QJsonObject obj;
+    QJsonArray coursesJsonArray;
+    QJsonArray teachersJsonArray;
+    QJsonArray mappingsJsonArray;
+
+    for(Course* course: mCourses){
+        QJsonObject courseJsonObject;
+        courseJsonObject.insert("id",course->id);
+        courseJsonObject.insert("name",course->name);
+        courseJsonObject.insert("code",course->code);
+        courseJsonObject.insert("credit",course->credit);
+        courseJsonObject.insert("department",course->department);
+        courseJsonObject.insert("ratingAvg",course->ratingAvg);
+        courseJsonObject.insert("ratingCount",course->ratingCount);
+
+        coursesJsonArray.append(courseJsonObject);
+    }
+    for(Teacher* teacher: mTeachers){
+        QJsonObject teacherJsonObject;
+        teacherJsonObject.insert("name",teacher->name);
+        teacherJsonObject.insert("pinyin",teacher->pinyin);
+
+        teachersJsonArray.append(teacherJsonObject);
+    }
+    for(const Mapping& mapping: mMappings){
+        QJsonObject mappingJsonObject;
+        //教师使用名字为索引
+        mappingJsonObject.insert("teacherName",mapping.teacher->name);
+        //课程使用id为索引
+        mappingJsonObject.insert("courseid",mapping.course->id);
+
+        mappingsJsonArray.append(mappingJsonObject);
+    }
+
+    obj.insert("courses",coursesJsonArray);
+    obj.insert("teachers",teachersJsonArray);
+    obj.insert("mappings",mappingsJsonArray);
+
+    return obj;
+}
+
+bool CoreData::readFromFile(const QString &fileName)
+{
+    QFile reader(fileName);
+    reader.open(QIODevice::ReadOnly);
+    if(!reader.isOpen()){
+        return false;
+    }
+
+    bool res = readFromJsonObject(QJsonDocument::fromJson(reader.readAll()).object());
+    reader.close();
+    return res;
+
+}
+
+void CoreData::writeToFile(const QString &fileName) const
+{
+    QFile writer(fileName);
+    writer.open(QIODevice::WriteOnly);
+    writer.write(QJsonDocument(toJsonObject()).toJson());
+    writer.close();
+}
+
 Teacher *CoreData::addTeacher(const QString &teacherName, const QString &teacherPinyin,bool *ok)
 {
     for(Teacher* teacher: mTeachers){
@@ -113,7 +223,6 @@ Course::Course(int arg_id, const QString &arg_name)
 Mapping::Mapping(Teacher *arg_teacher, Course *arg_course)
     : teacher(arg_teacher)
     , course(arg_course)
-    , courseid(arg_course->id)
 {
 
 }
@@ -123,8 +232,8 @@ bool Mapping::operator ==(const Mapping &other) const
     return this->teacher == other.teacher && this->course == other.course;
 }
 
-QVector<int> CoreData::searchCourseids(const QString& teacherName, const QString& teacherPinyin, const QString& courseName) {
-    QVector<int> result;
+QVector<const Mapping*> CoreData::searchCourseMappings(const QString& teacherName, const QString& teacherPinyin, const QString& courseName) {
+    QVector<const Mapping*> result;
 
     // 在数据集中搜索匹配条件的courseId
     for (const Mapping& mapping : mMappings){
@@ -132,7 +241,7 @@ QVector<int> CoreData::searchCourseids(const QString& teacherName, const QString
             mapping.teacher->pinyin.contains(teacherPinyin,Qt::CaseInsensitive) ||
             mapping.course->name.contains(courseName, Qt::CaseInsensitive)){
 
-            result.push_back(mapping.courseid);
+            result.push_back(&mapping);
         }
     }
 

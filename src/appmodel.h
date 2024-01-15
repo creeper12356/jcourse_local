@@ -40,7 +40,7 @@ public:
     //从JSON文件中读取数据，返回读取结果
     bool readFromFile(const QString& fileName);
     //将数据写入JSON文件，返回写入结果
-    bool writeToFile(const QString& fileName);
+    bool writeToFile(const QString& fileName) const;
 public:
     //getters
     const Account& account() const;

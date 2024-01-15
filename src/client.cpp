@@ -59,28 +59,43 @@ bool Client::search(const QString &query,int page)
         QJsonArray resultsJsonArray = resultJsonObject["results"].toArray();
 
         for(auto it = resultsJsonArray.begin();it != resultsJsonArray.end(); ++it){
+
             Course *newCourse = mAppModel->coreData()->addCourse((*it).toObject()["id"].toInt(),(*it).toObject()["name"].toString());
+            newCourse->code = (*it).toObject()["code"].toString();
+            newCourse->credit = (*it).toObject()["credit"].toInt();
+            newCourse->department = (*it).toObject()["department"].toString();
+            newCourse->ratingAvg = (*it).toObject()["rating"].toObject()["avg"].toDouble();
+            newCourse->ratingCount = (*it).toObject()["rating"].toObject()["count"].toInt();
+
             //TODO : get pinyin of Chinese
-            Teacher *newTeacher = mAppModel->coreData()->addTeacher((*it).toObject()["teacher"].toString(),"zhangfeng");
+            Teacher *newTeacher = mAppModel->coreData()->addTeacher((*it).toObject()["teacher"].toString(),"");
             qDebug() << mAppModel->coreData()->addMapping(newTeacher,newCourse);
 
         }
         delete reply;
     }
     else{
-        auto courseids = mAppModel->coreData()->searchCourseids(query,query,query);
+        QVector<const Mapping*> courseMappings = mAppModel->coreData()->searchCourseMappings(query,query,query);
         QJsonObject resultJsonObject;
         QJsonArray resultJsonArray;
-        for(int courseid: courseids){
-            QJsonObject obj;
-            obj.insert("id",courseid);
-            obj.insert("name","电路理论");
-            resultJsonArray.push_back(obj);
+        for(const Mapping* mapping : courseMappings){
+            QJsonObject courseJsonObject;
+            qDebug() << mapping->course->id;
+            courseJsonObject.insert("id",mapping->course->id);
+            courseJsonObject.insert("code",mapping->course->code);
+            courseJsonObject.insert("name",mapping->course->name);
+            courseJsonObject.insert("teacher",mapping->teacher->name);
+            courseJsonObject.insert("credit",mapping->course->credit);
+            courseJsonObject.insert("department",mapping->course->department);
+            courseJsonObject.insert("rating",
+                                    QJsonObject({{"avg",mapping->course->ratingAvg},
+                                                 {"count",mapping->course->ratingCount}}));
+
+            resultJsonArray.push_back(courseJsonObject);
         }
         resultJsonObject.insert("results",resultJsonArray);
         resultJsonObject.insert("count",resultJsonArray.count());
         replyData = QJsonDocument(resultJsonObject).toJson();
-//        replyData = "{\"count\":100,\"results\":{}";
     }
     emit searchFinished(replyData);
     return true;
