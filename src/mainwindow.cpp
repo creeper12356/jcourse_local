@@ -19,9 +19,6 @@ MainWindow::MainWindow(QWidget *parent)
     ui->switch_button->setTextOn("在线");
     ui->switch_button->setTextOff("离线");
     connect(ui->switch_button,&SwitchButton::statusChanged,this,&MainWindow::changeOnline);
-//    QToolBar* toolBar = new QToolBar(this);
-//    toolBar->addWidget(ui->user_head);
-//    this->addToolBar(Qt::TopToolBarArea,toolBar);
 
     connect(ui->search_button,&QPushButton::clicked,this,&MainWindow::searchBarTriggered);
     connect(ui->search_edit,&QLineEdit::returnPressed,this,&MainWindow::searchBarTriggered);

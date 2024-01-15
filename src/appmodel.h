@@ -58,6 +58,9 @@ public slots:
     void setOnline(bool isOnline);
     void setOnlineAndNotify(bool isOnline);
 
+    //清除所有数据，包括账号/密码，Cookies
+    void clearData();
+
 signals:
     //发送给MainWindow的信号，更新显示数据
     void userNameChanged(QString userName) ;

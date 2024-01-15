@@ -11,10 +11,15 @@ Client::Client(QApplication *app)
     mEventLoop = new QEventLoop(this);
     mManager = new QNetworkAccessManager(this);
 
-    mLoginWindow = new LoginWindow(nullptr);
+    mLoginWindow = new LoginWindow(mManager , nullptr);
     mMainWindow = new MainWindow(nullptr);
 
     mAppModel = new AppModel(mMainWindow);
+
+    connect(mLoginWindow,&LoginWindow::loginSuccess,this,[this](QString account , QString password){
+        mAppModel->setAccountAndNotify(account,password);
+        switchMainWindow();
+    });
 
     connect(mMainWindow,&MainWindow::search,this,&Client::search);
     connect(this,&Client::searchFinished,mMainWindow,&MainWindow::displaySearchResult);
@@ -26,15 +31,19 @@ Client::Client(QApplication *app)
 
     connect(mManager,&QNetworkAccessManager::finished,mEventLoop,&QEventLoop::quit);
     connect(mLoginWindow,&LoginWindow::rejected,mApp,&QApplication::quit);
-}
 
-bool Client::initialize()
-{
     mManager->setCookieJar(mAppModel->cookieJarPtr());
     mAppModel->readFromFile("./client.json");
     mAppModel->setCacheDirectory("cache");
-    mMainWindow->show();
-    return true;
+    if(mAppModel->account().account.isEmpty()){
+        //用户名为空，说明未登录
+        switchLoginWindow();
+    }
+    else{
+        //已经登录
+        switchMainWindow();
+    }
+
 }
 
 Client::~Client()
@@ -49,9 +58,24 @@ Client::~Client()
     delete mAppModel;
 }
 
+void Client::switchMainWindow()
+{
+    mMainWindow->show();
+    mLoginWindow->accept();
+}
+
+void Client::switchLoginWindow()
+{
+    mLoginWindow->show();
+    mMainWindow->hide();
+}
+
 bool Client::search(const QString &query,int page)
 {
     auto reply = getWithCookies(SEARCH_URL(query,page));
+    if(!reply){
+        return false;
+    }
     //TODO : no error
     emit searchFinished(reply->readAll());
     delete reply;
@@ -66,6 +90,9 @@ bool Client::checkReview(int courseid, int page)
     if(mAppModel->isOnline()){
         qDebug() << REVIEW_URL(courseid,page);
         auto reply = getWithCookies(REVIEW_URL(courseid,page));
+        if(!reply){
+            return false;
+        }
         //TODO : check reply error?
         replyData = reply->readAll();
 
@@ -101,12 +128,13 @@ bool Client::checkReview(int courseid, int page)
 
 void Client::logout()
 {
-    //TODO : login logout routine
     auto reply = getWithCookies(LOGOUT_URL);
-    qDebug() << reply->readAll();
-    delete reply;
-    mLoginWindow->show();
-    mMainWindow->hide();
+    if(reply){
+        delete reply;
+    }
+    //清除数据
+    mAppModel->clearData();
+    switchLoginWindow();
 }
 
 QNetworkReply *Client::getWithCookies(const QUrl &apiUrl)
@@ -116,45 +144,27 @@ QNetworkReply *Client::getWithCookies(const QUrl &apiUrl)
     QNetworkReply *reply = nullptr;
     while(true){
         reply = mManager->get(request);
-//        qDebug() << "before exec:";
-        //设置超时时间
-//        QTimer::singleShot(5000,mEventLoop,&QEventLoop::quit);
         mEventLoop->exec();
-//        qDebug() << "after exec:";
         if(reply->error() == QNetworkReply::NoError){
             //获取资源成功
-            break;
+            //reply需要caller手动销毁
+            return reply;
         }
         //获取资源失败
+        if(autoUpdateCookies()){
+            //重新自动获取Cookies成功
+            delete reply;
+            continue;
+        }
         qDebug() << "该cookies存在问题";
         qDebug() << reply->attribute(QNetworkRequest::HttpStatusCodeAttribute);
         qDebug() << QString::fromUtf8(reply->readAll());
-
-        if(!updateCookies()){
-            mLoginWindow->show();
-            mMainWindow->close();
-            do{
-                if(!mLoginWindow->login()){
-                    //用户取消登录
-                    //关闭程序
-                    mLoginWindow->reject();
-                    qDebug() << "canceled";
-                }
-                //获取账号密码
-                mAppModel->setAccountAndNotify(mLoginWindow->getAccount(),mLoginWindow->getPassword());
-                qDebug() << "登录账号： " << mAppModel->account().account;
-            } while(!updateCookies());
-            mMainWindow->show();
-            mLoginWindow->accept();
-        }
-
         delete reply;
+        return nullptr;
     }
-    //reply需要caller手动销毁
-    return reply;
 }
 
-bool Client::updateCookies()
+bool Client::autoUpdateCookies()
 {
     //清除之前的Cookies
     mAppModel->cookieJarPtr()->clear();
@@ -163,13 +173,13 @@ bool Client::updateCookies()
     QNetworkRequest loginRequest(LOGIN_URL);
     loginRequest.setHeader(QNetworkRequest::ContentTypeHeader, "application/x-www-form-urlencoded");
     QUrlQuery postData;
+    //TODO : assert not empty
     postData.addQueryItem("account",mAppModel->account().account);
     postData.addQueryItem("password",mAppModel->account().password);
-    qDebug() << "account: " << mAppModel->account().account;
     QNetworkReply* reply = mManager->post(loginRequest,postData.toString(QUrl::FullyEncoded).toUtf8());
     mEventLoop->exec();
     auto error = reply->error();
-    mLoginWindow->displayStatusCode(reply->attribute(QNetworkRequest::HttpStatusCodeAttribute).toInt());
     delete reply;
     return error == QNetworkReply::NoError;
 }
+
