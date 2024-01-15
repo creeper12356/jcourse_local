@@ -49,10 +49,17 @@ Client::~Client()
 
 bool Client::search(const QString &query,int page)
 {
-    auto reply = getWithCookies(SEARCH_URL(query,page));
-    //TODO : no error
-    emit searchFinished(reply->readAll());
-    delete reply;
+    QByteArray replyData;
+    if(mAppModel->isOnline()){
+        auto reply = getWithCookies(SEARCH_URL(query,page));
+        //TODO : no error
+        replyData = reply->readAll();
+        delete reply;
+    }
+    else{
+        replyData = "{\"count\":100,\"results\":{}";
+    }
+    emit searchFinished(replyData);
     return true;
 }
 

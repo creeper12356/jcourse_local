@@ -1,7 +1,7 @@
 #ifndef APPMODEL_H
 #define APPMODEL_H
 
-#include <QObject>
+#include "coredatastructure.h"
 #include "inc.h"
 class Account
 {
@@ -75,6 +75,7 @@ private:
     bool mOnline;
     //缓存路径,默认为cache
     QString mCacheDirectory;
+    CoreData mCoreData;
 
 };
 
