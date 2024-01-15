@@ -40,15 +40,13 @@ public:
 };
 
 class CoreData {
-
-private:
-    QVector<Teacher*> mTeachers;
-    QVector<Course*> mCourses;
-    QVector<Mapping> mMappings;
-
+    //核心数据结构,基本增删改查
 public:
     CoreData(){}
     ~CoreData();
+public:
+    //搜索函数，返回所有符合条件的映射
+    QVector<const Mapping*> searchCourseMappings(const QString &teacherName, const QString &teacherPinyin, const QString &courseName);
 
     bool readFromJsonObject(const QJsonObject& obj);
     QJsonObject toJsonObject() const;
@@ -73,8 +71,10 @@ public:
     //添加教师和课程的映射，返回是否添加成功
     bool addMapping(Teacher* teacher, Course* course);
 
-    //搜索函数，返回所有符合条件的映射
-    QVector<const Mapping*> searchCourseMappings(const QString &teacherName, const QString &teacherPinyin, const QString &courseName);
+private:
+    QVector<Teacher*> mTeachers;
+    QVector<Course*> mCourses;
+    QVector<Mapping> mMappings;
 
 };
 

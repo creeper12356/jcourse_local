@@ -105,8 +105,6 @@ void MainWindow::displaySearchResult(QByteArray result)
 
 void MainWindow::displayCheckReviewResult(QByteArray result)
 {
-    //TODO : 合并courseListWidget 和 reviewListWidget
-
     QJsonObject resultJsonObject = QJsonDocument::fromJson(result).object();
     QJsonArray resultsJsonArray = resultJsonObject["results"].toArray();
     while(ui->review_item_list->count() > 0){
