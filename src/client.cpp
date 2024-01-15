@@ -51,10 +51,12 @@ bool Client::search(const QString &query,int page)
 {
     QByteArray replyData;
     if(mAppModel->isOnline()){
+        //在线模式
+        //请求api,缓存资源到本地
         auto reply = getWithCookies(SEARCH_URL(query,page));
         //TODO : no error
         replyData = reply->readAll();
-//        qDebug() << QJsonDocument::fromJson(replyData).object();
+        delete reply;
         QJsonObject resultJsonObject = QJsonDocument::fromJson(replyData).object();
         QJsonArray resultsJsonArray = resultJsonObject["results"].toArray();
 
@@ -69,18 +71,26 @@ bool Client::search(const QString &query,int page)
 
             //TODO : get pinyin of Chinese
             Teacher *newTeacher = mAppModel->coreData()->addTeacher((*it).toObject()["teacher"].toString(),"");
-            qDebug() << mAppModel->coreData()->addMapping(newTeacher,newCourse);
-
+            mAppModel->coreData()->addMapping(newTeacher,newCourse);
         }
-        delete reply;
     }
     else{
+        //离线模式
+        //本地资源搜索结果
         QVector<const Mapping*> courseMappings = mAppModel->coreData()->searchCourseMappings(query,query,query);
         QJsonObject resultJsonObject;
         QJsonArray resultJsonArray;
-        for(const Mapping* mapping : courseMappings){
+
+        int searchCount = courseMappings.count();
+        resultJsonObject.insert("count",searchCount);
+        //搜索的课程条目下标上下界
+        //上界不一定能取到
+        const int lowerBound = (page - 1) * PAGE_SIZE , higherBound = page * PAGE_SIZE - 1;
+        for(int i = lowerBound;i < searchCount && i <= higherBound;++i){
+
+            const Mapping* mapping = courseMappings[i];
             QJsonObject courseJsonObject;
-            qDebug() << mapping->course->id;
+
             courseJsonObject.insert("id",mapping->course->id);
             courseJsonObject.insert("code",mapping->course->code);
             courseJsonObject.insert("name",mapping->course->name);
@@ -94,9 +104,9 @@ bool Client::search(const QString &query,int page)
             resultJsonArray.push_back(courseJsonObject);
         }
         resultJsonObject.insert("results",resultJsonArray);
-        resultJsonObject.insert("count",resultJsonArray.count());
         replyData = QJsonDocument(resultJsonObject).toJson();
     }
+
     emit searchFinished(replyData);
     return true;
 }
