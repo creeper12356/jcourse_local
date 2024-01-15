@@ -75,6 +75,11 @@ bool AppModel::isOnline() const
     return mOnline;
 }
 
+CoreData *AppModel::coreData()
+{
+    return &mCoreData;
+}
+
 void AppModel::setAccountAndNotify(const Account &account)
 {
     mAccount = account;

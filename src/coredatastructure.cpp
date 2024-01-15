@@ -11,16 +11,22 @@ CoreData::~CoreData()
     }
 }
 
-Teacher *CoreData::addTeacher(const QString &teacherName, const QString &teacherPinyin)
+Teacher *CoreData::addTeacher(const QString &teacherName, const QString &teacherPinyin,bool *ok)
 {
     for(Teacher* teacher: mTeachers){
         if(teacher->name == teacherName){
+            if(ok){
+                *ok = false;
+            }
             //已经存在该教师
-            return nullptr;
+            return teacher;
         }
     }
     Teacher *newTeacher = new Teacher(teacherName,teacherPinyin);
     mTeachers.push_back(newTeacher);
+    if(ok){
+        *ok = true;
+    }
     return newTeacher;
 }
 
@@ -34,16 +40,22 @@ Teacher *CoreData::removeTeacher(const QString &teacherName)
     return nullptr;
 }
 
-Course *CoreData::addCourse(int courseid, const QString &courseName)
+Course *CoreData::addCourse(int courseid, const QString &courseName,bool* ok)
 {
     for(Course* course: mCourses){
         if(course->id == courseid){
+            if(ok){
+                *ok = false;
+            }
             //已经存在该课程
-            return nullptr;
+            return course;
         }
     }
     Course *newCourse = new Course(courseid,courseName);
     mCourses.push_back(newCourse);
+    if(ok){
+        *ok = true;
+    }
     return newCourse;
 }
 
@@ -61,12 +73,12 @@ bool CoreData::addMapping(Teacher *teacher, Course *course)
 {
     Mapping newMapping(teacher,course);
     if(mMappings.contains(newMapping)){
-        qDebug() << "already mapped";
+//        qDebug() << "already mapped";
         return false;
     }
     else{
         mMappings.push_back(newMapping);
-        qDebug() << "add Mapping : " << *teacher << *course;
+//        qDebug() << "add Mapping : " << *teacher << *course;
         return true;
     }
 
@@ -109,4 +121,20 @@ Mapping::Mapping(Teacher *arg_teacher, Course *arg_course)
 bool Mapping::operator ==(const Mapping &other) const
 {
     return this->teacher == other.teacher && this->course == other.course;
+}
+
+QVector<int> CoreData::searchCourseids(const QString& teacherName, const QString& teacherPinyin, const QString& courseName) {
+    QVector<int> result;
+
+    // 在数据集中搜索匹配条件的courseId
+    for (const Mapping& mapping : mMappings){
+        if (mapping.teacher->name.contains(teacherName,Qt::CaseInsensitive) ||
+            mapping.teacher->pinyin.contains(teacherPinyin,Qt::CaseInsensitive) ||
+            mapping.course->name.contains(courseName, Qt::CaseInsensitive)){
+
+            result.push_back(mapping.courseid);
+        }
+    }
+
+    return result;
 }

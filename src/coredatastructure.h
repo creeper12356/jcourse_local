@@ -42,14 +42,15 @@ public:
     CoreData(){}
     ~CoreData();
     /* different teachers with the same name? */
-    Teacher* addTeacher(const QString& teacherName, const QString& teacherPinyin);
+    Teacher* addTeacher(const QString& teacherName, const QString& teacherPinyin,bool* ok = nullptr);
     Teacher* removeTeacher(const QString& teacherName);
 
-    Course* addCourse(int courseid,const QString& courseName);
+    Course* addCourse(int courseid,const QString& courseName,bool* ok = nullptr);
     Course* removeCourse(int courseid);
 
     bool addMapping(Teacher* teacher, Course* course);
 
+    QVector<int> searchCourseids(const QString &teacherName, const QString &teacherPinyin, const QString &courseName);
 };
 
 #endif // COREDATASTRUCTURE_H

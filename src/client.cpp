@@ -54,10 +54,33 @@ bool Client::search(const QString &query,int page)
         auto reply = getWithCookies(SEARCH_URL(query,page));
         //TODO : no error
         replyData = reply->readAll();
+//        qDebug() << QJsonDocument::fromJson(replyData).object();
+        QJsonObject resultJsonObject = QJsonDocument::fromJson(replyData).object();
+        QJsonArray resultsJsonArray = resultJsonObject["results"].toArray();
+
+        for(auto it = resultsJsonArray.begin();it != resultsJsonArray.end(); ++it){
+            Course *newCourse = mAppModel->coreData()->addCourse((*it).toObject()["id"].toInt(),(*it).toObject()["name"].toString());
+            //TODO : get pinyin of Chinese
+            Teacher *newTeacher = mAppModel->coreData()->addTeacher((*it).toObject()["teacher"].toString(),"zhangfeng");
+            qDebug() << mAppModel->coreData()->addMapping(newTeacher,newCourse);
+
+        }
         delete reply;
     }
     else{
-        replyData = "{\"count\":100,\"results\":{}";
+        auto courseids = mAppModel->coreData()->searchCourseids(query,query,query);
+        QJsonObject resultJsonObject;
+        QJsonArray resultJsonArray;
+        for(int courseid: courseids){
+            QJsonObject obj;
+            obj.insert("id",courseid);
+            obj.insert("name","电路理论");
+            resultJsonArray.push_back(obj);
+        }
+        resultJsonObject.insert("results",resultJsonArray);
+        resultJsonObject.insert("count",resultJsonArray.count());
+        replyData = QJsonDocument(resultJsonObject).toJson();
+//        replyData = "{\"count\":100,\"results\":{}";
     }
     emit searchFinished(replyData);
     return true;

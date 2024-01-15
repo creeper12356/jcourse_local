@@ -48,6 +48,8 @@ public:
     MyNetworkCookieJar* cookieJarPtr();
     const QString& cacheDirectory() const;
     bool isOnline() const;
+    CoreData* coreData();
+
 public slots:
     //setters
     //setProperty 直接设置，不发出propertyChanged信号
