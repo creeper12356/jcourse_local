@@ -20,6 +20,7 @@ SOURCES += \
     abstractlistwidget.cpp \
     appmodel.cpp \
     client.cpp \
+    coredatastructure.cpp \
     courseitem.cpp \
     courselistwidget.cpp \
     loginwindow.cpp \
@@ -36,6 +37,7 @@ HEADERS += \
     abstractlistwidget.h \
     appmodel.h \
     client.h \
+    coredatastructure.h \
     courseitem.h \
     courselistwidget.h \
     inc.h \

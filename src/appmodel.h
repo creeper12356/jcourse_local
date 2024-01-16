@@ -1,7 +1,7 @@
 #ifndef APPMODEL_H
 #define APPMODEL_H
 
-#include <QObject>
+#include "coredatastructure.h"
 #include "inc.h"
 class Account
 {
@@ -40,7 +40,7 @@ public:
     //从JSON文件中读取数据，返回读取结果
     bool readFromFile(const QString& fileName);
     //将数据写入JSON文件，返回写入结果
-    bool writeToFile(const QString& fileName);
+    bool writeToFile(const QString& fileName) const;
 public:
     //getters
     const Account& account() const;
@@ -48,6 +48,8 @@ public:
     MyNetworkCookieJar* cookieJarPtr();
     const QString& cacheDirectory() const;
     bool isOnline() const;
+    CoreData* coreData();
+
 public slots:
     //setters
     //setProperty 直接设置，不发出propertyChanged信号
@@ -78,6 +80,7 @@ private:
     bool mOnline;
     //缓存路径,默认为cache
     QString mCacheDirectory;
+    CoreData mCoreData;
 
 };
 

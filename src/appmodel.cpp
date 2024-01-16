@@ -31,12 +31,16 @@ bool AppModel::readFromFile(const QString &fileName)
     //读入Cookies
     mCookieJar.readFromJsonArray(clientJsonObject["cookies"].toArray());
 
+    //读入CoreData
+    mCoreData.readFromFile("coredata.json");
+    //TODO  : return false?
+
     setOnlineAndNotify(clientJsonObject["isOnline"].toBool());
 
     return true;
 }
 
-bool AppModel::writeToFile(const QString &fileName)
+bool AppModel::writeToFile(const QString &fileName) const
 {
     QFile writer(fileName);
     writer.open(QIODevice::WriteOnly);
@@ -47,6 +51,7 @@ bool AppModel::writeToFile(const QString &fileName)
 
     writer.write(QJsonDocument(clientJsonObject).toJson());
     writer.close();
+    mCoreData.writeToFile("coredata.json");
     return true;
 }
 
@@ -73,6 +78,11 @@ const QString &AppModel::cacheDirectory() const
 bool AppModel::isOnline() const
 {
     return mOnline;
+}
+
+CoreData *AppModel::coreData()
+{
+    return &mCoreData;
 }
 
 void AppModel::setAccountAndNotify(const Account &account)
