@@ -27,6 +27,7 @@ SOURCES += \
     main.cpp \
     mainwindow.cpp \
     paginationwidget.cpp \
+    pinyin.cpp \
     reviewitem.cpp \
     reviewlistwidget.cpp \
     switchbutton.cpp \
@@ -44,6 +45,7 @@ HEADERS += \
     loginwindow.h \
     mainwindow.h \
     paginationwidget.h \
+    pinyin.h \
     reviewitem.h \
     reviewlistwidget.h \
     switchbutton.h \

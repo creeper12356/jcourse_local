@@ -40,7 +40,6 @@ bool CoreData::readFromJsonObject(const QJsonObject &obj)
         if(!ok){
             return false;
         }
-
         //new teacher added
         //add to teacher map
         teacherMap.insert(teacher->name,teacher);
