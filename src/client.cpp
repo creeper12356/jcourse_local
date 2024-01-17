@@ -1,6 +1,7 @@
 #include "client.h"
 #include "mainwindow.h"
 #include "loginwindow.h"
+#include "pinyin.h"
 
 #include "appmodel.h"
 
@@ -69,8 +70,8 @@ bool Client::search(const QString &query,int page)
             newCourse->ratingAvg = (*it).toObject()["rating"].toObject()["avg"].toDouble();
             newCourse->ratingCount = (*it).toObject()["rating"].toObject()["count"].toInt();
 
-            //TODO : get pinyin of Chinese
-            Teacher *newTeacher = mAppModel->coreData()->addTeacher((*it).toObject()["teacher"].toString(),"");
+            QString teacherName = (*it).toObject()["teacher"].toString();
+            Teacher *newTeacher = mAppModel->coreData()->addTeacher(teacherName,Pinyin::getFullChars(teacherName));
             mAppModel->coreData()->addMapping(newTeacher,newCourse);
         }
     }
