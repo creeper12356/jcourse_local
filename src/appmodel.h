@@ -1,11 +1,14 @@
 #ifndef APPMODEL_H
 #define APPMODEL_H
 
-#include <QObject>
+#include "coredatastructure.h"
 #include "inc.h"
+
+/*!
+ * \brief 选课社区账号
+ */
 class Account
 {
-    //选课社区账号
 public:
     QString account = "";
     QString password = "";
@@ -13,57 +16,93 @@ public:
     Account() {}
     QJsonObject toJsonObject() const;
 };
+
+/*!
+ * \brief 管理Cookies的类
+ */
 class MyNetworkCookieJar : public QNetworkCookieJar
 {
-    //管理Cookies的类
 public:
     MyNetworkCookieJar(QObject *parent = 0);
 
-    //cookies列表
+    /*!
+     * \brief 所有Cookies的列表
+     * \return 所有Cookies的列表
+     */
     QList<QNetworkCookie> allCookies() const;
-    //删除所有cookies
+
+    /*!
+     * \brief 清除所有的Cookies
+     */
     void clear();
-    //从JSON数组读取
+
+    /*!
+     * \brief 从QJsonArray对象中读取信息
+     * \param arr 读取的QJsonArray对象
+     * \return 是否读取成功
+     */
     bool readFromJsonArray(const QJsonArray &arr);
-    //转成JSON数组
+
+    /*!
+     * \brief 转换为QJsonArray对象
+     */
     QJsonArray toJsonArray() const;
 };
 
+/*!
+ * \brief 存储客户端的所有永久性数据
+ */
 class AppModel : public QObject
 {
-    //存储客户端的所有永久性数据
     Q_OBJECT
 public:
     AppModel(MainWindow* mainWindow, QObject *parent = nullptr);
 
 public:
-    //从JSON文件中读取数据，返回读取结果
+    /*!
+     * \brief 从文件中读取数据
+     * \param fileName 读取的文件路径
+     * \return 读取是否成功
+     */
     bool readFromFile(const QString& fileName);
-    //将数据写入JSON文件，返回写入结果
-    bool writeToFile(const QString& fileName);
-public:
-    //getters
-    const Account& account() const;
-    const MyNetworkCookieJar& cookieJar () const;
-    MyNetworkCookieJar* cookieJarPtr();
-    const QString& cacheDirectory() const;
-    bool isOnline() const;
-public slots:
-    //setters
-    //setProperty 直接设置，不发出propertyChanged信号
-    //setPropertyAndNotify 设置，且发送propertyChanged信号，MainWindow接受该信号，界面作出响应
-    void setAccountAndNotify(const Account& account);
-    void setAccountAndNotify(const QString& account , const QString& password);
-    void setCacheDirectory(const QString &cacheDirectory);
-    void setOnline(bool isOnline);
-    void setOnlineAndNotify(bool isOnline);
 
-    //清除所有数据，包括账号/密码，Cookies
+    /*!
+     * \brief 将当前信息写入文件
+     * \param fileName 写入文件的路径
+     */
+    bool writeToFile(const QString& fileName) const;
+public:
+    const Account& account() const;                 //!<当前账号（包含账号和密码)
+    const MyNetworkCookieJar& cookieJar () const;   //!<当前cookieJar，不可修改
+    MyNetworkCookieJar* cookieJarPtr();             //!<指向当前cookieJar的指针，可修改
+    const QString& cacheDirectory() const;          //!<课程评价缓存目录
+    bool isOnline() const;                          //!<是否为在线模式
+    CoreData* coreData();                           //!<指向核心数据的指针
+
+public slots:
+    void setAccountAndNotify(const Account& account);                           //!<设置账号并通知MainWindow
+    void setAccountAndNotify(const QString& account , const QString& password); //!<设置账号并通知MainWindow
+    void setCacheDirectory(const QString &cacheDirectory);                      //!<设置缓存目录
+    void setOnline(bool isOnline);                                              //!<设置在线模式，不通知MainWindow
+    void setOnlineAndNotify(bool isOnline);                                     //!<设置在线模式并通知MainWindow
+
+    /*!
+     * \brief 清除所有数据，包括账号/密码，Cookies
+     */
     void clearData();
 
 signals:
-    //发送给MainWindow的信号，更新显示数据
+
+    /*!
+     * \brief 账号用户名变化的信号，发送给MainWindow
+     * \param userName 当前账号用户名
+     */
     void userNameChanged(QString userName) ;
+
+    /*!
+     * \brief 在线模式变化的信号，发送给MainWindow
+     * \param online 是否为在线模式
+     */
     void onlineChanged(bool online);
 private:
     //显示界面
@@ -76,8 +115,9 @@ private:
     //在线模式：从url获取资源，缓存到本地
     //离线模式：从本地缓存获取资源
     bool mOnline;
-    //缓存路径,默认为cache
+    //缓存路径,默认为"cache"
     QString mCacheDirectory;
+    CoreData mCoreData;
 
 };
 

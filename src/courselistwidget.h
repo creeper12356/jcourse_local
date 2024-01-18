@@ -2,6 +2,7 @@
 #define COURSELISTWIDGET_H
 #include "inc.h"
 #include "abstractlistwidget.h"
+
 class CourseListWidget: public AbstractListWidget
 {
     Q_OBJECT

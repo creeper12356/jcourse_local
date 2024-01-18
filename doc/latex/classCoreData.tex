@@ -1,0 +1,228 @@
+\hypertarget{classCoreData}{}\doxysection{Core\+Data Class Reference}
+\label{classCoreData}\index{CoreData@{CoreData}}
+
+
+搜索引擎相关的核心数据结构  
+
+
+
+
+{\ttfamily \#include $<$coredatastructure.\+h$>$}
+
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+Q\+Vector$<$ const \mbox{\hyperlink{classMapping}{Mapping}} $\ast$ $>$ \mbox{\hyperlink{classCoreData_a47f8f34f170fcffae18b910811245794}{search\+Course\+Mappings}} (const Q\+String \&teacher\+Name, const Q\+String \&teacher\+Pinyin, const Q\+String \&course\+Name)
+\begin{DoxyCompactList}\small\item\em 按照关键字搜索课程 \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{classCoreData_a3be2ad22b81dd66beef2aadec55f12e7}{read\+From\+Json\+Object}} (const Q\+Json\+Object \&obj)
+\begin{DoxyCompactList}\small\item\em 从\+Q\+Json\+Object对象中读取信息 \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classCoreData_acbbe1ac905025e3a93bfae7fbdfbdcad}\label{classCoreData_acbbe1ac905025e3a93bfae7fbdfbdcad}} 
+Q\+Json\+Object \mbox{\hyperlink{classCoreData_acbbe1ac905025e3a93bfae7fbdfbdcad}{to\+Json\+Object}} () const
+\begin{DoxyCompactList}\small\item\em 转换为\+Q\+Json\+Object对象 \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{classCoreData_afc4b1dc1ce1c47ef956452c9b259e6b1}{read\+From\+File}} (const Q\+String \&file\+Name)
+\begin{DoxyCompactList}\small\item\em 从文件中读取信息 \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classCoreData_ad33705f15c68340cd7e1bf155f797af4}{write\+To\+File}} (const Q\+String \&file\+Name) const
+\begin{DoxyCompactList}\small\item\em 将当前信息写入文件 \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classTeacher}{Teacher}} $\ast$ \mbox{\hyperlink{classCoreData_a568034b1bbc9f8e749aa3fa110961d5e}{add\+Teacher}} (const Q\+String \&teacher\+Name, const Q\+String \&teacher\+Pinyin, bool $\ast$ok=nullptr)
+\begin{DoxyCompactList}\small\item\em 添加新的教师 \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classTeacher}{Teacher}} $\ast$ \mbox{\hyperlink{classCoreData_abcd26c7978f0ddec673964341fae134f}{remove\+Teacher}} (const Q\+String \&teacher\+Name)
+\begin{DoxyCompactList}\small\item\em 删除教师 \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classCourse}{Course}} $\ast$ \mbox{\hyperlink{classCoreData_acdeb28eea3014dfd0ee47442c68204a8}{add\+Course}} (int courseid, const Q\+String \&course\+Name, bool $\ast$ok=nullptr)
+\begin{DoxyCompactList}\small\item\em 添加新的课程 \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classCourse}{Course}} $\ast$ \mbox{\hyperlink{classCoreData_a492f700bb5e0718baa2ec26ae15cc434}{remove\+Course}} (int courseid)
+\begin{DoxyCompactList}\small\item\em 删除课程 \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{classCoreData_ae3dbd279c35c09eacc360eabc3fb1299}{add\+Mapping}} (\mbox{\hyperlink{classTeacher}{Teacher}} $\ast$teacher, \mbox{\hyperlink{classCourse}{Course}} $\ast$course)
+\begin{DoxyCompactList}\small\item\em 添加一组教师和课程的关系 \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+搜索引擎相关的核心数据结构 
+
+所有教师、课程、教师和课程的对应关系都存储在此数据结构中，这是一个自己实现的数据库（目前使用线性搜索，效率较低）， 实现了基本的增删改查。 
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classCoreData_acdeb28eea3014dfd0ee47442c68204a8}\label{classCoreData_acdeb28eea3014dfd0ee47442c68204a8}} 
+\index{CoreData@{CoreData}!addCourse@{addCourse}}
+\index{addCourse@{addCourse}!CoreData@{CoreData}}
+\doxysubsubsection{\texorpdfstring{addCourse()}{addCourse()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classCourse}{Course}} $\ast$ Core\+Data\+::add\+Course (\begin{DoxyParamCaption}\item[{int}]{courseid,  }\item[{const Q\+String \&}]{course\+Name,  }\item[{bool $\ast$}]{ok = {\ttfamily nullptr} }\end{DoxyParamCaption})}
+
+
+
+添加新的课程 
+
+
+\begin{DoxyParams}{Parameters}
+{\em courseid} & 课程id \\
+\hline
+{\em course\+Name} & 课程名 \\
+\hline
+{\em ok} & 是否添加成功 \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+如果数据库中不存在id为\{courseid\}的课程，将该课程添加到库中，并返回指向新课程的指针； 如果数据库中已经存在id为\{courseid\}的教师，直接返回指向库中的该课程的指针。 如果参数ok不为nullptr,添加课程是否成功将被写入$\ast$ok中。 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classCoreData_ae3dbd279c35c09eacc360eabc3fb1299}\label{classCoreData_ae3dbd279c35c09eacc360eabc3fb1299}} 
+\index{CoreData@{CoreData}!addMapping@{addMapping}}
+\index{addMapping@{addMapping}!CoreData@{CoreData}}
+\doxysubsubsection{\texorpdfstring{addMapping()}{addMapping()}}
+{\footnotesize\ttfamily bool Core\+Data\+::add\+Mapping (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classTeacher}{Teacher}} $\ast$}]{teacher,  }\item[{\mbox{\hyperlink{classCourse}{Course}} $\ast$}]{course }\end{DoxyParamCaption})}
+
+
+
+添加一组教师和课程的关系 
+
+
+\begin{DoxyParams}{Parameters}
+{\em teacher} & 指向教师的指针 \\
+\hline
+{\em course} & 指向课程的指针 \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+如果不存在相同的关系，添加成功，返回true； 如果已经存在相同的关系，添加失败，返回false。 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classCoreData_a568034b1bbc9f8e749aa3fa110961d5e}\label{classCoreData_a568034b1bbc9f8e749aa3fa110961d5e}} 
+\index{CoreData@{CoreData}!addTeacher@{addTeacher}}
+\index{addTeacher@{addTeacher}!CoreData@{CoreData}}
+\doxysubsubsection{\texorpdfstring{addTeacher()}{addTeacher()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classTeacher}{Teacher}} $\ast$ Core\+Data\+::add\+Teacher (\begin{DoxyParamCaption}\item[{const Q\+String \&}]{teacher\+Name,  }\item[{const Q\+String \&}]{teacher\+Pinyin,  }\item[{bool $\ast$}]{ok = {\ttfamily nullptr} }\end{DoxyParamCaption})}
+
+
+
+添加新的教师 
+
+
+\begin{DoxyParams}{Parameters}
+{\em teacher\+Name} & 新教师姓名 \\
+\hline
+{\em teacher\+Pinyin} & 新教师姓名全拼 \\
+\hline
+{\em ok} & 是否添加成功 \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+如果数据库中不存在姓名为\{teacher\+Name\}的教师，将该教师添加到库中，并返回指向新教师的指针； 如果数据库中已经存在姓名为\{teacher\+Name\}的教师，直接返回指向库中的该教师的指针。 如果参数ok不为nullptr,添加教师是否成功将被写入$\ast$ok中。 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classCoreData_afc4b1dc1ce1c47ef956452c9b259e6b1}\label{classCoreData_afc4b1dc1ce1c47ef956452c9b259e6b1}} 
+\index{CoreData@{CoreData}!readFromFile@{readFromFile}}
+\index{readFromFile@{readFromFile}!CoreData@{CoreData}}
+\doxysubsubsection{\texorpdfstring{readFromFile()}{readFromFile()}}
+{\footnotesize\ttfamily bool Core\+Data\+::read\+From\+File (\begin{DoxyParamCaption}\item[{const Q\+String \&}]{file\+Name }\end{DoxyParamCaption})}
+
+
+
+从文件中读取信息 
+
+\begin{DoxySeeAlso}{See also}
+\mbox{\hyperlink{classCoreData_a3be2ad22b81dd66beef2aadec55f12e7}{read\+From\+Json\+Object}} 
+\end{DoxySeeAlso}
+
+\begin{DoxyParams}{Parameters}
+{\em file\+Name} & 读取文件的路径 \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+读取是否成功 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classCoreData_a3be2ad22b81dd66beef2aadec55f12e7}\label{classCoreData_a3be2ad22b81dd66beef2aadec55f12e7}} 
+\index{CoreData@{CoreData}!readFromJsonObject@{readFromJsonObject}}
+\index{readFromJsonObject@{readFromJsonObject}!CoreData@{CoreData}}
+\doxysubsubsection{\texorpdfstring{readFromJsonObject()}{readFromJsonObject()}}
+{\footnotesize\ttfamily bool Core\+Data\+::read\+From\+Json\+Object (\begin{DoxyParamCaption}\item[{const Q\+Json\+Object \&}]{obj }\end{DoxyParamCaption})}
+
+
+
+从\+Q\+Json\+Object对象中读取信息 
+
+
+\begin{DoxyParams}{Parameters}
+{\em obj} & 读取的\+Q\+Json\+Object对象 \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+如果读取正常，返回true；如果读取过程出现错误，返回false。 T\+O\+D\+O：此函数目前不完善，读取obj之前没有检查对应的键是否存在。 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classCoreData_a492f700bb5e0718baa2ec26ae15cc434}\label{classCoreData_a492f700bb5e0718baa2ec26ae15cc434}} 
+\index{CoreData@{CoreData}!removeCourse@{removeCourse}}
+\index{removeCourse@{removeCourse}!CoreData@{CoreData}}
+\doxysubsubsection{\texorpdfstring{removeCourse()}{removeCourse()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classCourse}{Course}} $\ast$ Core\+Data\+::remove\+Course (\begin{DoxyParamCaption}\item[{int}]{courseid }\end{DoxyParamCaption})}
+
+
+
+删除课程 
+
+
+\begin{DoxyParams}{Parameters}
+{\em courseid} & 删除课程的id \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+如果数据库中存在id为\{courseid\}的教师，将该课程从数据库中移除，返回指向该课程的指针， 该指针指向内存需要调用者手动释放； 如果数据库中不存在id为\{courseid\}的课程，返回nullptr。 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classCoreData_abcd26c7978f0ddec673964341fae134f}\label{classCoreData_abcd26c7978f0ddec673964341fae134f}} 
+\index{CoreData@{CoreData}!removeTeacher@{removeTeacher}}
+\index{removeTeacher@{removeTeacher}!CoreData@{CoreData}}
+\doxysubsubsection{\texorpdfstring{removeTeacher()}{removeTeacher()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classTeacher}{Teacher}} $\ast$ Core\+Data\+::remove\+Teacher (\begin{DoxyParamCaption}\item[{const Q\+String \&}]{teacher\+Name }\end{DoxyParamCaption})}
+
+
+
+删除教师 
+
+
+\begin{DoxyParams}{Parameters}
+{\em teacher\+Name} & 删除教师的姓名 \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+如果数据库中存在姓名为\{teacher\+Name\}的教师，将该教师从数据库中移除，返回指向该教师的指针， 该指针指向内存需要调用者手动释放； 如果数据库中不存在姓名为\{teacher\+Name\}的教师，返回nullptr。 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classCoreData_a47f8f34f170fcffae18b910811245794}\label{classCoreData_a47f8f34f170fcffae18b910811245794}} 
+\index{CoreData@{CoreData}!searchCourseMappings@{searchCourseMappings}}
+\index{searchCourseMappings@{searchCourseMappings}!CoreData@{CoreData}}
+\doxysubsubsection{\texorpdfstring{searchCourseMappings()}{searchCourseMappings()}}
+{\footnotesize\ttfamily Q\+Vector$<$ const \mbox{\hyperlink{classMapping}{Mapping}} $\ast$ $>$ Core\+Data\+::search\+Course\+Mappings (\begin{DoxyParamCaption}\item[{const Q\+String \&}]{teacher\+Name,  }\item[{const Q\+String \&}]{teacher\+Pinyin,  }\item[{const Q\+String \&}]{course\+Name }\end{DoxyParamCaption})}
+
+
+
+按照关键字搜索课程 
+
+按照关键字搜索教师-\/课程的对应关系， 目前支持的搜索方式有：教师姓名模糊搜索，教师拼音精确搜索，课程名称模糊搜索。 
+\begin{DoxyParams}{Parameters}
+{\em teacher\+Name} & 教师姓名搜索关键字 \\
+\hline
+{\em teacher\+Pinyin} & 教师拼音搜索关键字 \\
+\hline
+{\em course\+Name} & 课程名称搜索关键字 \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+所有符合搜索要求的教师-\/课程关系，存储在一个\+Q\+Vector容器中。 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classCoreData_ad33705f15c68340cd7e1bf155f797af4}\label{classCoreData_ad33705f15c68340cd7e1bf155f797af4}} 
+\index{CoreData@{CoreData}!writeToFile@{writeToFile}}
+\index{writeToFile@{writeToFile}!CoreData@{CoreData}}
+\doxysubsubsection{\texorpdfstring{writeToFile()}{writeToFile()}}
+{\footnotesize\ttfamily void Core\+Data\+::write\+To\+File (\begin{DoxyParamCaption}\item[{const Q\+String \&}]{file\+Name }\end{DoxyParamCaption}) const}
+
+
+
+将当前信息写入文件 
+
+\begin{DoxySeeAlso}{See also}
+\mbox{\hyperlink{classCoreData_acbbe1ac905025e3a93bfae7fbdfbdcad}{to\+Json\+Object}} 
+\end{DoxySeeAlso}
+
+\begin{DoxyParams}{Parameters}
+{\em file\+Name} & 写入文件的路径 \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+src/coredatastructure.\+h\item 
+src/coredatastructure.\+cpp\end{DoxyCompactItemize}

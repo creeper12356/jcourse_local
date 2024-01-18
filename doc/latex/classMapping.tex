@@ -1,0 +1,44 @@
+\hypertarget{classMapping}{}\doxysection{Mapping Class Reference}
+\label{classMapping}\index{Mapping@{Mapping}}
+
+
+包装类，表示教师和课程的关系  
+
+
+
+
+{\ttfamily \#include $<$coredatastructure.\+h$>$}
+
+
+
+Collaboration diagram for Mapping\+:
+% FIG 0
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classMapping_afe1d3e174911f3e832a1d0709866be23}\label{classMapping_afe1d3e174911f3e832a1d0709866be23}} 
+{\bfseries Mapping} (\mbox{\hyperlink{classTeacher}{Teacher}} $\ast$teacher, \mbox{\hyperlink{classCourse}{Course}} $\ast$course)
+\item 
+\mbox{\Hypertarget{classMapping_ae16f8bd4fb944b321f39fe691da42847}\label{classMapping_ae16f8bd4fb944b321f39fe691da42847}} 
+bool \mbox{\hyperlink{classMapping_ae16f8bd4fb944b321f39fe691da42847}{operator==}} (const \mbox{\hyperlink{classMapping}{Mapping}} \&other) const
+\begin{DoxyCompactList}\small\item\em 重载==运算符 \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classMapping_af74dc6c165ba530b2d6cd13294460099}\label{classMapping_af74dc6c165ba530b2d6cd13294460099}} 
+\mbox{\hyperlink{classTeacher}{Teacher}} $\ast$ {\bfseries teacher}
+\item 
+\mbox{\Hypertarget{classMapping_ae3e1700dda7d5b7b7e010b92b6849ca8}\label{classMapping_ae3e1700dda7d5b7b7e010b92b6849ca8}} 
+\mbox{\hyperlink{classCourse}{Course}} $\ast$ {\bfseries course}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+包装类，表示教师和课程的关系 
+
+Mapping类用于表示教师与课程的关系，如果教师\+A（使用\+Teacher类对象teacher\+A表示）讲授课程\+B（使用\+Course类对象course\+B表示）， 那么这种关系可以表示为\+Mapping(\&teacher\+A,\&course\+B)。 
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+src/coredatastructure.\+h\item 
+src/coredatastructure.\+cpp\end{DoxyCompactItemize}

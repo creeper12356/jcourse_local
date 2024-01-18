@@ -20,12 +20,14 @@ SOURCES += \
     abstractlistwidget.cpp \
     appmodel.cpp \
     client.cpp \
+    coredatastructure.cpp \
     courseitem.cpp \
     courselistwidget.cpp \
     loginwindow.cpp \
     main.cpp \
     mainwindow.cpp \
     paginationwidget.cpp \
+    pinyin.cpp \
     reviewitem.cpp \
     reviewlistwidget.cpp \
     switchbutton.cpp \
@@ -36,12 +38,14 @@ HEADERS += \
     abstractlistwidget.h \
     appmodel.h \
     client.h \
+    coredatastructure.h \
     courseitem.h \
     courselistwidget.h \
     inc.h \
     loginwindow.h \
     mainwindow.h \
     paginationwidget.h \
+    pinyin.h \
     reviewitem.h \
     reviewlistwidget.h \
     switchbutton.h \

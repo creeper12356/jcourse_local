@@ -1,6 +1,7 @@
 #include "client.h"
 #include "mainwindow.h"
 #include "loginwindow.h"
+#include "pinyin.h"
 
 #include "appmodel.h"
 
@@ -72,13 +73,68 @@ void Client::switchLoginWindow()
 
 bool Client::search(const QString &query,int page)
 {
-    auto reply = getWithCookies(SEARCH_URL(query,page));
-    if(!reply){
-        return false;
+    QByteArray replyData;
+    if(mAppModel->isOnline()){
+        //在线模式
+        //请求api,缓存资源到本地
+        auto reply = getWithCookies(SEARCH_URL(query,page));
+        if(!reply){
+            //在线获取资源失败
+            return false;
+        }
+        replyData = reply->readAll();
+        delete reply;
+        QJsonObject resultJsonObject = QJsonDocument::fromJson(replyData).object();
+        QJsonArray resultsJsonArray = resultJsonObject["results"].toArray();
+
+        for(auto it = resultsJsonArray.begin();it != resultsJsonArray.end(); ++it){
+
+            Course *newCourse = mAppModel->coreData()->addCourse((*it).toObject()["id"].toInt(),(*it).toObject()["name"].toString());
+            newCourse->code = (*it).toObject()["code"].toString();
+            newCourse->credit = (*it).toObject()["credit"].toInt();
+            newCourse->department = (*it).toObject()["department"].toString();
+            newCourse->ratingAvg = (*it).toObject()["rating"].toObject()["avg"].toDouble();
+            newCourse->ratingCount = (*it).toObject()["rating"].toObject()["count"].toInt();
+
+            QString teacherName = (*it).toObject()["teacher"].toString();
+            Teacher *newTeacher = mAppModel->coreData()->addTeacher(teacherName,Pinyin::getFullChars(teacherName));
+            mAppModel->coreData()->addMapping(newTeacher,newCourse);
+        }
     }
-    //TODO : no error
-    emit searchFinished(reply->readAll());
-    delete reply;
+    else{
+        //离线模式
+        //本地资源搜索结果
+        QVector<const Mapping*> courseMappings = mAppModel->coreData()->searchCourseMappings(query,query,query);
+        QJsonObject resultJsonObject;
+        QJsonArray resultJsonArray;
+
+        int searchCount = courseMappings.count();
+        resultJsonObject.insert("count",searchCount);
+        //搜索的课程条目下标上下界
+        //上界不一定能取到
+        const int lowerBound = (page - 1) * PAGE_SIZE , higherBound = page * PAGE_SIZE - 1;
+        for(int i = lowerBound;i < searchCount && i <= higherBound;++i){
+
+            const Mapping* mapping = courseMappings[i];
+            QJsonObject courseJsonObject;
+
+            courseJsonObject.insert("id",mapping->course->id);
+            courseJsonObject.insert("code",mapping->course->code);
+            courseJsonObject.insert("name",mapping->course->name);
+            courseJsonObject.insert("teacher",mapping->teacher->name);
+            courseJsonObject.insert("credit",mapping->course->credit);
+            courseJsonObject.insert("department",mapping->course->department);
+            courseJsonObject.insert("rating",
+                                    QJsonObject({{"avg",mapping->course->ratingAvg},
+                                                 {"count",mapping->course->ratingCount}}));
+
+            resultJsonArray.push_back(courseJsonObject);
+        }
+        resultJsonObject.insert("results",resultJsonArray);
+        replyData = QJsonDocument(resultJsonObject).toJson();
+    }
+
+    emit searchFinished(replyData);
     return true;
 }
 

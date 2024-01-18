@@ -1,48 +1,97 @@
 #ifndef CLIENT_H
 #define CLIENT_H
 #include "inc.h"
-//客户端运行模式 ：
-//在线模式： 所有资源从api获得，同时缓存入本地文件
-//离线模式： 所有资源从缓存文件获得
-//两种模式共享相同的接口
+/*!
+ * \brief 客户端
+ *
+ * 应用的控制器，包含所有核心逻辑。
+*/
 
 class Client : public QObject
 {
-    //客户端类
     Q_OBJECT
 public:
+    /*!
+     * \brief 构造函数
+     * \param app 事件循环对应的QApplication指针
+     */
     explicit Client(QApplication* app);
+
     ~Client();
 public:
-    //切换至主窗口
+
+    /*!
+     * \brief 切换到主窗口
+     */
     void switchMainWindow();
-    //切换至登录窗口
+
+    /*!
+     * \brief 切换到登录窗口
+     */
     void switchLoginWindow();
 
 public slots:
-    //登出
+
+    /*!
+     * \brief 登出
+     */
     void logout();
 
-    //发起内容为query的检索，检索页面page
+    /*!
+     * \brief 查询课程
+     *
+     * 如果为在线模式，请求url : https://course.sjtu.plus/api/search/?q={query}&page={page}&size=20 ;
+     * 如果为离线模式，从本地缓存文件coredata.json中读取资源。
+     *
+     * \param query 查询内容
+     * \param page 查询页面（从1开始）
+     * \return 是否查询成功
+     */
     bool search(const QString& query, int page = 1);
-    //查看课号为courseid的评价，检索页面page
+
+
+    /*!
+     * \brief 查看课程评价
+     *
+     * 如果为在线模式，请求url : https://course.sjtu.plus/api/course/{courseid}/review/?&page={page}&size=20;
+     * 如果为离线模式，从本地缓存文件cache/review_{courseid}_{page}.json中读取资源。
+     *
+     * \param courseid 选课社区使用的课程id
+     * \param page 查询页面（从1开始）
+     * \return 是否查询成功
+     */
     bool checkReview(int courseid, int page = 1);
 
 public:
-    //向服务器发起带有cookies的get请求，
-    //请求成功：返回服务器请求，返回指针指向的内存需要手动释放
-    //请求失败：返回nullptr，发出login()信号
+
+    /*!
+     * \brief 发送带Cookies的GET请求
+     * \param apiUrl 请求的url
+     * \return 如果请求成功，返回服务器的回应(QNetworkReply*)，指针指向的内存需要调用者手动释放；
+     *         如果请求失败，返回nullptr，并发出login信号。
+     */
     QNetworkReply *getWithCookies(const QUrl &apiUrl);
 
 signals:
-    //向MainWindow发送搜索结果,使用JSON格式
+
+    /*!
+     * \brief 查询课程成功后，发送给MainWindow的信号
+     * \param result 查询结果字节流（JSON格式）
+     */
     void searchFinished(QByteArray result);
-    //向MainWindow发送查看选课评价结果，使用JSON格式
+
+    /*!
+     * \brief 查询课程评价成功后，发送给MainWindow的信号
+     * \param result 查询结果字节流（JSON格式）
+     */
     void checkReviewFinished(QByteArray result);
 
 
 private:
-    //根据当前账号密码，自动更新Cookies，返回是否验证成功
+    /*!
+     * \brief 自动更新过期的Cookies
+     * \return 是否更新成功
+     */
     bool autoUpdateCookies();
 
 private:
