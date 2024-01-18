@@ -36,11 +36,13 @@ bool CoreData::readFromJsonObject(const QJsonObject &obj)
         courseMap.insert(course->id,course);
     }
     for(auto it = teachersJsonArray.begin();it != teachersJsonArray.end();++it){
-        Teacher* teacher = addTeacher((*it).toObject()["name"].toString(),(*it).toObject()["pinyin"].toString(),&ok);
+        Teacher* teacher = addTeacher((*it).toObject()["name"].toString());
         if(!ok){
             return false;
         }
         //new teacher added
+        teacher->pinyin = (*it).toObject()["pinyin"].toString();
+        teacher->abbrPinyin = (*it).toObject()["abbrPinyin"].toString();
         //add to teacher map
         teacherMap.insert(teacher->name,teacher);
     }
@@ -78,6 +80,7 @@ QJsonObject CoreData::toJsonObject() const
         QJsonObject teacherJsonObject;
         teacherJsonObject.insert("name",teacher->name);
         teacherJsonObject.insert("pinyin",teacher->pinyin);
+        teacherJsonObject.insert("abbrPinyin",teacher->abbrPinyin);
 
         teachersJsonArray.append(teacherJsonObject);
     }
@@ -120,7 +123,7 @@ void CoreData::writeToFile(const QString &fileName) const
     writer.close();
 }
 
-Teacher *CoreData::addTeacher(const QString &teacherName, const QString &teacherPinyin,bool *ok)
+Teacher *CoreData::addTeacher(const QString &teacherName,bool *ok)
 {
     for(Teacher* teacher: mTeachers){
         if(teacher->name == teacherName){
@@ -131,7 +134,7 @@ Teacher *CoreData::addTeacher(const QString &teacherName, const QString &teacher
             return teacher;
         }
     }
-    Teacher *newTeacher = new Teacher(teacherName,teacherPinyin);
+    Teacher *newTeacher = new Teacher(teacherName);
     mTeachers.push_back(newTeacher);
     if(ok){
         *ok = true;
@@ -197,9 +200,8 @@ QDebug operator<<(QDebug debug, const Teacher &teacher)
     return debug;
 }
 
-Teacher::Teacher(const QString &arg_name, const QString &arg_pinyin)
+Teacher::Teacher(const QString &arg_name)
     : name(arg_name)
-    , pinyin(arg_pinyin)
 {
 
 }
@@ -229,13 +231,17 @@ bool Mapping::operator ==(const Mapping &other) const
     return this->teacher == other.teacher && this->course == other.course;
 }
 
-QVector<const Mapping*> CoreData::searchCourseMappings(const QString& teacherName, const QString& teacherPinyin, const QString& courseName) {
+QVector<const Mapping*> CoreData::searchCourseMappings(const QString& teacherName,
+                                                       const QString& teacherPinyin,
+                                                       const QString &teacherAbbrPinyin,
+                                                       const QString& courseName) {
     QVector<const Mapping*> result;
 
     // 在数据集中搜索匹配条件的courseId
     for (const Mapping& mapping : mMappings){
         if (mapping.teacher->name.contains(teacherName,Qt::CaseInsensitive) ||
             mapping.teacher->pinyin.toLower() == teacherPinyin.toLower() ||
+            mapping.teacher->abbrPinyin.toLower() == teacherAbbrPinyin.toLower() ||
             mapping.course->name.contains(courseName, Qt::CaseInsensitive)){
 
             result.push_back(&mapping);

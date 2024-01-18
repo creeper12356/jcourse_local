@@ -10,8 +10,9 @@ class Teacher {
 public:
     QString name; /*!<教师姓名，目前是教师的唯一标识符（暂时不考虑重名）*/
     QString pinyin; /*!<教师姓名全拼（每个字首字母大写,e.g: ZhangSan）*/
+    QString abbrPinyin; /*!<教师姓名拼音缩写 */
     Teacher(){}
-    Teacher(const QString& name, const QString& pinyin);
+    Teacher(const QString& name);
 };
 
 /*!
@@ -71,13 +72,17 @@ public:
      * \brief 按照关键字搜索课程
      *
      * 按照关键字搜索教师-课程的对应关系，
-     * 目前支持的搜索方式有：教师姓名模糊搜索，教师拼音精确搜索，课程名称模糊搜索。
+     * 目前支持的搜索方式有：教师姓名模糊搜索，教师拼音精确搜索，教师拼音缩写精确搜索，课程名称模糊搜索。
      * \param teacherName 教师姓名搜索关键字
      * \param teacherPinyin 教师拼音搜索关键字
+     * \param teacherAbbrPinyin 教师拼音缩写搜索关键字
      * \param courseName 课程名称搜索关键字
      * \return 所有符合搜索要求的教师-课程关系，存储在一个QVector容器中。
      */
-    QVector<const Mapping*> searchCourseMappings(const QString &teacherName, const QString &teacherPinyin, const QString &courseName);
+    QVector<const Mapping*> searchCourseMappings(const QString &teacherName,
+                                                 const QString &teacherPinyin,
+                                                 const QString &teacherAbbrPinyin,
+                                                 const QString &courseName);
 
     /*!
      * \brief 从QJsonObject对象中读取信息
@@ -110,13 +115,12 @@ public:
     /*!
      * \brief 添加新的教师
      * \param teacherName 新教师姓名
-     * \param teacherPinyin 新教师姓名全拼
      * \param ok 是否添加成功
      * \return 如果数据库中不存在姓名为{teacherName}的教师，将该教师添加到库中，并返回指向新教师的指针；
      * 如果数据库中已经存在姓名为{teacherName}的教师，直接返回指向库中的该教师的指针。
      * 如果参数ok不为nullptr,添加教师是否成功将被写入*ok中。
      */
-    Teacher* addTeacher(const QString& teacherName, const QString& teacherPinyin,bool* ok = nullptr);
+    Teacher* addTeacher(const QString& teacherName,bool* ok = nullptr);
 
     /*!
      * \brief 删除教师

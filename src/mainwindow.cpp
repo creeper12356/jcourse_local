@@ -11,6 +11,7 @@ MainWindow::MainWindow(QWidget *parent)
     ui->search_edit->setPlaceholderText(
                 "搜索课程名/课号/教师姓名/教师姓名拼音"
                 );
+    ui->search_edit->setFocus();
 
     ui->user_head->setMinimumSize(50,50);
     ui->top_layout->setAlignment(Qt::AlignLeft);
