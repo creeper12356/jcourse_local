@@ -1,0 +1,131 @@
+\hypertarget{classPaginationWidget}{}\doxysection{Pagination\+Widget Class Reference}
+\label{classPaginationWidget}\index{PaginationWidget@{PaginationWidget}}
+
+
+分页控件  
+
+
+
+
+{\ttfamily \#include $<$paginationwidget.\+h$>$}
+
+
+
+Inheritance diagram for Pagination\+Widget\+:
+% FIG 0
+
+
+Collaboration diagram for Pagination\+Widget\+:
+% FIG 1
+\doxysubsection*{Signals}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{classPaginationWidget_a75067078be1cca6b08c9c66dfaf81923}{current\+Page\+Changed}} (int page)
+\begin{DoxyCompactList}\small\item\em 当前页数改变的信号 \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classPaginationWidget_a26a592e1b64041551ff4a40380b25a3f}\label{classPaginationWidget_a26a592e1b64041551ff4a40380b25a3f}} 
+{\bfseries Pagination\+Widget} (Q\+Widget $\ast$parent=nullptr)
+\item 
+bool \mbox{\hyperlink{classPaginationWidget_a32a5111ef1c45df161d2184e58885d04}{set\+Count}} (int \mbox{\hyperlink{classPaginationWidget_a234f538ed46d9993de887a39a17a7523}{count}})
+\begin{DoxyCompactList}\small\item\em 设置总页数 \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{classPaginationWidget_ad3629bbe5abf9e45d7ae07287ccd7b7b}{set\+Current}} (int \mbox{\hyperlink{classPaginationWidget_a77e83c2418875cd577d27b0ad832c732}{current}})
+\begin{DoxyCompactList}\small\item\em 设置当前页数 \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classPaginationWidget_a234f538ed46d9993de887a39a17a7523}\label{classPaginationWidget_a234f538ed46d9993de887a39a17a7523}} 
+int \mbox{\hyperlink{classPaginationWidget_a234f538ed46d9993de887a39a17a7523}{count}} () const
+\begin{DoxyCompactList}\small\item\em 总页数 \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classPaginationWidget_a77e83c2418875cd577d27b0ad832c732}\label{classPaginationWidget_a77e83c2418875cd577d27b0ad832c732}} 
+int \mbox{\hyperlink{classPaginationWidget_a77e83c2418875cd577d27b0ad832c732}{current}} () const
+\begin{DoxyCompactList}\small\item\em 当前页数 \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static int \mbox{\hyperlink{classPaginationWidget_a7c15b20c940310840466ef0ac4e3a7f6}{divide\+Total}} (int item\+Count, int item\+Count\+Per\+Page)
+\begin{DoxyCompactList}\small\item\em 计算需要的总页数 \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+分页控件 
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classPaginationWidget_a75067078be1cca6b08c9c66dfaf81923}\label{classPaginationWidget_a75067078be1cca6b08c9c66dfaf81923}} 
+\index{PaginationWidget@{PaginationWidget}!currentPageChanged@{currentPageChanged}}
+\index{currentPageChanged@{currentPageChanged}!PaginationWidget@{PaginationWidget}}
+\doxysubsubsection{\texorpdfstring{currentPageChanged}{currentPageChanged}}
+{\footnotesize\ttfamily void Pagination\+Widget\+::current\+Page\+Changed (\begin{DoxyParamCaption}\item[{int}]{page }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [signal]}}
+
+
+
+当前页数改变的信号 
+
+
+\begin{DoxyParams}{Parameters}
+{\em page} & 当前页数 \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classPaginationWidget_a7c15b20c940310840466ef0ac4e3a7f6}\label{classPaginationWidget_a7c15b20c940310840466ef0ac4e3a7f6}} 
+\index{PaginationWidget@{PaginationWidget}!divideTotal@{divideTotal}}
+\index{divideTotal@{divideTotal}!PaginationWidget@{PaginationWidget}}
+\doxysubsubsection{\texorpdfstring{divideTotal()}{divideTotal()}}
+{\footnotesize\ttfamily int Pagination\+Widget\+::divide\+Total (\begin{DoxyParamCaption}\item[{int}]{item\+Count,  }\item[{int}]{item\+Count\+Per\+Page }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+计算需要的总页数 
+
+\begin{DoxySeeAlso}{See also}
+\mbox{\hyperlink{classPaginationWidget_ad3629bbe5abf9e45d7ae07287ccd7b7b}{set\+Current}} 根据给定的条目总数和每页的条目数，计算需要的总页数，通常与set\+Current函数一起使用。 
+\end{DoxySeeAlso}
+
+\begin{DoxyParams}{Parameters}
+{\em item\+Count} & 条目总数 \\
+\hline
+{\em item\+Count\+Per\+Page} & 每页的条目数 \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+需要的总页数 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classPaginationWidget_a32a5111ef1c45df161d2184e58885d04}\label{classPaginationWidget_a32a5111ef1c45df161d2184e58885d04}} 
+\index{PaginationWidget@{PaginationWidget}!setCount@{setCount}}
+\index{setCount@{setCount}!PaginationWidget@{PaginationWidget}}
+\doxysubsubsection{\texorpdfstring{setCount()}{setCount()}}
+{\footnotesize\ttfamily bool Pagination\+Widget\+::set\+Count (\begin{DoxyParamCaption}\item[{int}]{count }\end{DoxyParamCaption})}
+
+
+
+设置总页数 
+
+
+\begin{DoxyParams}{Parameters}
+{\em count} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+总页数是否发生变化 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classPaginationWidget_ad3629bbe5abf9e45d7ae07287ccd7b7b}\label{classPaginationWidget_ad3629bbe5abf9e45d7ae07287ccd7b7b}} 
+\index{PaginationWidget@{PaginationWidget}!setCurrent@{setCurrent}}
+\index{setCurrent@{setCurrent}!PaginationWidget@{PaginationWidget}}
+\doxysubsubsection{\texorpdfstring{setCurrent()}{setCurrent()}}
+{\footnotesize\ttfamily bool Pagination\+Widget\+::set\+Current (\begin{DoxyParamCaption}\item[{int}]{current }\end{DoxyParamCaption})}
+
+
+
+设置当前页数 
+
+
+\begin{DoxyParams}{Parameters}
+{\em current} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+当前页数是否发生变化 
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+src/paginationwidget.\+h\item 
+src/paginationwidget.\+cpp\end{DoxyCompactItemize}
