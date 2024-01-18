@@ -107,9 +107,9 @@
           <item>
            <layout class="QVBoxLayout" name="course_item_list_layout">
             <item>
-             <widget class="QLabel" name="no_course_label">
+             <widget class="QLabel" name="course_info_label">
               <property name="text">
-               <string>暂无信息</string>
+               <string/>
               </property>
              </widget>
             </item>
@@ -121,9 +121,9 @@
           <item>
            <layout class="QVBoxLayout" name="review_item_list_layout">
             <item>
-             <widget class="QLabel" name="no_review_label">
+             <widget class="QLabel" name="review_info_label">
               <property name="text">
-               <string>暂无点评</string>
+               <string/>
               </property>
              </widget>
             </item>

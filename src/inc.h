@@ -52,6 +52,16 @@
     QUrl(QString("https://course.sjtu.plus/api/course/%1/review/?&page=%2&size=%3")\
     .arg(QString::number(courseid),QString::number(page),QString::number(PAGE_SIZE)))
 
+#define SEARCH_MESSAGE(query, page) \
+    QString("搜索课程：q=%1,page=%2...").arg(query,QString::number(page))
+#define REVIEW_MESSAGE(courseid,page) \
+    QString("查看评价：id=%1,page=%2...").arg(QString::number(courseid),QString::number(page))
+#define COURSE_INFO(courseCount) \
+    (courseCount ? QString("共有%1门课").arg(courseCount) : "暂无数据")
+#define REVIEW_INFO(reviewCount) \
+    (reviewCount ? QString("点评（%1条）").arg(reviewCount) : "暂无点评")
+
+
 //缓存评价文件名
 //int courseid , int page
 #define CACHE_REVIEW_BASENAME(courseid,page) \
