@@ -63,11 +63,18 @@ $(function() {
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pro-slots">Protected Slots</a> &#124;
+<a href="#pri-attribs">Private Attributes</a> &#124;
 <a href="classAbstractListWidget-members.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">AbstractListWidget Class Reference</div>  </div>
+<div class="title">AbstractListWidget Class Reference<span class="mlabels"><span class="mlabel">abstract</span></span></div>  </div>
 </div><!--header-->
 <div class="contents">
+
+<p>列表控件抽象类  
+ <a href="classAbstractListWidget.html#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="abstractlistwidget_8h_source.html">abstractlistwidget.h</a>&gt;</code></p>
 <div class="dynheader">
 Inheritance diagram for AbstractListWidget:</div>
 <div class="dyncontent">
@@ -86,7 +93,138 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a21d16340521047b447278f8356360abb"><td class="memItemLeft" align="right" valign="top"><a id="a21d16340521047b447278f8356360abb"></a>
 &#160;</td><td class="memItemRight" valign="bottom"><b>AbstractListWidget</b> (QWidget *parent=0)</td></tr>
 <tr class="separator:a21d16340521047b447278f8356360abb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abac85d5f1926a7bad8edd4dca623af4e"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAbstractListWidget.html#abac85d5f1926a7bad8edd4dca623af4e">displayResult</a> (QByteArray result)=0</td></tr>
+<tr class="memdesc:abac85d5f1926a7bad8edd4dca623af4e"><td class="mdescLeft">&#160;</td><td class="mdescRight">更新列表视图  <a href="classAbstractListWidget.html#abac85d5f1926a7bad8edd4dca623af4e">More...</a><br /></td></tr>
+<tr class="separator:abac85d5f1926a7bad8edd4dca623af4e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aed04e1bb7f41be8ddba3c3096cc2e9e8"><td class="memItemLeft" align="right" valign="top"><a id="aed04e1bb7f41be8ddba3c3096cc2e9e8"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>addItem</b> (<a class="el" href="classAbstractItem.html">AbstractItem</a> *item)</td></tr>
+<tr class="separator:aed04e1bb7f41be8ddba3c3096cc2e9e8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adcdda9480901ae33d34f6ff0c149bcdb"><td class="memItemLeft" align="right" valign="top"><a id="adcdda9480901ae33d34f6ff0c149bcdb"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAbstractListWidget.html#adcdda9480901ae33d34f6ff0c149bcdb">clear</a> ()</td></tr>
+<tr class="memdesc:adcdda9480901ae33d34f6ff0c149bcdb"><td class="mdescLeft">&#160;</td><td class="mdescRight">移除并回收所有条目 <br /></td></tr>
+<tr class="separator:adcdda9480901ae33d34f6ff0c149bcdb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a32c04bb008a065687a25b51f7b942473"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAbstractListWidget.html#a32c04bb008a065687a25b51f7b942473">setPaginationWidget</a> (<a class="el" href="classPaginationWidget.html">PaginationWidget</a> *widget)</td></tr>
+<tr class="memdesc:a32c04bb008a065687a25b51f7b942473"><td class="mdescLeft">&#160;</td><td class="mdescRight">设置分页控件  <a href="classAbstractListWidget.html#a32c04bb008a065687a25b51f7b942473">More...</a><br /></td></tr>
+<tr class="separator:a32c04bb008a065687a25b51f7b942473"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8690f990c54c3c1ac5969dcd4cb0204c"><td class="memItemLeft" align="right" valign="top"><a id="a8690f990c54c3c1ac5969dcd4cb0204c"></a>
+<a class="el" href="classPaginationWidget.html">PaginationWidget</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAbstractListWidget.html#a8690f990c54c3c1ac5969dcd4cb0204c">paginationWidget</a> ()</td></tr>
+<tr class="memdesc:a8690f990c54c3c1ac5969dcd4cb0204c"><td class="mdescLeft">&#160;</td><td class="mdescRight">返回分页控件的指针 <br /></td></tr>
+<tr class="separator:a8690f990c54c3c1ac5969dcd4cb0204c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-slots"></a>
+Protected Slots</h2></td></tr>
+<tr class="memitem:a2115f406fb6976063ec259e9eb196490"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAbstractListWidget.html#a2115f406fb6976063ec259e9eb196490">itemClickedSlot</a> (QListWidgetItem *item)=0</td></tr>
+<tr class="memdesc:a2115f406fb6976063ec259e9eb196490"><td class="mdescLeft">&#160;</td><td class="mdescRight">条目被点击的槽函数  <a href="classAbstractListWidget.html#a2115f406fb6976063ec259e9eb196490">More...</a><br /></td></tr>
+<tr class="separator:a2115f406fb6976063ec259e9eb196490"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
+Private Attributes</h2></td></tr>
+<tr class="memitem:a0092aa75987a96287a7296d064ab6621"><td class="memItemLeft" align="right" valign="top"><a id="a0092aa75987a96287a7296d064ab6621"></a>
+<a class="el" href="classPaginationWidget.html">PaginationWidget</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>mPaginationWidget</b> = nullptr</td></tr>
+<tr class="separator:a0092aa75987a96287a7296d064ab6621"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>列表控件抽象类 </p>
+<p>Inherits: QListWidget</p>
+<p>Inherited by: <a class="el" href="classCourseListWidget.html" title="课程列表控件">CourseListWidget</a>, <a class="el" href="classReviewListWidget.html" title="课程评价列表控件">ReviewListWidget</a></p>
+<p>列表控件抽象类，支持连接分页控件使用。 </p>
+</div><h2 class="groupheader">Member Function Documentation</h2>
+<a id="abac85d5f1926a7bad8edd4dca623af4e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abac85d5f1926a7bad8edd4dca623af4e">&#9670;&nbsp;</a></span>displayResult()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void AbstractListWidget::displayResult </td>
+          <td>(</td>
+          <td class="paramtype">QByteArray&#160;</td>
+          <td class="paramname"><em>result</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>更新列表视图 </p>
+<p>解析JSON格式字节流，并显示到界面上，该方法需要派生类实现。 </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">result</td><td>待解析的JSON格式字节流 </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Implemented in <a class="el" href="classCourseListWidget.html#ade98cd8999977e6e2041100bd0f90119">CourseListWidget</a>, and <a class="el" href="classReviewListWidget.html#a9ab16ad81eda3b85b7a6f769600b70f3">ReviewListWidget</a>.</p>
+
+</div>
+</div>
+<a id="a2115f406fb6976063ec259e9eb196490"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2115f406fb6976063ec259e9eb196490">&#9670;&nbsp;</a></span>itemClickedSlot</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void AbstractListWidget::itemClickedSlot </td>
+          <td>(</td>
+          <td class="paramtype">QListWidgetItem *&#160;</td>
+          <td class="paramname"><em>item</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span><span class="mlabel">pure virtual</span><span class="mlabel">slot</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>条目被点击的槽函数 </p>
+<p>当列表中的条目被点击时，通过此槽函数作出响应，该方法需要派生类实现。 </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">item</td><td>指向被点击条目的指针 </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a32c04bb008a065687a25b51f7b942473"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a32c04bb008a065687a25b51f7b942473">&#9670;&nbsp;</a></span>setPaginationWidget()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void AbstractListWidget::setPaginationWidget </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classPaginationWidget.html">PaginationWidget</a> *&#160;</td>
+          <td class="paramname"><em>widget</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>设置分页控件 </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">widget</td><td>分页控件的指针 </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
 <hr/>The documentation for this class was generated from the following files:<ul>
 <li>src/<a class="el" href="abstractlistwidget_8h_source.html">abstractlistwidget.h</a></li>
 <li>src/abstractlistwidget.cpp</li>

@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['switchbutton_79',['SwitchButton',['../classSwitchButton.html',1,'']]]
+  ['switchbutton_97',['SwitchButton',['../classSwitchButton.html',1,'']]]
 ];

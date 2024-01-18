@@ -64,11 +64,17 @@ $(function() {
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#pro-methods">Protected Member Functions</a> &#124;
+<a href="#pri-slots">Private Slots</a> &#124;
 <a href="classReviewListWidget-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">ReviewListWidget Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
+
+<p>课程评价列表控件  
+ <a href="classReviewListWidget.html#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="reviewlistwidget_8h_source.html">reviewlistwidget.h</a>&gt;</code></p>
 <div class="dynheader">
 Inheritance diagram for ReviewListWidget:</div>
 <div class="dyncontent">
@@ -87,17 +93,87 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a7ae17a227770dfca205a55abe9abad29"><td class="memItemLeft" align="right" valign="top"><a id="a7ae17a227770dfca205a55abe9abad29"></a>
 &#160;</td><td class="memItemRight" valign="bottom"><b>ReviewListWidget</b> (QWidget *parent=0)</td></tr>
 <tr class="separator:a7ae17a227770dfca205a55abe9abad29"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9ab16ad81eda3b85b7a6f769600b70f3"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classReviewListWidget.html#a9ab16ad81eda3b85b7a6f769600b70f3">displayResult</a> (QByteArray result) override</td></tr>
+<tr class="memdesc:a9ab16ad81eda3b85b7a6f769600b70f3"><td class="mdescLeft">&#160;</td><td class="mdescRight">更新列表视图  <a href="classReviewListWidget.html#a9ab16ad81eda3b85b7a6f769600b70f3">More...</a><br /></td></tr>
+<tr class="separator:a9ab16ad81eda3b85b7a6f769600b70f3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_methods_classAbstractListWidget"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_classAbstractListWidget')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="classAbstractListWidget.html">AbstractListWidget</a></td></tr>
 <tr class="memitem:a21d16340521047b447278f8356360abb inherit pub_methods_classAbstractListWidget"><td class="memItemLeft" align="right" valign="top"><a id="a21d16340521047b447278f8356360abb"></a>
 &#160;</td><td class="memItemRight" valign="bottom"><b>AbstractListWidget</b> (QWidget *parent=0)</td></tr>
 <tr class="separator:a21d16340521047b447278f8356360abb inherit pub_methods_classAbstractListWidget"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aed04e1bb7f41be8ddba3c3096cc2e9e8 inherit pub_methods_classAbstractListWidget"><td class="memItemLeft" align="right" valign="top"><a id="aed04e1bb7f41be8ddba3c3096cc2e9e8"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>addItem</b> (<a class="el" href="classAbstractItem.html">AbstractItem</a> *item)</td></tr>
+<tr class="separator:aed04e1bb7f41be8ddba3c3096cc2e9e8 inherit pub_methods_classAbstractListWidget"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adcdda9480901ae33d34f6ff0c149bcdb inherit pub_methods_classAbstractListWidget"><td class="memItemLeft" align="right" valign="top"><a id="adcdda9480901ae33d34f6ff0c149bcdb"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAbstractListWidget.html#adcdda9480901ae33d34f6ff0c149bcdb">clear</a> ()</td></tr>
+<tr class="memdesc:adcdda9480901ae33d34f6ff0c149bcdb inherit pub_methods_classAbstractListWidget"><td class="mdescLeft">&#160;</td><td class="mdescRight">移除并回收所有条目 <br /></td></tr>
+<tr class="separator:adcdda9480901ae33d34f6ff0c149bcdb inherit pub_methods_classAbstractListWidget"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a32c04bb008a065687a25b51f7b942473 inherit pub_methods_classAbstractListWidget"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAbstractListWidget.html#a32c04bb008a065687a25b51f7b942473">setPaginationWidget</a> (<a class="el" href="classPaginationWidget.html">PaginationWidget</a> *widget)</td></tr>
+<tr class="memdesc:a32c04bb008a065687a25b51f7b942473 inherit pub_methods_classAbstractListWidget"><td class="mdescLeft">&#160;</td><td class="mdescRight">设置分页控件  <a href="classAbstractListWidget.html#a32c04bb008a065687a25b51f7b942473">More...</a><br /></td></tr>
+<tr class="separator:a32c04bb008a065687a25b51f7b942473 inherit pub_methods_classAbstractListWidget"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8690f990c54c3c1ac5969dcd4cb0204c inherit pub_methods_classAbstractListWidget"><td class="memItemLeft" align="right" valign="top"><a id="a8690f990c54c3c1ac5969dcd4cb0204c"></a>
+<a class="el" href="classPaginationWidget.html">PaginationWidget</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAbstractListWidget.html#a8690f990c54c3c1ac5969dcd4cb0204c">paginationWidget</a> ()</td></tr>
+<tr class="memdesc:a8690f990c54c3c1ac5969dcd4cb0204c inherit pub_methods_classAbstractListWidget"><td class="mdescLeft">&#160;</td><td class="mdescRight">返回分页控件的指针 <br /></td></tr>
+<tr class="separator:a8690f990c54c3c1ac5969dcd4cb0204c inherit pub_methods_classAbstractListWidget"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-methods"></a>
 Protected Member Functions</h2></td></tr>
 <tr class="memitem:a9cb069b5c99303b06d9f5d0242653b54"><td class="memItemLeft" align="right" valign="top"><a id="a9cb069b5c99303b06d9f5d0242653b54"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>resizeEvent</b> (QResizeEvent *e)</td></tr>
 <tr class="separator:a9cb069b5c99303b06d9f5d0242653b54"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-slots"></a>
+Private Slots</h2></td></tr>
+<tr class="memitem:a4b67225c6df7fb03bfccf2c4b8bd9f71"><td class="memItemLeft" align="right" valign="top"><a id="a4b67225c6df7fb03bfccf2c4b8bd9f71"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>itemClickedSlot</b> (QListWidgetItem *item) override</td></tr>
+<tr class="separator:a4b67225c6df7fb03bfccf2c4b8bd9f71"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="inherited"></a>
+Additional Inherited Members</h2></td></tr>
+<tr class="inherit_header pro_slots_classAbstractListWidget"><td colspan="2" onclick="javascript:toggleInherit('pro_slots_classAbstractListWidget')"><img src="closed.png" alt="-"/>&#160;Protected Slots inherited from <a class="el" href="classAbstractListWidget.html">AbstractListWidget</a></td></tr>
+<tr class="memitem:a2115f406fb6976063ec259e9eb196490 inherit pro_slots_classAbstractListWidget"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAbstractListWidget.html#a2115f406fb6976063ec259e9eb196490">itemClickedSlot</a> (QListWidgetItem *item)=0</td></tr>
+<tr class="memdesc:a2115f406fb6976063ec259e9eb196490 inherit pro_slots_classAbstractListWidget"><td class="mdescLeft">&#160;</td><td class="mdescRight">条目被点击的槽函数  <a href="classAbstractListWidget.html#a2115f406fb6976063ec259e9eb196490">More...</a><br /></td></tr>
+<tr class="separator:a2115f406fb6976063ec259e9eb196490 inherit pro_slots_classAbstractListWidget"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>课程评价列表控件 </p>
+<p>Inherits: <a class="el" href="classAbstractListWidget.html" title="列表控件抽象类">AbstractListWidget</a> </p>
+</div><h2 class="groupheader">Member Function Documentation</h2>
+<a id="a9ab16ad81eda3b85b7a6f769600b70f3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9ab16ad81eda3b85b7a6f769600b70f3">&#9670;&nbsp;</a></span>displayResult()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void ReviewListWidget::displayResult </td>
+          <td>(</td>
+          <td class="paramtype">QByteArray&#160;</td>
+          <td class="paramname"><em>result</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>更新列表视图 </p>
+<p>解析JSON格式字节流，并显示到界面上，该方法需要派生类实现。 </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">result</td><td>待解析的JSON格式字节流 </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Implements <a class="el" href="classAbstractListWidget.html#abac85d5f1926a7bad8edd4dca623af4e">AbstractListWidget</a>.</p>
+
+</div>
+</div>
 <hr/>The documentation for this class was generated from the following files:<ul>
 <li>src/<a class="el" href="reviewlistwidget_8h_source.html">reviewlistwidget.h</a></li>
 <li>src/reviewlistwidget.cpp</li>

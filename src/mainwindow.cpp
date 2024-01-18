@@ -1,13 +1,12 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
-#include "courseitem.h"
-#include "reviewitem.h"
 
 MainWindow::MainWindow(QWidget *parent)
     :QMainWindow(parent)
     ,ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+
     ui->search_edit->setPlaceholderText(
                 "搜索课程名/课号/教师姓名/教师姓名拼音"
                 );
@@ -15,9 +14,18 @@ MainWindow::MainWindow(QWidget *parent)
     ui->user_head->setMinimumSize(50,50);
     ui->top_layout->setAlignment(Qt::AlignLeft);
 
+    ui->course_item_list->setPaginationWidget(ui->course_page_widget);
+    ui->review_item_list->setPaginationWidget(ui->review_page_widget);
+
+    ui->no_course_label->setAlignment(Qt::AlignCenter);
+    ui->no_review_label->setAlignment(Qt::AlignCenter);
+    ui->no_course_label->hide();
+    ui->no_review_label->hide();
+
     ui->switch_button->setFixedSize(70,30);
     ui->switch_button->setTextOn("在线");
     ui->switch_button->setTextOff("离线");
+
     connect(ui->switch_button,&SwitchButton::statusChanged,this,&MainWindow::changeOnline);
 
     connect(ui->search_button,&QPushButton::clicked,this,&MainWindow::searchBarTriggered);
@@ -33,12 +41,8 @@ MainWindow::MainWindow(QWidget *parent)
 MainWindow::~MainWindow()
 {
     qDebug() << "delete items";
-    while(ui->course_item_list->count() > 0){
-        delete ui->course_item_list->takeItem(0);
-    }
-    while(ui->review_item_list->count() > 0){
-        delete ui->review_item_list->takeItem(0);
-    }
+    ui->course_item_list->clear();
+    ui->review_item_list->clear();
 
     qDebug() << "delete ui";
     delete ui;
@@ -89,33 +93,31 @@ void MainWindow::checkReviewPageTriggered(int page)
 void MainWindow::displaySearchResult(QByteArray result)
 {
     QJsonObject resultJsonObject = QJsonDocument::fromJson(result).object();
-    QJsonArray resultsJsonArray = resultJsonObject["results"].toArray();
-    while(ui->course_item_list->count() > 0){
-        delete ui->course_item_list->takeItem(0);
+    if(resultJsonObject["count"].toInt()){
+        ui->no_course_label->hide();
+        ui->course_item_list->show();
+    }
+    else{
+        ui->no_course_label->show();
+        ui->course_item_list->hide();
     }
 
-    for(auto it = resultsJsonArray.begin();it != resultsJsonArray.end(); ++it){
-        CourseItem *newItem = new CourseItem;
-        newItem->updateItemInfo((*it).toObject());
-        newItem->addToList(ui->course_item_list);
-    }
-    ui->course_page_widget->setCount(PaginationWidget::divideTotal(resultJsonObject["count"].toInt(),PAGE_SIZE));
+    ui->course_item_list->displayResult(resultJsonObject);
 }
 
 void MainWindow::displayCheckReviewResult(QByteArray result)
 {
     QJsonObject resultJsonObject = QJsonDocument::fromJson(result).object();
-    QJsonArray resultsJsonArray = resultJsonObject["results"].toArray();
-    while(ui->review_item_list->count() > 0){
-        delete ui->review_item_list->takeItem(0);
+    if(resultJsonObject["count"].toInt()){
+        ui->no_review_label->hide();
+        ui->review_item_list->show();
+    }
+    else{
+        ui->no_review_label->show();
+        ui->review_item_list->hide();
     }
 
-    for(auto it = resultsJsonArray.begin();it != resultsJsonArray.end(); ++it){
-        ReviewItem *newItem = new ReviewItem;
-        newItem->updateItemInfo((*it).toObject());
-        newItem->addToList(ui->review_item_list);
-    }
-    ui->review_page_widget->setCount(PaginationWidget::divideTotal(resultJsonObject["count"].toInt(),PAGE_SIZE));
+    ui->review_item_list->displayResult(resultJsonObject);
 }
 
 void MainWindow::userNameChangedSlot(QString userName)

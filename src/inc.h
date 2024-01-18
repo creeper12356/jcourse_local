@@ -11,6 +11,7 @@
 #include <QHBoxLayout>
 #include <QVBoxLayout>
 #include <QListWidgetItem>
+#include <QListWidget>
 #include <QComboBox>
 
 #include <QEventLoop>
@@ -62,5 +63,6 @@ class Account;
 class MyNetworkCookieJar;
 class AppModel;
 class PaginationWidget;
+class AbstractItem;
 
 #endif // INC_H

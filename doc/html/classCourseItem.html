@@ -63,11 +63,17 @@ $(function() {
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pri-attribs">Private Attributes</a> &#124;
 <a href="classCourseItem-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">CourseItem Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
+
+<p>课程条目  
+ <a href="classCourseItem.html#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="courseitem_8h_source.html">courseitem.h</a>&gt;</code></p>
 <div class="dynheader">
 Inheritance diagram for CourseItem:</div>
 <div class="dyncontent">
@@ -83,24 +89,76 @@ Collaboration diagram for CourseItem:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a89cf2550921f7446ca5156d2c4a17c75"><td class="memItemLeft" align="right" valign="top"><a id="a89cf2550921f7446ca5156d2c4a17c75"></a>
-virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>updateItemInfo</b> (const QJsonObject &amp;courseJsonObject) override</td></tr>
+<tr class="memitem:a89cf2550921f7446ca5156d2c4a17c75"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCourseItem.html#a89cf2550921f7446ca5156d2c4a17c75">updateItemInfo</a> (const QJsonObject &amp;courseJsonObject) override</td></tr>
+<tr class="memdesc:a89cf2550921f7446ca5156d2c4a17c75"><td class="mdescLeft">&#160;</td><td class="mdescRight">更新条目显示的信息  <a href="classCourseItem.html#a89cf2550921f7446ca5156d2c4a17c75">More...</a><br /></td></tr>
 <tr class="separator:a89cf2550921f7446ca5156d2c4a17c75"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a71739b069c69308170738c67b2d38883"><td class="memItemLeft" align="right" valign="top"><a id="a71739b069c69308170738c67b2d38883"></a>
 int&#160;</td><td class="memItemRight" valign="bottom"><b>courseid</b> () const</td></tr>
 <tr class="separator:a71739b069c69308170738c67b2d38883"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_methods_classAbstractItem"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_classAbstractItem')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="classAbstractItem.html">AbstractItem</a></td></tr>
-<tr class="memitem:a17b0674e73ffffe94dc60c6c57a60225 inherit pub_methods_classAbstractItem"><td class="memItemLeft" align="right" valign="top"><a id="a17b0674e73ffffe94dc60c6c57a60225"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>addToList</b> (QListWidget *list)</td></tr>
-<tr class="separator:a17b0674e73ffffe94dc60c6c57a60225 inherit pub_methods_classAbstractItem"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:affe001d5d4b85565963a6e7805e40b03 inherit pub_methods_classAbstractItem"><td class="memItemLeft" align="right" valign="top"><a id="affe001d5d4b85565963a6e7805e40b03"></a>
+QWidget *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAbstractItem.html#affe001d5d4b85565963a6e7805e40b03">widget</a> ()</td></tr>
+<tr class="memdesc:affe001d5d4b85565963a6e7805e40b03 inherit pub_methods_classAbstractItem"><td class="mdescLeft">&#160;</td><td class="mdescRight">显示窗口部件 <br /></td></tr>
+<tr class="separator:affe001d5d4b85565963a6e7805e40b03 inherit pub_methods_classAbstractItem"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="inherited"></a>
-Additional Inherited Members</h2></td></tr>
-<tr class="inherit_header pro_methods_classAbstractItem"><td colspan="2" onclick="javascript:toggleInherit('pro_methods_classAbstractItem')"><img src="closed.png" alt="-"/>&#160;Protected Member Functions inherited from <a class="el" href="classAbstractItem.html">AbstractItem</a></td></tr>
-<tr class="memitem:affe001d5d4b85565963a6e7805e40b03 inherit pro_methods_classAbstractItem"><td class="memItemLeft" align="right" valign="top"><a id="affe001d5d4b85565963a6e7805e40b03"></a>
-QWidget *&#160;</td><td class="memItemRight" valign="bottom"><b>widget</b> ()</td></tr>
-<tr class="separator:affe001d5d4b85565963a6e7805e40b03 inherit pro_methods_classAbstractItem"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
+Private Attributes</h2></td></tr>
+<tr class="memitem:a9caac1fd6d0bfc262942b80f825c0601"><td class="memItemLeft" align="right" valign="top"><a id="a9caac1fd6d0bfc262942b80f825c0601"></a>
+QLabel *&#160;</td><td class="memItemRight" valign="bottom"><b>mTitleLabel</b> = nullptr</td></tr>
+<tr class="separator:a9caac1fd6d0bfc262942b80f825c0601"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a44b2a7f261d26b88a4da960700338428"><td class="memItemLeft" align="right" valign="top"><a id="a44b2a7f261d26b88a4da960700338428"></a>
+QLabel *&#160;</td><td class="memItemRight" valign="bottom"><b>mDetailLabel</b> = nullptr</td></tr>
+<tr class="separator:a44b2a7f261d26b88a4da960700338428"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1bbef23361c5685010d68d0d110a875f"><td class="memItemLeft" align="right" valign="top"><a id="a1bbef23361c5685010d68d0d110a875f"></a>
+QLabel *&#160;</td><td class="memItemRight" valign="bottom"><b>mRatingAvgLabel</b> = nullptr</td></tr>
+<tr class="separator:a1bbef23361c5685010d68d0d110a875f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad4c1b1952fdfffae848f4bbb3ec416f2"><td class="memItemLeft" align="right" valign="top"><a id="ad4c1b1952fdfffae848f4bbb3ec416f2"></a>
+QLabel *&#160;</td><td class="memItemRight" valign="bottom"><b>mRatingCountLabel</b> = nullptr</td></tr>
+<tr class="separator:ad4c1b1952fdfffae848f4bbb3ec416f2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8cecb51793b098bb7b4638cd3343ec8b"><td class="memItemLeft" align="right" valign="top"><a id="a8cecb51793b098bb7b4638cd3343ec8b"></a>
+int&#160;</td><td class="memItemRight" valign="bottom"><b>mCourseid</b></td></tr>
+<tr class="separator:a8cecb51793b098bb7b4638cd3343ec8b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>课程条目 </p>
+<p>Inherits: <a class="el" href="classAbstractItem.html" title="列表条目抽象类">AbstractItem</a> </p>
+</div><h2 class="groupheader">Member Function Documentation</h2>
+<a id="a89cf2550921f7446ca5156d2c4a17c75"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a89cf2550921f7446ca5156d2c4a17c75">&#9670;&nbsp;</a></span>updateItemInfo()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void CourseItem::updateItemInfo </td>
+          <td>(</td>
+          <td class="paramtype">const QJsonObject &amp;&#160;</td>
+          <td class="paramname"><em>jsonObject</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>更新条目显示的信息 </p>
+<p>解析QJsonObject对象，并显示到界面上。 </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">jsonObject</td><td>待解析的QJsonObject对象 </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Implements <a class="el" href="classAbstractItem.html#aa33291647da0a56887428f555d814c82">AbstractItem</a>.</p>
+
+</div>
+</div>
 <hr/>The documentation for this class was generated from the following files:<ul>
 <li>src/<a class="el" href="courseitem_8h_source.html">courseitem.h</a></li>
 <li>src/courseitem.cpp</li>

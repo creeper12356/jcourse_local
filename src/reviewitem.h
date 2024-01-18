@@ -4,9 +4,13 @@
 #include "inc.h"
 #include "abstractitem.h"
 
+/*!
+ * \brief 课程评价条目
+ *
+ * Inherits: AbstractItem
+ */
 class ReviewItem : public AbstractItem
 {
-    //评价条目
 public:
     ReviewItem();
     virtual ~ReviewItem();

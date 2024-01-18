@@ -2,6 +2,15 @@
 \label{classReviewItem}\index{ReviewItem@{ReviewItem}}
 
 
+课程评价条目  
+
+
+
+
+{\ttfamily \#include $<$reviewitem.\+h$>$}
+
+
+
 Inheritance diagram for Review\+Item\+:
 % FIG 0
 
@@ -11,13 +20,62 @@ Collaboration diagram for Review\+Item\+:
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\Hypertarget{classReviewItem_a263970240bac800363fcaf5b78af78cd}\label{classReviewItem_a263970240bac800363fcaf5b78af78cd}} 
-virtual void {\bfseries update\+Item\+Info} (const Q\+Json\+Object \&review\+Json\+Object) override
-\item 
+virtual void \mbox{\hyperlink{classReviewItem_a263970240bac800363fcaf5b78af78cd}{update\+Item\+Info}} (const Q\+Json\+Object \&review\+Json\+Object) override
+\begin{DoxyCompactList}\small\item\em 更新条目显示的信息 \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{classReviewItem_aa05291b36a253283e86a62c3817716c2}\label{classReviewItem_aa05291b36a253283e86a62c3817716c2}} 
 int {\bfseries reviewid} () const
 \end{DoxyCompactItemize}
-\doxysubsection*{Additional Inherited Members}
+\doxysubsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classReviewItem_ac4bbc6be6e9dc0c0fb2aad7bacf42ed9}\label{classReviewItem_ac4bbc6be6e9dc0c0fb2aad7bacf42ed9}} 
+Q\+Label $\ast$ {\bfseries m\+Rating\+Label} = nullptr
+\item 
+\mbox{\Hypertarget{classReviewItem_aed0d849ea8c297152049e9cd196b268c}\label{classReviewItem_aed0d849ea8c297152049e9cd196b268c}} 
+Q\+Label $\ast$ {\bfseries m\+Semester\+Label} = nullptr
+\item 
+\mbox{\Hypertarget{classReviewItem_a42901ca5c9d64570cd9e6bc98a0200dd}\label{classReviewItem_a42901ca5c9d64570cd9e6bc98a0200dd}} 
+Q\+Label $\ast$ {\bfseries m\+Score\+Label} = nullptr
+\item 
+\mbox{\Hypertarget{classReviewItem_a6cda5a871b55c6c987ac0abc2d8ccf16}\label{classReviewItem_a6cda5a871b55c6c987ac0abc2d8ccf16}} 
+Q\+Text\+Browser $\ast$ {\bfseries m\+Comment\+Browser} = nullptr
+\item 
+\mbox{\Hypertarget{classReviewItem_ac4aefce7796b4acc70b43db0cac83c10}\label{classReviewItem_ac4aefce7796b4acc70b43db0cac83c10}} 
+Q\+Label $\ast$ {\bfseries m\+Time\+Label} = nullptr
+\item 
+\mbox{\Hypertarget{classReviewItem_a58c281d9985a55393e00d553418321e8}\label{classReviewItem_a58c281d9985a55393e00d553418321e8}} 
+Q\+Label $\ast$ {\bfseries m\+Reaction\+Label} = nullptr
+\item 
+\mbox{\Hypertarget{classReviewItem_aa93be02ce9cc948501cafc957bdb3e2b}\label{classReviewItem_aa93be02ce9cc948501cafc957bdb3e2b}} 
+int {\bfseries m\+Reviewid}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+课程评价条目 
+
+Inherits\+: \mbox{\hyperlink{classAbstractItem}{Abstract\+Item}} 
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classReviewItem_a263970240bac800363fcaf5b78af78cd}\label{classReviewItem_a263970240bac800363fcaf5b78af78cd}} 
+\index{ReviewItem@{ReviewItem}!updateItemInfo@{updateItemInfo}}
+\index{updateItemInfo@{updateItemInfo}!ReviewItem@{ReviewItem}}
+\doxysubsubsection{\texorpdfstring{updateItemInfo()}{updateItemInfo()}}
+{\footnotesize\ttfamily void Review\+Item\+::update\+Item\+Info (\begin{DoxyParamCaption}\item[{const Q\+Json\+Object \&}]{json\+Object }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+更新条目显示的信息 
+
+解析\+Q\+Json\+Object对象，并显示到界面上。 
+\begin{DoxyParams}{Parameters}
+{\em json\+Object} & 待解析的\+Q\+Json\+Object对象 \\
+\hline
+\end{DoxyParams}
+
+
+Implements \mbox{\hyperlink{classAbstractItem_aa33291647da0a56887428f555d814c82}{Abstract\+Item}}.
+
 
 
 The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}

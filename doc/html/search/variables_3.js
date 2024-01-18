@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['fulldict_364',['fullDict',['../pinyin_8cpp.html#ad7752746eeec4ad0633877eecb3a471c',1,'pinyin.cpp']]]
+  ['pinyin_164',['pinyin',['../classTeacher.html#ab614786a174adf2b49431a2d8cefd824',1,'Teacher']]]
 ];

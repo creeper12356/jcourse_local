@@ -75,32 +75,32 @@ $(function() {
 <div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &quot;inc.h&quot;</span></div>
 <div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &quot;abstractitem.h&quot;</span></div>
 <div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160; </div>
-<div class="line"><a name="l00007"></a><span class="lineno"><a class="line" href="classReviewItem.html">    7</a></span>&#160;<span class="keyword">class </span><a class="code" href="classReviewItem.html">ReviewItem</a> : <span class="keyword">public</span> <a class="code" href="classAbstractItem.html">AbstractItem</a></div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;{</div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;    <span class="comment">//评价条目</span></div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;    <a class="code" href="classReviewItem.html">ReviewItem</a>();</div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;    <span class="keyword">virtual</span> ~<a class="code" href="classReviewItem.html">ReviewItem</a>();</div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> updateItemInfo(<span class="keyword">const</span> QJsonObject &amp;reviewJsonObject) <span class="keyword">override</span>;</div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;    <span class="comment">//将条目添加到列表list</span></div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;    <span class="keywordtype">int</span> reviewid() <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160; </div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="keyword">private</span>:</div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;    QLabel *mRatingLabel = <span class="keyword">nullptr</span>;</div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;    QLabel *mSemesterLabel = <span class="keyword">nullptr</span>;</div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;    QLabel *mScoreLabel = <span class="keyword">nullptr</span>;</div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;    QTextBrowser* mCommentBrowser = <span class="keyword">nullptr</span>;</div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;    QLabel *mTimeLabel = <span class="keyword">nullptr</span>;</div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;    QLabel *mReactionLabel = <span class="keyword">nullptr</span>;</div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="keyword">private</span>:</div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    <span class="keywordtype">int</span> mReviewid;</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;};</div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160; </div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;<span class="preprocessor">#endif // REVIEWITEM_H</span></div>
+<div class="line"><a name="l00012"></a><span class="lineno"><a class="line" href="classReviewItem.html">   12</a></span>&#160;<span class="keyword">class </span><a class="code" href="classReviewItem.html">ReviewItem</a> : <span class="keyword">public</span> <a class="code" href="classAbstractItem.html">AbstractItem</a></div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;{</div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;    <a class="code" href="classReviewItem.html">ReviewItem</a>();</div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;    <span class="keyword">virtual</span> ~<a class="code" href="classReviewItem.html">ReviewItem</a>();</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classReviewItem.html#a263970240bac800363fcaf5b78af78cd">updateItemInfo</a>(<span class="keyword">const</span> QJsonObject &amp;reviewJsonObject) <span class="keyword">override</span>;</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;    <span class="comment">//将条目添加到列表list</span></div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;    <span class="keywordtype">int</span> reviewid() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160; </div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;    QLabel *mRatingLabel = <span class="keyword">nullptr</span>;</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;    QLabel *mSemesterLabel = <span class="keyword">nullptr</span>;</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;    QLabel *mScoreLabel = <span class="keyword">nullptr</span>;</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    QTextBrowser* mCommentBrowser = <span class="keyword">nullptr</span>;</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;    QLabel *mTimeLabel = <span class="keyword">nullptr</span>;</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;    QLabel *mReactionLabel = <span class="keyword">nullptr</span>;</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;    <span class="keywordtype">int</span> mReviewid;</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;};</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160; </div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;<span class="preprocessor">#endif // REVIEWITEM_H</span></div>
 </div><!-- fragment --></div><!-- contents -->
-<div class="ttc" id="aclassReviewItem_html"><div class="ttname"><a href="classReviewItem.html">ReviewItem</a></div><div class="ttdef"><b>Definition:</b> reviewitem.h:7</div></div>
-<div class="ttc" id="aclassAbstractItem_html"><div class="ttname"><a href="classAbstractItem.html">AbstractItem</a></div><div class="ttdef"><b>Definition:</b> abstractitem.h:5</div></div>
+<div class="ttc" id="aclassReviewItem_html_a263970240bac800363fcaf5b78af78cd"><div class="ttname"><a href="classReviewItem.html#a263970240bac800363fcaf5b78af78cd">ReviewItem::updateItemInfo</a></div><div class="ttdeci">virtual void updateItemInfo(const QJsonObject &amp;reviewJsonObject) override</div><div class="ttdoc">更新条目显示的信息</div><div class="ttdef"><b>Definition:</b> reviewitem.cpp:34</div></div>
+<div class="ttc" id="aclassReviewItem_html"><div class="ttname"><a href="classReviewItem.html">ReviewItem</a></div><div class="ttdoc">课程评价条目</div><div class="ttdef"><b>Definition:</b> reviewitem.h:12</div></div>
+<div class="ttc" id="aclassAbstractItem_html"><div class="ttname"><a href="classAbstractItem.html">AbstractItem</a></div><div class="ttdoc">列表条目抽象类</div><div class="ttdef"><b>Definition:</b> abstractitem.h:12</div></div>
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
 Generated by &#160;<a href="http://www.doxygen.org/index.html">

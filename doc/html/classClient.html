@@ -65,6 +65,8 @@ $(function() {
 <a href="#pub-slots">Public Slots</a> &#124;
 <a href="#signals">Signals</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pri-methods">Private Member Functions</a> &#124;
+<a href="#pri-attribs">Private Attributes</a> &#124;
 <a href="classClient-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">Client Class Reference</div>  </div>
@@ -126,6 +128,33 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 <tr class="memitem:adee3c0166ff137826ca0ce4fb94cddf5"><td class="memItemLeft" align="right" valign="top">QNetworkReply *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classClient.html#adee3c0166ff137826ca0ce4fb94cddf5">getWithCookies</a> (const QUrl &amp;apiUrl)</td></tr>
 <tr class="memdesc:adee3c0166ff137826ca0ce4fb94cddf5"><td class="mdescLeft">&#160;</td><td class="mdescRight">发送带Cookies的GET请求  <a href="classClient.html#adee3c0166ff137826ca0ce4fb94cddf5">More...</a><br /></td></tr>
 <tr class="separator:adee3c0166ff137826ca0ce4fb94cddf5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-methods"></a>
+Private Member Functions</h2></td></tr>
+<tr class="memitem:a74c076d191354c69dd8c4c253d38d366"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classClient.html#a74c076d191354c69dd8c4c253d38d366">autoUpdateCookies</a> ()</td></tr>
+<tr class="memdesc:a74c076d191354c69dd8c4c253d38d366"><td class="mdescLeft">&#160;</td><td class="mdescRight">自动更新过期的Cookies  <a href="classClient.html#a74c076d191354c69dd8c4c253d38d366">More...</a><br /></td></tr>
+<tr class="separator:a74c076d191354c69dd8c4c253d38d366"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
+Private Attributes</h2></td></tr>
+<tr class="memitem:a434015e4a3bc0fdeac6f18b016b5531e"><td class="memItemLeft" align="right" valign="top"><a id="a434015e4a3bc0fdeac6f18b016b5531e"></a>
+<a class="el" href="classLoginWindow.html">LoginWindow</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>mLoginWindow</b> = nullptr</td></tr>
+<tr class="separator:a434015e4a3bc0fdeac6f18b016b5531e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad1b4c3129309841c6d3079ddbe527cfd"><td class="memItemLeft" align="right" valign="top"><a id="ad1b4c3129309841c6d3079ddbe527cfd"></a>
+<a class="el" href="classMainWindow.html">MainWindow</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>mMainWindow</b> = nullptr</td></tr>
+<tr class="separator:ad1b4c3129309841c6d3079ddbe527cfd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a030c3b979c22e109defc6bb5c283b299"><td class="memItemLeft" align="right" valign="top"><a id="a030c3b979c22e109defc6bb5c283b299"></a>
+QApplication *&#160;</td><td class="memItemRight" valign="bottom"><b>mApp</b> = nullptr</td></tr>
+<tr class="separator:a030c3b979c22e109defc6bb5c283b299"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a469d08f799e0f6e01549e93014bbf1d0"><td class="memItemLeft" align="right" valign="top"><a id="a469d08f799e0f6e01549e93014bbf1d0"></a>
+QEventLoop *&#160;</td><td class="memItemRight" valign="bottom"><b>mEventLoop</b> = nullptr</td></tr>
+<tr class="separator:a469d08f799e0f6e01549e93014bbf1d0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa51dcec65297c0a972ebf236f22ffba9"><td class="memItemLeft" align="right" valign="top"><a id="aa51dcec65297c0a972ebf236f22ffba9"></a>
+QNetworkAccessManager *&#160;</td><td class="memItemRight" valign="bottom"><b>mManager</b> = nullptr</td></tr>
+<tr class="separator:aa51dcec65297c0a972ebf236f22ffba9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a75e1cdadc0f096a617c4ab9c01b8ef35"><td class="memItemLeft" align="right" valign="top"><a id="a75e1cdadc0f096a617c4ab9c01b8ef35"></a>
+<a class="el" href="classAppModel.html">AppModel</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>mAppModel</b> = nullptr</td></tr>
+<tr class="separator:a75e1cdadc0f096a617c4ab9c01b8ef35"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>客户端 </p>
@@ -166,6 +195,34 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
+<a id="a74c076d191354c69dd8c4c253d38d366"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a74c076d191354c69dd8c4c253d38d366">&#9670;&nbsp;</a></span>autoUpdateCookies()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool Client::autoUpdateCookies </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>自动更新过期的Cookies </p>
+<dl class="section return"><dt>Returns</dt><dd>是否更新成功 </dd></dl>
+
+</div>
+</div>
 <a id="a1ecb21b6553ba88568dac3e06ac6e010"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a1ecb21b6553ba88568dac3e06ac6e010">&#9670;&nbsp;</a></span>checkReview</h2>
 

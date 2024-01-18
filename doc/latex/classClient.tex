@@ -47,6 +47,32 @@ void \mbox{\hyperlink{classClient_aed689c9c914db43e1a24970b6fb1628f}{switch\+Log
 \begin{DoxyCompactList}\small\item\em 切换到登录窗口 \end{DoxyCompactList}\item 
 Q\+Network\+Reply $\ast$ \mbox{\hyperlink{classClient_adee3c0166ff137826ca0ce4fb94cddf5}{get\+With\+Cookies}} (const Q\+Url \&api\+Url)
 \begin{DoxyCompactList}\small\item\em 发送带\+Cookies的\+G\+E\+T请求 \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Private Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+bool \mbox{\hyperlink{classClient_a74c076d191354c69dd8c4c253d38d366}{auto\+Update\+Cookies}} ()
+\begin{DoxyCompactList}\small\item\em 自动更新过期的\+Cookies \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classClient_a434015e4a3bc0fdeac6f18b016b5531e}\label{classClient_a434015e4a3bc0fdeac6f18b016b5531e}} 
+\mbox{\hyperlink{classLoginWindow}{Login\+Window}} $\ast$ {\bfseries m\+Login\+Window} = nullptr
+\item 
+\mbox{\Hypertarget{classClient_ad1b4c3129309841c6d3079ddbe527cfd}\label{classClient_ad1b4c3129309841c6d3079ddbe527cfd}} 
+\mbox{\hyperlink{classMainWindow}{Main\+Window}} $\ast$ {\bfseries m\+Main\+Window} = nullptr
+\item 
+\mbox{\Hypertarget{classClient_a030c3b979c22e109defc6bb5c283b299}\label{classClient_a030c3b979c22e109defc6bb5c283b299}} 
+Q\+Application $\ast$ {\bfseries m\+App} = nullptr
+\item 
+\mbox{\Hypertarget{classClient_a469d08f799e0f6e01549e93014bbf1d0}\label{classClient_a469d08f799e0f6e01549e93014bbf1d0}} 
+Q\+Event\+Loop $\ast$ {\bfseries m\+Event\+Loop} = nullptr
+\item 
+\mbox{\Hypertarget{classClient_aa51dcec65297c0a972ebf236f22ffba9}\label{classClient_aa51dcec65297c0a972ebf236f22ffba9}} 
+Q\+Network\+Access\+Manager $\ast$ {\bfseries m\+Manager} = nullptr
+\item 
+\mbox{\Hypertarget{classClient_a75e1cdadc0f096a617c4ab9c01b8ef35}\label{classClient_a75e1cdadc0f096a617c4ab9c01b8ef35}} 
+\mbox{\hyperlink{classAppModel}{App\+Model}} $\ast$ {\bfseries m\+App\+Model} = nullptr
+\end{DoxyCompactItemize}
 
 
 \doxysubsection{Detailed Description}
@@ -73,6 +99,19 @@ Q\+Network\+Reply $\ast$ \mbox{\hyperlink{classClient_adee3c0166ff137826ca0ce4fb
 
 
 \doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classClient_a74c076d191354c69dd8c4c253d38d366}\label{classClient_a74c076d191354c69dd8c4c253d38d366}} 
+\index{Client@{Client}!autoUpdateCookies@{autoUpdateCookies}}
+\index{autoUpdateCookies@{autoUpdateCookies}!Client@{Client}}
+\doxysubsubsection{\texorpdfstring{autoUpdateCookies()}{autoUpdateCookies()}}
+{\footnotesize\ttfamily bool Client\+::auto\+Update\+Cookies (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+自动更新过期的\+Cookies 
+
+\begin{DoxyReturn}{Returns}
+是否更新成功 
+\end{DoxyReturn}
 \mbox{\Hypertarget{classClient_a1ecb21b6553ba88568dac3e06ac6e010}\label{classClient_a1ecb21b6553ba88568dac3e06ac6e010}} 
 \index{Client@{Client}!checkReview@{checkReview}}
 \index{checkReview@{checkReview}!Client@{Client}}

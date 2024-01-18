@@ -63,12 +63,17 @@ $(function() {
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="#pro-methods">Protected Member Functions</a> &#124;
+<a href="#pri-attribs">Private Attributes</a> &#124;
 <a href="classAbstractItem-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">AbstractItem Class Reference<span class="mlabels"><span class="mlabel">abstract</span></span></div>  </div>
 </div><!--header-->
 <div class="contents">
+
+<p>列表条目抽象类  
+ <a href="classAbstractItem.html#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="abstractitem_8h_source.html">abstractitem.h</a>&gt;</code></p>
 <div class="dynheader">
 Inheritance diagram for AbstractItem:</div>
 <div class="dyncontent">
@@ -82,19 +87,62 @@ Collaboration diagram for AbstractItem:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:aa33291647da0a56887428f555d814c82"><td class="memItemLeft" align="right" valign="top"><a id="aa33291647da0a56887428f555d814c82"></a>
-virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>updateItemInfo</b> (const QJsonObject &amp;jsonObject)=0</td></tr>
+<tr class="memitem:aa33291647da0a56887428f555d814c82"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAbstractItem.html#aa33291647da0a56887428f555d814c82">updateItemInfo</a> (const QJsonObject &amp;jsonObject)=0</td></tr>
+<tr class="memdesc:aa33291647da0a56887428f555d814c82"><td class="mdescLeft">&#160;</td><td class="mdescRight">更新条目显示的信息  <a href="classAbstractItem.html#aa33291647da0a56887428f555d814c82">More...</a><br /></td></tr>
 <tr class="separator:aa33291647da0a56887428f555d814c82"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a17b0674e73ffffe94dc60c6c57a60225"><td class="memItemLeft" align="right" valign="top"><a id="a17b0674e73ffffe94dc60c6c57a60225"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>addToList</b> (QListWidget *list)</td></tr>
-<tr class="separator:a17b0674e73ffffe94dc60c6c57a60225"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-methods"></a>
-Protected Member Functions</h2></td></tr>
 <tr class="memitem:affe001d5d4b85565963a6e7805e40b03"><td class="memItemLeft" align="right" valign="top"><a id="affe001d5d4b85565963a6e7805e40b03"></a>
-QWidget *&#160;</td><td class="memItemRight" valign="bottom"><b>widget</b> ()</td></tr>
+QWidget *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAbstractItem.html#affe001d5d4b85565963a6e7805e40b03">widget</a> ()</td></tr>
+<tr class="memdesc:affe001d5d4b85565963a6e7805e40b03"><td class="mdescLeft">&#160;</td><td class="mdescRight">显示窗口部件 <br /></td></tr>
 <tr class="separator:affe001d5d4b85565963a6e7805e40b03"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
+Private Attributes</h2></td></tr>
+<tr class="memitem:a18b97ea46e82f39e15be92aa7a52e10e"><td class="memItemLeft" align="right" valign="top"><a id="a18b97ea46e82f39e15be92aa7a52e10e"></a>
+QWidget *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAbstractItem.html#a18b97ea46e82f39e15be92aa7a52e10e">mWidget</a> = nullptr</td></tr>
+<tr class="memdesc:a18b97ea46e82f39e15be92aa7a52e10e"><td class="mdescLeft">&#160;</td><td class="mdescRight">显示窗口部件 <br /></td></tr>
+<tr class="separator:a18b97ea46e82f39e15be92aa7a52e10e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>列表条目抽象类 </p>
+<p>Inherits: QListWidgetItem</p>
+<p>Inherited by: <a class="el" href="classCourseItem.html" title="课程条目">CourseItem</a>, <a class="el" href="classReviewItem.html" title="课程评价条目">ReviewItem</a> </p>
+</div><h2 class="groupheader">Member Function Documentation</h2>
+<a id="aa33291647da0a56887428f555d814c82"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa33291647da0a56887428f555d814c82">&#9670;&nbsp;</a></span>updateItemInfo()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void AbstractItem::updateItemInfo </td>
+          <td>(</td>
+          <td class="paramtype">const QJsonObject &amp;&#160;</td>
+          <td class="paramname"><em>jsonObject</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>更新条目显示的信息 </p>
+<p>解析QJsonObject对象，并显示到界面上。 </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">jsonObject</td><td>待解析的QJsonObject对象 </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Implemented in <a class="el" href="classReviewItem.html#a263970240bac800363fcaf5b78af78cd">ReviewItem</a>, and <a class="el" href="classCourseItem.html#a89cf2550921f7446ca5156d2c4a17c75">CourseItem</a>.</p>
+
+</div>
+</div>
 <hr/>The documentation for this class was generated from the following files:<ul>
 <li>src/<a class="el" href="abstractitem_8h_source.html">abstractitem.h</a></li>
 <li>src/abstractitem.cpp</li>

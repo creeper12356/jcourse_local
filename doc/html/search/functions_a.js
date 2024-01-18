@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['usernamechanged_123',['userNameChanged',['../classAppModel.html#aaf4a4db9b32bfbc32a5c998cc9007483',1,'AppModel']]]
+  ['tojsonarray_152',['toJsonArray',['../classMyNetworkCookieJar.html#a4633a4ce3585af7caac27fe4b2b898c3',1,'MyNetworkCookieJar']]],
+  ['tojsonobject_153',['toJsonObject',['../classCoreData.html#acbbe1ac905025e3a93bfae7fbdfbdcad',1,'CoreData']]]
 ];

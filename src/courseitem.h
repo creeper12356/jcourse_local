@@ -4,9 +4,13 @@
 #include "inc.h"
 #include "abstractitem.h"
 
+/*!
+ * \brief 课程条目
+ *
+ * Inherits: AbstractItem
+ */
 class CourseItem : public AbstractItem
 {
-    //课程条目
 public:
     CourseItem();
     virtual ~CourseItem();

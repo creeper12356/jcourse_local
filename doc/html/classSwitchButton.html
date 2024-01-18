@@ -66,6 +66,9 @@ $(function() {
 <a href="#signals">Signals</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#pro-methods">Protected Member Functions</a> &#124;
+<a href="#pri-slots">Private Slots</a> &#124;
+<a href="#pri-methods">Private Member Functions</a> &#124;
+<a href="#pri-attribs">Private Attributes</a> &#124;
 <a href="classSwitchButton-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">SwitchButton Class Reference</div>  </div>
@@ -194,6 +197,75 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>paintEvent</b> (QPain
 <tr class="memitem:a9536178aba4390f91c3336c09bc288f3"><td class="memItemLeft" align="right" valign="top"><a id="a9536178aba4390f91c3336c09bc288f3"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>mousePressEvent</b> (QMouseEvent *event)</td></tr>
 <tr class="separator:a9536178aba4390f91c3336c09bc288f3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-slots"></a>
+Private Slots</h2></td></tr>
+<tr class="memitem:a49fed51636de3820dad3422cc47cd749"><td class="memItemLeft" align="right" valign="top"><a id="a49fed51636de3820dad3422cc47cd749"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>UpdateValue</b> ()</td></tr>
+<tr class="separator:a49fed51636de3820dad3422cc47cd749"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-methods"></a>
+Private Member Functions</h2></td></tr>
+<tr class="memitem:a683e55486602e4985d54faaf53adcb73"><td class="memItemLeft" align="right" valign="top"><a id="a683e55486602e4985d54faaf53adcb73"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>drawBackGround</b> (QPainter *painter)</td></tr>
+<tr class="separator:a683e55486602e4985d54faaf53adcb73"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae1b1c1cbe1596a7d1b55ba04c70e0512"><td class="memItemLeft" align="right" valign="top"><a id="ae1b1c1cbe1596a7d1b55ba04c70e0512"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>drawSlider</b> (QPainter *painter)</td></tr>
+<tr class="separator:ae1b1c1cbe1596a7d1b55ba04c70e0512"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
+Private Attributes</h2></td></tr>
+<tr class="memitem:a28b751a7e4ae6ec17054f8064d2529b1"><td class="memItemLeft" align="right" valign="top"><a id="a28b751a7e4ae6ec17054f8064d2529b1"></a>
+int&#160;</td><td class="memItemRight" valign="bottom"><b>m_space</b></td></tr>
+<tr class="separator:a28b751a7e4ae6ec17054f8064d2529b1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5895a5199afad922c4dd5fc2cf6644f0"><td class="memItemLeft" align="right" valign="top"><a id="a5895a5199afad922c4dd5fc2cf6644f0"></a>
+int&#160;</td><td class="memItemRight" valign="bottom"><b>m_radius</b></td></tr>
+<tr class="separator:a5895a5199afad922c4dd5fc2cf6644f0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a998b2f3e8f7be50abead5275149d9a95"><td class="memItemLeft" align="right" valign="top"><a id="a998b2f3e8f7be50abead5275149d9a95"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>m_checked</b></td></tr>
+<tr class="separator:a998b2f3e8f7be50abead5275149d9a95"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4ace2eee42eeb81122ee6fb8317f306f"><td class="memItemLeft" align="right" valign="top"><a id="a4ace2eee42eeb81122ee6fb8317f306f"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>m_showText</b></td></tr>
+<tr class="separator:a4ace2eee42eeb81122ee6fb8317f306f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a20fed475d2c918bf60193466b94e7e04"><td class="memItemLeft" align="right" valign="top"><a id="a20fed475d2c918bf60193466b94e7e04"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>m_showCircle</b></td></tr>
+<tr class="separator:a20fed475d2c918bf60193466b94e7e04"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6c228f50ebb8304a82235244173cbbd5"><td class="memItemLeft" align="right" valign="top"><a id="a6c228f50ebb8304a82235244173cbbd5"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>m_animation</b></td></tr>
+<tr class="separator:a6c228f50ebb8304a82235244173cbbd5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac1551f81be70bc33116a7649d37c733c"><td class="memItemLeft" align="right" valign="top"><a id="ac1551f81be70bc33116a7649d37c733c"></a>
+QColor&#160;</td><td class="memItemRight" valign="bottom"><b>m_bgColorOn</b></td></tr>
+<tr class="separator:ac1551f81be70bc33116a7649d37c733c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a43806e75ba07b8da557042e6e9e00441"><td class="memItemLeft" align="right" valign="top"><a id="a43806e75ba07b8da557042e6e9e00441"></a>
+QColor&#160;</td><td class="memItemRight" valign="bottom"><b>m_bgColorOff</b></td></tr>
+<tr class="separator:a43806e75ba07b8da557042e6e9e00441"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a02693d3bb39cd14b91ea81cdbf5dc942"><td class="memItemLeft" align="right" valign="top"><a id="a02693d3bb39cd14b91ea81cdbf5dc942"></a>
+QColor&#160;</td><td class="memItemRight" valign="bottom"><b>m_sliderColorOn</b></td></tr>
+<tr class="separator:a02693d3bb39cd14b91ea81cdbf5dc942"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac59b9b845daefc6f19d776b2df3cc644"><td class="memItemLeft" align="right" valign="top"><a id="ac59b9b845daefc6f19d776b2df3cc644"></a>
+QColor&#160;</td><td class="memItemRight" valign="bottom"><b>m_sliderColorOff</b></td></tr>
+<tr class="separator:ac59b9b845daefc6f19d776b2df3cc644"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa5b4852ec2d4f72783aaca8efc6b4a6f"><td class="memItemLeft" align="right" valign="top"><a id="aa5b4852ec2d4f72783aaca8efc6b4a6f"></a>
+QColor&#160;</td><td class="memItemRight" valign="bottom"><b>m_textColor</b></td></tr>
+<tr class="separator:aa5b4852ec2d4f72783aaca8efc6b4a6f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9482af30d6594f96f3c7202f8b294573"><td class="memItemLeft" align="right" valign="top"><a id="a9482af30d6594f96f3c7202f8b294573"></a>
+QString&#160;</td><td class="memItemRight" valign="bottom"><b>m_textOn</b></td></tr>
+<tr class="separator:a9482af30d6594f96f3c7202f8b294573"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0861ca5d9e4345bd8c2052ab7bd832bb"><td class="memItemLeft" align="right" valign="top"><a id="a0861ca5d9e4345bd8c2052ab7bd832bb"></a>
+QString&#160;</td><td class="memItemRight" valign="bottom"><b>m_textOff</b></td></tr>
+<tr class="separator:a0861ca5d9e4345bd8c2052ab7bd832bb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa3f8aa1669f23d90058e811c4fb5b18b"><td class="memItemLeft" align="right" valign="top"><a id="aa3f8aa1669f23d90058e811c4fb5b18b"></a>
+QTimer *&#160;</td><td class="memItemRight" valign="bottom"><b>m_timer</b></td></tr>
+<tr class="separator:aa3f8aa1669f23d90058e811c4fb5b18b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2a0504a0337797dd634c957b35e14c53"><td class="memItemLeft" align="right" valign="top"><a id="a2a0504a0337797dd634c957b35e14c53"></a>
+int&#160;</td><td class="memItemRight" valign="bottom"><b>m_step</b></td></tr>
+<tr class="separator:a2a0504a0337797dd634c957b35e14c53"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7f70ce950d50ea83cc73680afcae1fd7"><td class="memItemLeft" align="right" valign="top"><a id="a7f70ce950d50ea83cc73680afcae1fd7"></a>
+int&#160;</td><td class="memItemRight" valign="bottom"><b>m_startX</b></td></tr>
+<tr class="separator:a7f70ce950d50ea83cc73680afcae1fd7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9764a33462bd60c9aa4f9796decda4cc"><td class="memItemLeft" align="right" valign="top"><a id="a9764a33462bd60c9aa4f9796decda4cc"></a>
+int&#160;</td><td class="memItemRight" valign="bottom"><b>m_endX</b></td></tr>
+<tr class="separator:a9764a33462bd60c9aa4f9796decda4cc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <hr/>The documentation for this class was generated from the following files:<ul>
 <li>src/<a class="el" href="switchbutton_8h_source.html">switchbutton.h</a></li>

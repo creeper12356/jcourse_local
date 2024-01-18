@@ -2,6 +2,15 @@
 \label{classReviewListWidget}\index{ReviewListWidget@{ReviewListWidget}}
 
 
+课程评价列表控件  
+
+
+
+
+{\ttfamily \#include $<$reviewlistwidget.\+h$>$}
+
+
+
 Inheritance diagram for Review\+List\+Widget\+:
 % FIG 0
 
@@ -13,13 +22,49 @@ Collaboration diagram for Review\+List\+Widget\+:
 \item 
 \mbox{\Hypertarget{classReviewListWidget_a7ae17a227770dfca205a55abe9abad29}\label{classReviewListWidget_a7ae17a227770dfca205a55abe9abad29}} 
 {\bfseries Review\+List\+Widget} (Q\+Widget $\ast$parent=0)
-\end{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{classReviewListWidget_a9ab16ad81eda3b85b7a6f769600b70f3}{display\+Result}} (Q\+Byte\+Array result) override
+\begin{DoxyCompactList}\small\item\em 更新列表视图 \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsection*{Protected Member Functions}
 \begin{DoxyCompactItemize}
 \item 
 \mbox{\Hypertarget{classReviewListWidget_a9cb069b5c99303b06d9f5d0242653b54}\label{classReviewListWidget_a9cb069b5c99303b06d9f5d0242653b54}} 
 void {\bfseries resize\+Event} (Q\+Resize\+Event $\ast$e)
 \end{DoxyCompactItemize}
+\doxysubsection*{Private Slots}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classReviewListWidget_a4b67225c6df7fb03bfccf2c4b8bd9f71}\label{classReviewListWidget_a4b67225c6df7fb03bfccf2c4b8bd9f71}} 
+void {\bfseries item\+Clicked\+Slot} (Q\+List\+Widget\+Item $\ast$item) override
+\end{DoxyCompactItemize}
+\doxysubsection*{Additional Inherited Members}
+
+
+\doxysubsection{Detailed Description}
+课程评价列表控件 
+
+Inherits\+: \mbox{\hyperlink{classAbstractListWidget}{Abstract\+List\+Widget}} 
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classReviewListWidget_a9ab16ad81eda3b85b7a6f769600b70f3}\label{classReviewListWidget_a9ab16ad81eda3b85b7a6f769600b70f3}} 
+\index{ReviewListWidget@{ReviewListWidget}!displayResult@{displayResult}}
+\index{displayResult@{displayResult}!ReviewListWidget@{ReviewListWidget}}
+\doxysubsubsection{\texorpdfstring{displayResult()}{displayResult()}}
+{\footnotesize\ttfamily void Review\+List\+Widget\+::display\+Result (\begin{DoxyParamCaption}\item[{Q\+Byte\+Array}]{result }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+更新列表视图 
+
+解析\+J\+S\+O\+N格式字节流，并显示到界面上，该方法需要派生类实现。 
+\begin{DoxyParams}{Parameters}
+{\em result} & 待解析的\+J\+S\+O\+N格式字节流 \\
+\hline
+\end{DoxyParams}
+
+
+Implements \mbox{\hyperlink{classAbstractListWidget_abac85d5f1926a7bad8edd4dca623af4e}{Abstract\+List\+Widget}}.
+
 
 
 The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}

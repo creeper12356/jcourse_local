@@ -2,6 +2,15 @@
 \label{classMainWindow}\index{MainWindow@{MainWindow}}
 
 
+主窗口  
+
+
+
+
+{\ttfamily \#include $<$mainwindow.\+h$>$}
+
+
+
 Inheritance diagram for Main\+Window\+:
 % FIG 0
 
@@ -11,39 +20,258 @@ Collaboration diagram for Main\+Window\+:
 \doxysubsection*{Public Slots}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\Hypertarget{classMainWindow_a7762aa5bf6b14bca45de7c3846068e99}\label{classMainWindow_a7762aa5bf6b14bca45de7c3846068e99}} 
-void {\bfseries display\+Search\+Result} (Q\+Byte\+Array result)
-\item 
-\mbox{\Hypertarget{classMainWindow_a629872abde26e0a6a1361d9af377d80f}\label{classMainWindow_a629872abde26e0a6a1361d9af377d80f}} 
-void {\bfseries display\+Check\+Review\+Result} (Q\+Byte\+Array result)
-\item 
-\mbox{\Hypertarget{classMainWindow_a201019cc14140e70821254da747b2896}\label{classMainWindow_a201019cc14140e70821254da747b2896}} 
-void {\bfseries user\+Name\+Changed\+Slot} (Q\+String user\+Name)
-\item 
-\mbox{\Hypertarget{classMainWindow_afcedbb2d0db465cba4bdfb8e89630a44}\label{classMainWindow_afcedbb2d0db465cba4bdfb8e89630a44}} 
-void {\bfseries online\+Changed\+Slot} (bool is\+Online)
-\end{DoxyCompactItemize}
+void \mbox{\hyperlink{classMainWindow_a7762aa5bf6b14bca45de7c3846068e99}{display\+Search\+Result}} (Q\+Byte\+Array result)
+\begin{DoxyCompactList}\small\item\em 显示搜索课程的结果 \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classMainWindow_a629872abde26e0a6a1361d9af377d80f}{display\+Check\+Review\+Result}} (Q\+Byte\+Array result)
+\begin{DoxyCompactList}\small\item\em 显示搜索课程评价的结果 \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classMainWindow_a201019cc14140e70821254da747b2896}{user\+Name\+Changed\+Slot}} (Q\+String user\+Name)
+\begin{DoxyCompactList}\small\item\em 用户名改变的槽函数 \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classMainWindow_afcedbb2d0db465cba4bdfb8e89630a44}{online\+Changed\+Slot}} (bool is\+Online)
+\begin{DoxyCompactList}\small\item\em 在线模式改变的槽函数 \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsection*{Signals}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\Hypertarget{classMainWindow_abdf55aa39f3f2b63849d566fce1d1219}\label{classMainWindow_abdf55aa39f3f2b63849d566fce1d1219}} 
-void {\bfseries search} (Q\+String query, int page)
-\item 
-\mbox{\Hypertarget{classMainWindow_a7521b8ddcbbe438249b22bbd40382405}\label{classMainWindow_a7521b8ddcbbe438249b22bbd40382405}} 
-void {\bfseries check\+Review} (int courseid, int page)
-\item 
-\mbox{\Hypertarget{classMainWindow_ab9bd6e5b9483c051838c8dd2c1bc6a5e}\label{classMainWindow_ab9bd6e5b9483c051838c8dd2c1bc6a5e}} 
-void {\bfseries change\+Online} (bool checked)
-\item 
-\mbox{\Hypertarget{classMainWindow_ab2539ea587be5e2abde872300d475df7}\label{classMainWindow_ab2539ea587be5e2abde872300d475df7}} 
-void {\bfseries logout} ()
-\end{DoxyCompactItemize}
+void \mbox{\hyperlink{classMainWindow_abdf55aa39f3f2b63849d566fce1d1219}{search}} (Q\+String query, int page)
+\begin{DoxyCompactList}\small\item\em 搜索课程信号 \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classMainWindow_a7521b8ddcbbe438249b22bbd40382405}{check\+Review}} (int courseid, int page)
+\begin{DoxyCompactList}\small\item\em 查看课程评价信号 \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classMainWindow_ab9bd6e5b9483c051838c8dd2c1bc6a5e}{change\+Online}} (bool checked)
+\begin{DoxyCompactList}\small\item\em 在线模式改变信号 \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classMainWindow_ab2539ea587be5e2abde872300d475df7}{logout}} ()
+\begin{DoxyCompactList}\small\item\em 登出信号 \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
 \mbox{\Hypertarget{classMainWindow_a996c5a2b6f77944776856f08ec30858d}\label{classMainWindow_a996c5a2b6f77944776856f08ec30858d}} 
 {\bfseries Main\+Window} (Q\+Widget $\ast$parent=nullptr)
 \end{DoxyCompactItemize}
+\doxysubsection*{Private Slots}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{classMainWindow_a2677a8021c7bd7584a2fa2662df9f6e4}{search\+Bar\+Triggered}} ()
+\begin{DoxyCompactList}\small\item\em 用户使用搜索框搜索课程 \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classMainWindow_a43d3e62fafbd279653ed416563e8a830}{search\+Page\+Triggered}} (int page)
+\begin{DoxyCompactList}\small\item\em 用户请求换页查看课程 \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classMainWindow_a7a88b81ebe8d2d5a114d92dbe25bc620}{check\+Review\+Triggered}} (int courseid)
+\begin{DoxyCompactList}\small\item\em 用户请求查看课程评价 \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classMainWindow_a7bc59fbd6c39fd29b02248b8f869c233}{check\+Review\+Page\+Triggered}} (int page)
+\begin{DoxyCompactList}\small\item\em 用户请求换页查看课程评价 \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classMainWindow_a659b4cbe6a6fd63e4f4131a58758a93a}\label{classMainWindow_a659b4cbe6a6fd63e4f4131a58758a93a}} 
+Q\+String \mbox{\hyperlink{classMainWindow_a659b4cbe6a6fd63e4f4131a58758a93a}{m\+Last\+Query}}
+\begin{DoxyCompactList}\small\item\em 上一次的搜索内容 \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classMainWindow_a975c1cd26c115edd57acdb0b8da16cec}\label{classMainWindow_a975c1cd26c115edd57acdb0b8da16cec}} 
+int \mbox{\hyperlink{classMainWindow_a975c1cd26c115edd57acdb0b8da16cec}{m\+Last\+Courseid}}
+\begin{DoxyCompactList}\small\item\em 上一次查看课程评价的课程id \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classMainWindow_a35466a70ed47252a0191168126a352a5}\label{classMainWindow_a35466a70ed47252a0191168126a352a5}} 
+Ui\+::\+Main\+Window $\ast$ {\bfseries ui}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+主窗口 
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classMainWindow_ab9bd6e5b9483c051838c8dd2c1bc6a5e}\label{classMainWindow_ab9bd6e5b9483c051838c8dd2c1bc6a5e}} 
+\index{MainWindow@{MainWindow}!changeOnline@{changeOnline}}
+\index{changeOnline@{changeOnline}!MainWindow@{MainWindow}}
+\doxysubsubsection{\texorpdfstring{changeOnline}{changeOnline}}
+{\footnotesize\ttfamily void Main\+Window\+::change\+Online (\begin{DoxyParamCaption}\item[{bool}]{checked }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [signal]}}
+
+
+
+在线模式改变信号 
+
+向\+App\+Model发送的在线模式改变信号，\+App\+Model收到该信号后将修改后台数据。 
+\begin{DoxyParams}{Parameters}
+{\em checked} & 是否为在线模式 \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classMainWindow_a7521b8ddcbbe438249b22bbd40382405}\label{classMainWindow_a7521b8ddcbbe438249b22bbd40382405}} 
+\index{MainWindow@{MainWindow}!checkReview@{checkReview}}
+\index{checkReview@{checkReview}!MainWindow@{MainWindow}}
+\doxysubsubsection{\texorpdfstring{checkReview}{checkReview}}
+{\footnotesize\ttfamily void Main\+Window\+::check\+Review (\begin{DoxyParamCaption}\item[{int}]{courseid,  }\item[{int}]{page }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [signal]}}
+
+
+
+查看课程评价信号 
+
+向\+Client发送的查看课程评价的信号，请求查看指定课程id，指定页数的课程评价。 
+\begin{DoxyParams}{Parameters}
+{\em courseid} & 课程的id \\
+\hline
+{\em page} & 搜索页数（从1开始） \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classMainWindow_a7bc59fbd6c39fd29b02248b8f869c233}\label{classMainWindow_a7bc59fbd6c39fd29b02248b8f869c233}} 
+\index{MainWindow@{MainWindow}!checkReviewPageTriggered@{checkReviewPageTriggered}}
+\index{checkReviewPageTriggered@{checkReviewPageTriggered}!MainWindow@{MainWindow}}
+\doxysubsubsection{\texorpdfstring{checkReviewPageTriggered}{checkReviewPageTriggered}}
+{\footnotesize\ttfamily void Main\+Window\+::check\+Review\+Page\+Triggered (\begin{DoxyParamCaption}\item[{int}]{page }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}, {\ttfamily [slot]}}
+
+
+
+用户请求换页查看课程评价 
+
+当用户请求换页查看课程评价时，该槽函数被调用，并发送check\+Review信号。 
+\begin{DoxyParams}{Parameters}
+{\em page} & 用户请求的页数 \\
+\hline
+\end{DoxyParams}
+\begin{DoxySeeAlso}{See also}
+\mbox{\hyperlink{classMainWindow_a7521b8ddcbbe438249b22bbd40382405}{check\+Review}} 
+\end{DoxySeeAlso}
+\mbox{\Hypertarget{classMainWindow_a7a88b81ebe8d2d5a114d92dbe25bc620}\label{classMainWindow_a7a88b81ebe8d2d5a114d92dbe25bc620}} 
+\index{MainWindow@{MainWindow}!checkReviewTriggered@{checkReviewTriggered}}
+\index{checkReviewTriggered@{checkReviewTriggered}!MainWindow@{MainWindow}}
+\doxysubsubsection{\texorpdfstring{checkReviewTriggered}{checkReviewTriggered}}
+{\footnotesize\ttfamily void Main\+Window\+::check\+Review\+Triggered (\begin{DoxyParamCaption}\item[{int}]{courseid }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}, {\ttfamily [slot]}}
+
+
+
+用户请求查看课程评价 
+
+当用户点击课程条目时，该槽函数被调用，并发送check\+Review信号。 
+\begin{DoxyParams}{Parameters}
+{\em courseid} & 请求的课程id \\
+\hline
+\end{DoxyParams}
+\begin{DoxySeeAlso}{See also}
+\mbox{\hyperlink{classMainWindow_a7521b8ddcbbe438249b22bbd40382405}{check\+Review}} 
+\end{DoxySeeAlso}
+\mbox{\Hypertarget{classMainWindow_a629872abde26e0a6a1361d9af377d80f}\label{classMainWindow_a629872abde26e0a6a1361d9af377d80f}} 
+\index{MainWindow@{MainWindow}!displayCheckReviewResult@{displayCheckReviewResult}}
+\index{displayCheckReviewResult@{displayCheckReviewResult}!MainWindow@{MainWindow}}
+\doxysubsubsection{\texorpdfstring{displayCheckReviewResult}{displayCheckReviewResult}}
+{\footnotesize\ttfamily void Main\+Window\+::display\+Check\+Review\+Result (\begin{DoxyParamCaption}\item[{Q\+Byte\+Array}]{result }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [slot]}}
+
+
+
+显示搜索课程评价的结果 
+
+Client\+::check\+Review\+Finished的槽函数，将客户端发出的搜索结果解析显示到界面。 
+\begin{DoxyParams}{Parameters}
+{\em 客户端发出信号的参数，搜索结果字节流，使用\+J\+S\+O\+N格式} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxySeeAlso}{See also}
+\mbox{\hyperlink{classClient_ab4432332265aff15395f559a6102fe3f}{Client\+::check\+Review\+Finished}} 
+\end{DoxySeeAlso}
+\mbox{\Hypertarget{classMainWindow_a7762aa5bf6b14bca45de7c3846068e99}\label{classMainWindow_a7762aa5bf6b14bca45de7c3846068e99}} 
+\index{MainWindow@{MainWindow}!displaySearchResult@{displaySearchResult}}
+\index{displaySearchResult@{displaySearchResult}!MainWindow@{MainWindow}}
+\doxysubsubsection{\texorpdfstring{displaySearchResult}{displaySearchResult}}
+{\footnotesize\ttfamily void Main\+Window\+::display\+Search\+Result (\begin{DoxyParamCaption}\item[{Q\+Byte\+Array}]{result }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [slot]}}
+
+
+
+显示搜索课程的结果 
+
+Client\+::search\+Finished的槽函数，将客户端发出的搜索结果解析显示到界面。 
+\begin{DoxyParams}{Parameters}
+{\em 客户端发出信号的参数，搜索结果字节流，使用\+J\+S\+O\+N格式} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxySeeAlso}{See also}
+\mbox{\hyperlink{classClient_ab9a18bdef02dc6990a2beedd73f8aa9f}{Client\+::search\+Finished}} 
+\end{DoxySeeAlso}
+\mbox{\Hypertarget{classMainWindow_ab2539ea587be5e2abde872300d475df7}\label{classMainWindow_ab2539ea587be5e2abde872300d475df7}} 
+\index{MainWindow@{MainWindow}!logout@{logout}}
+\index{logout@{logout}!MainWindow@{MainWindow}}
+\doxysubsubsection{\texorpdfstring{logout}{logout}}
+{\footnotesize\ttfamily void Main\+Window\+::logout (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [signal]}}
+
+
+
+登出信号 
+
+向\+Client发送的登出信号，请求客户端将当前账号登出。 \mbox{\Hypertarget{classMainWindow_afcedbb2d0db465cba4bdfb8e89630a44}\label{classMainWindow_afcedbb2d0db465cba4bdfb8e89630a44}} 
+\index{MainWindow@{MainWindow}!onlineChangedSlot@{onlineChangedSlot}}
+\index{onlineChangedSlot@{onlineChangedSlot}!MainWindow@{MainWindow}}
+\doxysubsubsection{\texorpdfstring{onlineChangedSlot}{onlineChangedSlot}}
+{\footnotesize\ttfamily void Main\+Window\+::online\+Changed\+Slot (\begin{DoxyParamCaption}\item[{bool}]{is\+Online }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [slot]}}
+
+
+
+在线模式改变的槽函数 
+
+App\+Model\+::online\+Changed的槽函数，将更新后的在线/离线模式更新到界面上 
+\begin{DoxyParams}{Parameters}
+{\em is\+Online} & 是否为在线模式 \\
+\hline
+\end{DoxyParams}
+\begin{DoxySeeAlso}{See also}
+\mbox{\hyperlink{classAppModel_a7f0e29c961c8b026b60f40603e6112e7}{App\+Model\+::online\+Changed}} 
+\end{DoxySeeAlso}
+\mbox{\Hypertarget{classMainWindow_abdf55aa39f3f2b63849d566fce1d1219}\label{classMainWindow_abdf55aa39f3f2b63849d566fce1d1219}} 
+\index{MainWindow@{MainWindow}!search@{search}}
+\index{search@{search}!MainWindow@{MainWindow}}
+\doxysubsubsection{\texorpdfstring{search}{search}}
+{\footnotesize\ttfamily void Main\+Window\+::search (\begin{DoxyParamCaption}\item[{Q\+String}]{query,  }\item[{int}]{page }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [signal]}}
+
+
+
+搜索课程信号 
+
+向\+Client发送的搜索课程信号，请求搜索\{query\}对应的所有课程信息。 
+\begin{DoxyParams}{Parameters}
+{\em query} & 搜索内容 \\
+\hline
+{\em page} & 搜索页数（从1开始） \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classMainWindow_a2677a8021c7bd7584a2fa2662df9f6e4}\label{classMainWindow_a2677a8021c7bd7584a2fa2662df9f6e4}} 
+\index{MainWindow@{MainWindow}!searchBarTriggered@{searchBarTriggered}}
+\index{searchBarTriggered@{searchBarTriggered}!MainWindow@{MainWindow}}
+\doxysubsubsection{\texorpdfstring{searchBarTriggered}{searchBarTriggered}}
+{\footnotesize\ttfamily void Main\+Window\+::search\+Bar\+Triggered (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}, {\ttfamily [slot]}}
+
+
+
+用户使用搜索框搜索课程 
+
+当用户使用搜索框搜索课程时，该槽函数被调用，并发送search信号。 \begin{DoxySeeAlso}{See also}
+\mbox{\hyperlink{classMainWindow_abdf55aa39f3f2b63849d566fce1d1219}{search}} 
+\end{DoxySeeAlso}
+\mbox{\Hypertarget{classMainWindow_a43d3e62fafbd279653ed416563e8a830}\label{classMainWindow_a43d3e62fafbd279653ed416563e8a830}} 
+\index{MainWindow@{MainWindow}!searchPageTriggered@{searchPageTriggered}}
+\index{searchPageTriggered@{searchPageTriggered}!MainWindow@{MainWindow}}
+\doxysubsubsection{\texorpdfstring{searchPageTriggered}{searchPageTriggered}}
+{\footnotesize\ttfamily void Main\+Window\+::search\+Page\+Triggered (\begin{DoxyParamCaption}\item[{int}]{page }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}, {\ttfamily [slot]}}
+
+
+
+用户请求换页查看课程 
+
+当用户请求换页查看搜索的课程时，该槽函数被调用，并发送search信号。 
+\begin{DoxyParams}{Parameters}
+{\em page} & 用户请求的页数 \\
+\hline
+\end{DoxyParams}
+\begin{DoxySeeAlso}{See also}
+\mbox{\hyperlink{classMainWindow_abdf55aa39f3f2b63849d566fce1d1219}{search}} 
+\end{DoxySeeAlso}
+\mbox{\Hypertarget{classMainWindow_a201019cc14140e70821254da747b2896}\label{classMainWindow_a201019cc14140e70821254da747b2896}} 
+\index{MainWindow@{MainWindow}!userNameChangedSlot@{userNameChangedSlot}}
+\index{userNameChangedSlot@{userNameChangedSlot}!MainWindow@{MainWindow}}
+\doxysubsubsection{\texorpdfstring{userNameChangedSlot}{userNameChangedSlot}}
+{\footnotesize\ttfamily void Main\+Window\+::user\+Name\+Changed\+Slot (\begin{DoxyParamCaption}\item[{Q\+String}]{user\+Name }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [slot]}}
+
+
+
+用户名改变的槽函数 
+
+App\+Model\+::user\+Name\+Changed的槽函数，将新更改的用户名更新到界面上。 
+\begin{DoxyParams}{Parameters}
+{\em user\+Name} & 新的用户名 \\
+\hline
+\end{DoxyParams}
+\begin{DoxySeeAlso}{See also}
+\mbox{\hyperlink{classAppModel_aaf4a4db9b32bfbc32a5c998cc9007483}{App\+Model\+::user\+Name\+Changed}} 
+\end{DoxySeeAlso}
 
 
 The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}

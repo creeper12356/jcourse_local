@@ -72,31 +72,28 @@ $(function() {
 <div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef ABSTRACTITEM_H</span></div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define ABSTRACTITEM_H</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &quot;inc.h&quot;</span></div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="comment">//统一 CourseItem和ReviewItem</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno"><a class="line" href="classAbstractItem.html">    5</a></span>&#160;<span class="keyword">class </span><a class="code" href="classAbstractItem.html">AbstractItem</a> : <span class="keyword">public</span> QListWidgetItem</div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;{</div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;    <span class="comment">//widget item抽象类</span></div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;    <a class="code" href="classAbstractItem.html">AbstractItem</a>();</div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;    <span class="keyword">virtual</span> ~<a class="code" href="classAbstractItem.html">AbstractItem</a>();</div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;    <span class="comment">//根据JSON对象对应字段，更新显示的信息</span></div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> updateItemInfo(<span class="keyword">const</span> QJsonObject&amp; jsonObject) = 0;</div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;    <span class="comment">//将条目添加到列表list</span></div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;    <span class="keywordtype">void</span> addToList(QListWidget *list);</div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160; </div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="keyword">protected</span>:</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;    <span class="comment">//派生类访问mWidget接口</span></div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;    QWidget* widget() ;</div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160; </div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="keyword">private</span>:</div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;    <span class="comment">//显示控件</span></div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;    QWidget* mWidget = <span class="keyword">nullptr</span>;</div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;};</div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160; </div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="preprocessor">#endif // ABSTRACTITEM_H</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160; </div>
+<div class="line"><a name="l00012"></a><span class="lineno"><a class="line" href="classAbstractItem.html">   12</a></span>&#160;<span class="keyword">class </span><a class="code" href="classAbstractItem.html">AbstractItem</a> : <span class="keyword">public</span> QListWidgetItem</div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;{</div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;    <a class="code" href="classAbstractItem.html">AbstractItem</a>();</div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;    <span class="keyword">virtual</span> ~<a class="code" href="classAbstractItem.html">AbstractItem</a>();</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160; </div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classAbstractItem.html#aa33291647da0a56887428f555d814c82">updateItemInfo</a>(<span class="keyword">const</span> QJsonObject&amp; jsonObject) = 0;</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160; </div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;    QWidget* <a class="code" href="classAbstractItem.html#affe001d5d4b85565963a6e7805e40b03">widget</a>() ;</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160; </div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00033"></a><span class="lineno"><a class="line" href="classAbstractItem.html#a18b97ea46e82f39e15be92aa7a52e10e">   33</a></span>&#160;    QWidget* <a class="code" href="classAbstractItem.html#a18b97ea46e82f39e15be92aa7a52e10e">mWidget</a> = <span class="keyword">nullptr</span>; </div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;};</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160; </div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;<span class="preprocessor">#endif // ABSTRACTITEM_H</span></div>
 </div><!-- fragment --></div><!-- contents -->
-<div class="ttc" id="aclassAbstractItem_html"><div class="ttname"><a href="classAbstractItem.html">AbstractItem</a></div><div class="ttdef"><b>Definition:</b> abstractitem.h:5</div></div>
+<div class="ttc" id="aclassAbstractItem_html_aa33291647da0a56887428f555d814c82"><div class="ttname"><a href="classAbstractItem.html#aa33291647da0a56887428f555d814c82">AbstractItem::updateItemInfo</a></div><div class="ttdeci">virtual void updateItemInfo(const QJsonObject &amp;jsonObject)=0</div><div class="ttdoc">更新条目显示的信息</div></div>
+<div class="ttc" id="aclassAbstractItem_html_affe001d5d4b85565963a6e7805e40b03"><div class="ttname"><a href="classAbstractItem.html#affe001d5d4b85565963a6e7805e40b03">AbstractItem::widget</a></div><div class="ttdeci">QWidget * widget()</div><div class="ttdoc">显示窗口部件</div><div class="ttdef"><b>Definition:</b> abstractitem.cpp:15</div></div>
+<div class="ttc" id="aclassAbstractItem_html_a18b97ea46e82f39e15be92aa7a52e10e"><div class="ttname"><a href="classAbstractItem.html#a18b97ea46e82f39e15be92aa7a52e10e">AbstractItem::mWidget</a></div><div class="ttdeci">QWidget * mWidget</div><div class="ttdoc">显示窗口部件</div><div class="ttdef"><b>Definition:</b> abstractitem.h:33</div></div>
+<div class="ttc" id="aclassAbstractItem_html"><div class="ttname"><a href="classAbstractItem.html">AbstractItem</a></div><div class="ttdoc">列表条目抽象类</div><div class="ttdef"><b>Definition:</b> abstractitem.h:12</div></div>
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
 Generated by &#160;<a href="http://www.doxygen.org/index.html">

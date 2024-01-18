@@ -65,6 +65,9 @@ $(function() {
 <a href="#signals">Signals</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#pub-static-methods">Static Public Member Functions</a> &#124;
+<a href="#pri-slots">Private Slots</a> &#124;
+<a href="#pri-methods">Private Member Functions</a> &#124;
+<a href="#pri-attribs">Private Attributes</a> &#124;
 <a href="classPaginationWidget-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">PaginationWidget Class Reference</div>  </div>
@@ -119,6 +122,51 @@ Static Public Member Functions</h2></td></tr>
 <tr class="memitem:a7c15b20c940310840466ef0ac4e3a7f6"><td class="memItemLeft" align="right" valign="top">static int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPaginationWidget.html#a7c15b20c940310840466ef0ac4e3a7f6">divideTotal</a> (int itemCount, int itemCountPerPage)</td></tr>
 <tr class="memdesc:a7c15b20c940310840466ef0ac4e3a7f6"><td class="mdescLeft">&#160;</td><td class="mdescRight">计算需要的总页数  <a href="classPaginationWidget.html#a7c15b20c940310840466ef0ac4e3a7f6">More...</a><br /></td></tr>
 <tr class="separator:a7c15b20c940310840466ef0ac4e3a7f6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-slots"></a>
+Private Slots</h2></td></tr>
+<tr class="memitem:af21b6e3cbb6b8786d5c7f3e50540e1d9"><td class="memItemLeft" align="right" valign="top"><a id="af21b6e3cbb6b8786d5c7f3e50540e1d9"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>firstPageClicked</b> ()</td></tr>
+<tr class="separator:af21b6e3cbb6b8786d5c7f3e50540e1d9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abe0c2f02e848aa22b485a5447ceab539"><td class="memItemLeft" align="right" valign="top"><a id="abe0c2f02e848aa22b485a5447ceab539"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>prevPageClicked</b> ()</td></tr>
+<tr class="separator:abe0c2f02e848aa22b485a5447ceab539"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae550972b9c1f0488492e5083b8a3ea16"><td class="memItemLeft" align="right" valign="top"><a id="ae550972b9c1f0488492e5083b8a3ea16"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>nextPageClicked</b> ()</td></tr>
+<tr class="separator:ae550972b9c1f0488492e5083b8a3ea16"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac984d12a36b043f92e38cff07589bf76"><td class="memItemLeft" align="right" valign="top"><a id="ac984d12a36b043f92e38cff07589bf76"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>lastPageClicked</b> ()</td></tr>
+<tr class="separator:ac984d12a36b043f92e38cff07589bf76"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-methods"></a>
+Private Member Functions</h2></td></tr>
+<tr class="memitem:a9c370616c2c09d24ca7292d73dd355cb"><td class="memItemLeft" align="right" valign="top"><a id="a9c370616c2c09d24ca7292d73dd355cb"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>setCurrentUpdate</b> (int <a class="el" href="classPaginationWidget.html#a77e83c2418875cd577d27b0ad832c732">current</a>)</td></tr>
+<tr class="separator:a9c370616c2c09d24ca7292d73dd355cb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
+Private Attributes</h2></td></tr>
+<tr class="memitem:a9f1b9e72220364cd5bf1860d67c041ec"><td class="memItemLeft" align="right" valign="top"><a id="a9f1b9e72220364cd5bf1860d67c041ec"></a>
+QPushButton *&#160;</td><td class="memItemRight" valign="bottom"><b>mFirstButton</b> = nullptr</td></tr>
+<tr class="separator:a9f1b9e72220364cd5bf1860d67c041ec"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad26ce30b39429b4c34ec4690963fb9a5"><td class="memItemLeft" align="right" valign="top"><a id="ad26ce30b39429b4c34ec4690963fb9a5"></a>
+QPushButton *&#160;</td><td class="memItemRight" valign="bottom"><b>mPrevButton</b> = nullptr</td></tr>
+<tr class="separator:ad26ce30b39429b4c34ec4690963fb9a5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af003508ca9f526f85a8d582b3e0fcdd0"><td class="memItemLeft" align="right" valign="top"><a id="af003508ca9f526f85a8d582b3e0fcdd0"></a>
+QPushButton *&#160;</td><td class="memItemRight" valign="bottom"><b>mNextButton</b> = nullptr</td></tr>
+<tr class="separator:af003508ca9f526f85a8d582b3e0fcdd0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af5e3ce821f524e06cf08f286fd0f0c86"><td class="memItemLeft" align="right" valign="top"><a id="af5e3ce821f524e06cf08f286fd0f0c86"></a>
+QPushButton *&#160;</td><td class="memItemRight" valign="bottom"><b>mLastButton</b> = nullptr</td></tr>
+<tr class="separator:af5e3ce821f524e06cf08f286fd0f0c86"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acd65682a3f4a5da8cc3ecfe4d1a4f31b"><td class="memItemLeft" align="right" valign="top"><a id="acd65682a3f4a5da8cc3ecfe4d1a4f31b"></a>
+QLabel *&#160;</td><td class="memItemRight" valign="bottom"><b>mPageLabel</b> = nullptr</td></tr>
+<tr class="separator:acd65682a3f4a5da8cc3ecfe4d1a4f31b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abb9c305dff43eeb0a06c5ff783fe7c9d"><td class="memItemLeft" align="right" valign="top"><a id="abb9c305dff43eeb0a06c5ff783fe7c9d"></a>
+int&#160;</td><td class="memItemRight" valign="bottom"><b>mCount</b></td></tr>
+<tr class="separator:abb9c305dff43eeb0a06c5ff783fe7c9d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a061a9a5d57ab74a87c2c0900c8407564"><td class="memItemLeft" align="right" valign="top"><a id="a061a9a5d57ab74a87c2c0900c8407564"></a>
+int&#160;</td><td class="memItemRight" valign="bottom"><b>mCurrent</b></td></tr>
+<tr class="separator:a061a9a5d57ab74a87c2c0900c8407564"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>分页控件 </p>
