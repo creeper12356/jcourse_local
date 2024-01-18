@@ -182,12 +182,10 @@ bool CoreData::addMapping(Teacher *teacher, Course *course)
 {
     Mapping newMapping(teacher,course);
     if(mMappings.contains(newMapping)){
-//        qDebug() << "already mapped";
         return false;
     }
     else{
         mMappings.push_back(newMapping);
-//        qDebug() << "add Mapping : " << *teacher << *course;
         return true;
     }
 
@@ -237,7 +235,7 @@ QVector<const Mapping*> CoreData::searchCourseMappings(const QString& teacherNam
     // 在数据集中搜索匹配条件的courseId
     for (const Mapping& mapping : mMappings){
         if (mapping.teacher->name.contains(teacherName,Qt::CaseInsensitive) ||
-            mapping.teacher->pinyin.contains(teacherPinyin,Qt::CaseInsensitive) ||
+            mapping.teacher->pinyin.toLower() == teacherPinyin.toLower() ||
             mapping.course->name.contains(courseName, Qt::CaseInsensitive)){
 
             result.push_back(&mapping);

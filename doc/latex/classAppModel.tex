@@ -1,0 +1,150 @@
+\hypertarget{classAppModel}{}\doxysection{App\+Model Class Reference}
+\label{classAppModel}\index{AppModel@{AppModel}}
+
+
+存储客户端的所有永久性数据  
+
+
+
+
+{\ttfamily \#include $<$appmodel.\+h$>$}
+
+
+
+Inheritance diagram for App\+Model\+:
+% FIG 0
+
+
+Collaboration diagram for App\+Model\+:
+% FIG 1
+\doxysubsection*{Public Slots}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classAppModel_a5febe5cfd510e7d98d0f1920a6921818}\label{classAppModel_a5febe5cfd510e7d98d0f1920a6921818}} 
+void \mbox{\hyperlink{classAppModel_a5febe5cfd510e7d98d0f1920a6921818}{set\+Account\+And\+Notify}} (const \mbox{\hyperlink{classAccount}{Account}} \&\mbox{\hyperlink{classAppModel_a1682bc5444f176d654169af8acb722c9}{account}})
+\begin{DoxyCompactList}\small\item\em 设置账号并通知\+Main\+Window \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classAppModel_a51f36fc051c9942a37721b5985e8d286}\label{classAppModel_a51f36fc051c9942a37721b5985e8d286}} 
+void \mbox{\hyperlink{classAppModel_a51f36fc051c9942a37721b5985e8d286}{set\+Account\+And\+Notify}} (const Q\+String \&\mbox{\hyperlink{classAppModel_a1682bc5444f176d654169af8acb722c9}{account}}, const Q\+String \&password)
+\begin{DoxyCompactList}\small\item\em 设置账号并通知\+Main\+Window \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classAppModel_aaf5850fbcc30d9f175f3fb0862be966c}\label{classAppModel_aaf5850fbcc30d9f175f3fb0862be966c}} 
+void \mbox{\hyperlink{classAppModel_aaf5850fbcc30d9f175f3fb0862be966c}{set\+Cache\+Directory}} (const Q\+String \&\mbox{\hyperlink{classAppModel_a583693d7f59297e658d6c1d5a09ac0dc}{cache\+Directory}})
+\begin{DoxyCompactList}\small\item\em 设置缓存目录 \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classAppModel_a0cbdf845c783eda11b1a2bb1e30f47cf}\label{classAppModel_a0cbdf845c783eda11b1a2bb1e30f47cf}} 
+void \mbox{\hyperlink{classAppModel_a0cbdf845c783eda11b1a2bb1e30f47cf}{set\+Online}} (bool \mbox{\hyperlink{classAppModel_a1261c5d5290049c5dd3c34934fa35ef2}{is\+Online}})
+\begin{DoxyCompactList}\small\item\em 设置在线模式，不通知\+Main\+Window \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classAppModel_a04e167be1d3812d2101d12ebcf4306f6}\label{classAppModel_a04e167be1d3812d2101d12ebcf4306f6}} 
+void \mbox{\hyperlink{classAppModel_a04e167be1d3812d2101d12ebcf4306f6}{set\+Online\+And\+Notify}} (bool \mbox{\hyperlink{classAppModel_a1261c5d5290049c5dd3c34934fa35ef2}{is\+Online}})
+\begin{DoxyCompactList}\small\item\em 设置在线模式并通知\+Main\+Window \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classAppModel_acdd43404485a3ade2d4a233b482b0edc}\label{classAppModel_acdd43404485a3ade2d4a233b482b0edc}} 
+void \mbox{\hyperlink{classAppModel_acdd43404485a3ade2d4a233b482b0edc}{clear\+Data}} ()
+\begin{DoxyCompactList}\small\item\em 清除所有数据，包括账号/密码，\+Cookies \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Signals}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{classAppModel_aaf4a4db9b32bfbc32a5c998cc9007483}{user\+Name\+Changed}} (Q\+String user\+Name)
+\begin{DoxyCompactList}\small\item\em 账号用户名变化的信号，发送给\+Main\+Window \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classAppModel_a7f0e29c961c8b026b60f40603e6112e7}{online\+Changed}} (bool online)
+\begin{DoxyCompactList}\small\item\em 在线模式变化的信号，发送给\+Main\+Window \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classAppModel_a982051dfccc599225e1842600316d3fe}\label{classAppModel_a982051dfccc599225e1842600316d3fe}} 
+{\bfseries App\+Model} (\mbox{\hyperlink{classMainWindow}{Main\+Window}} $\ast$main\+Window, Q\+Object $\ast$parent=nullptr)
+\item 
+bool \mbox{\hyperlink{classAppModel_a09b63929c2846ec4f5b7222ac483c755}{read\+From\+File}} (const Q\+String \&file\+Name)
+\begin{DoxyCompactList}\small\item\em 从文件中读取数据 \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{classAppModel_ac194112f20f285975b88b7f33c452f72}{write\+To\+File}} (const Q\+String \&file\+Name) const
+\begin{DoxyCompactList}\small\item\em 将当前信息写入文件 \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classAppModel_a1682bc5444f176d654169af8acb722c9}\label{classAppModel_a1682bc5444f176d654169af8acb722c9}} 
+const \mbox{\hyperlink{classAccount}{Account}} \& \mbox{\hyperlink{classAppModel_a1682bc5444f176d654169af8acb722c9}{account}} () const
+\begin{DoxyCompactList}\small\item\em 当前账号（包含账号和密码) \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classAppModel_a542e4cd69629ea70b6d900f759916b85}\label{classAppModel_a542e4cd69629ea70b6d900f759916b85}} 
+const \mbox{\hyperlink{classMyNetworkCookieJar}{My\+Network\+Cookie\+Jar}} \& \mbox{\hyperlink{classAppModel_a542e4cd69629ea70b6d900f759916b85}{cookie\+Jar}} () const
+\begin{DoxyCompactList}\small\item\em 当前cookie\+Jar，不可修改 \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classAppModel_a248a7b06dcc7588967007b6c3b97118f}\label{classAppModel_a248a7b06dcc7588967007b6c3b97118f}} 
+\mbox{\hyperlink{classMyNetworkCookieJar}{My\+Network\+Cookie\+Jar}} $\ast$ \mbox{\hyperlink{classAppModel_a248a7b06dcc7588967007b6c3b97118f}{cookie\+Jar\+Ptr}} ()
+\begin{DoxyCompactList}\small\item\em 指向当前cookie\+Jar的指针，可修改 \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classAppModel_a583693d7f59297e658d6c1d5a09ac0dc}\label{classAppModel_a583693d7f59297e658d6c1d5a09ac0dc}} 
+const Q\+String \& \mbox{\hyperlink{classAppModel_a583693d7f59297e658d6c1d5a09ac0dc}{cache\+Directory}} () const
+\begin{DoxyCompactList}\small\item\em 课程评价缓存目录 \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classAppModel_a1261c5d5290049c5dd3c34934fa35ef2}\label{classAppModel_a1261c5d5290049c5dd3c34934fa35ef2}} 
+bool \mbox{\hyperlink{classAppModel_a1261c5d5290049c5dd3c34934fa35ef2}{is\+Online}} () const
+\begin{DoxyCompactList}\small\item\em 是否为在线模式 \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classAppModel_ad91d555297cb680ea92c422fc1abee05}\label{classAppModel_ad91d555297cb680ea92c422fc1abee05}} 
+\mbox{\hyperlink{classCoreData}{Core\+Data}} $\ast$ \mbox{\hyperlink{classAppModel_ad91d555297cb680ea92c422fc1abee05}{core\+Data}} ()
+\begin{DoxyCompactList}\small\item\em 指向核心数据的指针 \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+存储客户端的所有永久性数据 
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classAppModel_a7f0e29c961c8b026b60f40603e6112e7}\label{classAppModel_a7f0e29c961c8b026b60f40603e6112e7}} 
+\index{AppModel@{AppModel}!onlineChanged@{onlineChanged}}
+\index{onlineChanged@{onlineChanged}!AppModel@{AppModel}}
+\doxysubsubsection{\texorpdfstring{onlineChanged}{onlineChanged}}
+{\footnotesize\ttfamily void App\+Model\+::online\+Changed (\begin{DoxyParamCaption}\item[{bool}]{online }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [signal]}}
+
+
+
+在线模式变化的信号，发送给\+Main\+Window 
+
+
+\begin{DoxyParams}{Parameters}
+{\em online} & 是否为在线模式 \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classAppModel_a09b63929c2846ec4f5b7222ac483c755}\label{classAppModel_a09b63929c2846ec4f5b7222ac483c755}} 
+\index{AppModel@{AppModel}!readFromFile@{readFromFile}}
+\index{readFromFile@{readFromFile}!AppModel@{AppModel}}
+\doxysubsubsection{\texorpdfstring{readFromFile()}{readFromFile()}}
+{\footnotesize\ttfamily bool App\+Model\+::read\+From\+File (\begin{DoxyParamCaption}\item[{const Q\+String \&}]{file\+Name }\end{DoxyParamCaption})}
+
+
+
+从文件中读取数据 
+
+
+\begin{DoxyParams}{Parameters}
+{\em file\+Name} & 读取的文件路径 \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+读取是否成功 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classAppModel_aaf4a4db9b32bfbc32a5c998cc9007483}\label{classAppModel_aaf4a4db9b32bfbc32a5c998cc9007483}} 
+\index{AppModel@{AppModel}!userNameChanged@{userNameChanged}}
+\index{userNameChanged@{userNameChanged}!AppModel@{AppModel}}
+\doxysubsubsection{\texorpdfstring{userNameChanged}{userNameChanged}}
+{\footnotesize\ttfamily void App\+Model\+::user\+Name\+Changed (\begin{DoxyParamCaption}\item[{Q\+String}]{user\+Name }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [signal]}}
+
+
+
+账号用户名变化的信号，发送给\+Main\+Window 
+
+
+\begin{DoxyParams}{Parameters}
+{\em user\+Name} & 当前账号用户名 \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classAppModel_ac194112f20f285975b88b7f33c452f72}\label{classAppModel_ac194112f20f285975b88b7f33c452f72}} 
+\index{AppModel@{AppModel}!writeToFile@{writeToFile}}
+\index{writeToFile@{writeToFile}!AppModel@{AppModel}}
+\doxysubsubsection{\texorpdfstring{writeToFile()}{writeToFile()}}
+{\footnotesize\ttfamily bool App\+Model\+::write\+To\+File (\begin{DoxyParamCaption}\item[{const Q\+String \&}]{file\+Name }\end{DoxyParamCaption}) const}
+
+
+
+将当前信息写入文件 
+
+
+\begin{DoxyParams}{Parameters}
+{\em file\+Name} & 写入文件的路径 \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+src/appmodel.\+h\item 
+src/appmodel.\+cpp\end{DoxyCompactItemize}

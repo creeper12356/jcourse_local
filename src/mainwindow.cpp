@@ -13,15 +13,12 @@ MainWindow::MainWindow(QWidget *parent)
                 );
 
     ui->user_head->setMinimumSize(50,50);
+    ui->top_layout->setAlignment(Qt::AlignLeft);
 
     ui->switch_button->setFixedSize(70,30);
     ui->switch_button->setTextOn("在线");
     ui->switch_button->setTextOff("离线");
     connect(ui->switch_button,&SwitchButton::statusChanged,this,&MainWindow::changeOnline);
-
-    QToolBar* toolBar = new QToolBar(this);
-    toolBar->addWidget(ui->user_head);
-    this->addToolBar(Qt::TopToolBarArea,toolBar);
 
     connect(ui->search_button,&QPushButton::clicked,this,&MainWindow::searchBarTriggered);
     connect(ui->search_edit,&QLineEdit::returnPressed,this,&MainWindow::searchBarTriggered);
@@ -29,6 +26,8 @@ MainWindow::MainWindow(QWidget *parent)
     connect(ui->review_page_widget,&PaginationWidget::currentPageChanged,this,&MainWindow::checkReviewPageTriggered);
 
     connect(ui->course_item_list,&CourseListWidget::courseSelected,this,&MainWindow::checkReviewTriggered);
+
+    connect(ui->logout_button,&QPushButton::clicked,this,&MainWindow::logout);
 }
 
 MainWindow::~MainWindow()
@@ -122,6 +121,7 @@ void MainWindow::displayCheckReviewResult(QByteArray result)
 void MainWindow::userNameChangedSlot(QString userName)
 {
     ui->user_head->setUserName(userName);
+    ui->user_label->setText(userName);
 }
 
 void MainWindow::onlineChangedSlot(bool isOnline)

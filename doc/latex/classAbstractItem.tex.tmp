@@ -1,0 +1,31 @@
+\hypertarget{classAbstractItem}{}\doxysection{Abstract\+Item Class Reference}
+\label{classAbstractItem}\index{AbstractItem@{AbstractItem}}
+
+
+Inheritance diagram for Abstract\+Item\+:
+% FIG 0
+
+
+Collaboration diagram for Abstract\+Item\+:
+% FIG 1
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classAbstractItem_aa33291647da0a56887428f555d814c82}\label{classAbstractItem_aa33291647da0a56887428f555d814c82}} 
+virtual void {\bfseries update\+Item\+Info} (const Q\+Json\+Object \&json\+Object)=0
+\item 
+\mbox{\Hypertarget{classAbstractItem_a17b0674e73ffffe94dc60c6c57a60225}\label{classAbstractItem_a17b0674e73ffffe94dc60c6c57a60225}} 
+void {\bfseries add\+To\+List} (Q\+List\+Widget $\ast$list)
+\end{DoxyCompactItemize}
+\doxysubsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classAbstractItem_affe001d5d4b85565963a6e7805e40b03}\label{classAbstractItem_affe001d5d4b85565963a6e7805e40b03}} 
+Q\+Widget $\ast$ {\bfseries widget} ()
+\end{DoxyCompactItemize}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+src/abstractitem.\+h\item 
+src/abstractitem.\+cpp\end{DoxyCompactItemize}

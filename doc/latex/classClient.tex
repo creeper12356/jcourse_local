@@ -1,0 +1,173 @@
+\hypertarget{classClient}{}\doxysection{Client Class Reference}
+\label{classClient}\index{Client@{Client}}
+
+
+客户端  
+
+
+
+
+{\ttfamily \#include $<$client.\+h$>$}
+
+
+
+Inheritance diagram for Client\+:
+% FIG 0
+
+
+Collaboration diagram for Client\+:
+% FIG 1
+\doxysubsection*{Public Slots}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classClient_aa977795294407c10fe843b5bc28b6685}\label{classClient_aa977795294407c10fe843b5bc28b6685}} 
+void \mbox{\hyperlink{classClient_aa977795294407c10fe843b5bc28b6685}{logout}} ()
+\begin{DoxyCompactList}\small\item\em 登出 \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{classClient_a7dba3a66cc787ca890baf42d5e92b59f}{search}} (const Q\+String \&query, int page=1)
+\begin{DoxyCompactList}\small\item\em 查询课程 \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{classClient_a1ecb21b6553ba88568dac3e06ac6e010}{check\+Review}} (int courseid, int page=1)
+\begin{DoxyCompactList}\small\item\em 查看课程评价 \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Signals}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{classClient_ab9a18bdef02dc6990a2beedd73f8aa9f}{search\+Finished}} (Q\+Byte\+Array result)
+\begin{DoxyCompactList}\small\item\em 查询课程成功后，发送给\+Main\+Window的信号 \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classClient_ab4432332265aff15395f559a6102fe3f}{check\+Review\+Finished}} (Q\+Byte\+Array result)
+\begin{DoxyCompactList}\small\item\em 查询课程评价成功后，发送给\+Main\+Window的信号 \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classClient_a23bb955d035d1c94ee91a8447052cf5e}{Client}} (Q\+Application $\ast$app)
+\begin{DoxyCompactList}\small\item\em 构造函数 \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classClient_a9372b43eb11dbd5e1f8a7a77f90ae104}\label{classClient_a9372b43eb11dbd5e1f8a7a77f90ae104}} 
+void \mbox{\hyperlink{classClient_a9372b43eb11dbd5e1f8a7a77f90ae104}{switch\+Main\+Window}} ()
+\begin{DoxyCompactList}\small\item\em 切换到主窗口 \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classClient_aed689c9c914db43e1a24970b6fb1628f}\label{classClient_aed689c9c914db43e1a24970b6fb1628f}} 
+void \mbox{\hyperlink{classClient_aed689c9c914db43e1a24970b6fb1628f}{switch\+Login\+Window}} ()
+\begin{DoxyCompactList}\small\item\em 切换到登录窗口 \end{DoxyCompactList}\item 
+Q\+Network\+Reply $\ast$ \mbox{\hyperlink{classClient_adee3c0166ff137826ca0ce4fb94cddf5}{get\+With\+Cookies}} (const Q\+Url \&api\+Url)
+\begin{DoxyCompactList}\small\item\em 发送带\+Cookies的\+G\+E\+T请求 \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+客户端 
+
+应用的控制器，包含所有核心逻辑。 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classClient_a23bb955d035d1c94ee91a8447052cf5e}\label{classClient_a23bb955d035d1c94ee91a8447052cf5e}} 
+\index{Client@{Client}!Client@{Client}}
+\index{Client@{Client}!Client@{Client}}
+\doxysubsubsection{\texorpdfstring{Client()}{Client()}}
+{\footnotesize\ttfamily Client\+::\+Client (\begin{DoxyParamCaption}\item[{Q\+Application $\ast$}]{app }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [explicit]}}
+
+
+
+构造函数 
+
+
+\begin{DoxyParams}{Parameters}
+{\em app} & 事件循环对应的\+Q\+Application指针 \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classClient_a1ecb21b6553ba88568dac3e06ac6e010}\label{classClient_a1ecb21b6553ba88568dac3e06ac6e010}} 
+\index{Client@{Client}!checkReview@{checkReview}}
+\index{checkReview@{checkReview}!Client@{Client}}
+\doxysubsubsection{\texorpdfstring{checkReview}{checkReview}}
+{\footnotesize\ttfamily bool Client\+::check\+Review (\begin{DoxyParamCaption}\item[{int}]{courseid,  }\item[{int}]{page = {\ttfamily 1} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [slot]}}
+
+
+
+查看课程评价 
+
+如果为在线模式，请求url \+: \href{https://course.sjtu.plus/api/course/{courseid}/review/?&page={page}&size=20;}{\texttt{ https\+://course.\+sjtu.\+plus/api/course/\{courseid\}/review/?\&page=\{page\}\&size=20;}} 如果为离线模式，从本地缓存文件cache/review\+\_\+\{courseid\}\+\_\+\{page\}.json中读取资源。
+
+
+\begin{DoxyParams}{Parameters}
+{\em courseid} & 选课社区使用的课程id \\
+\hline
+{\em page} & 查询页面（从1开始） \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+是否查询成功 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classClient_ab4432332265aff15395f559a6102fe3f}\label{classClient_ab4432332265aff15395f559a6102fe3f}} 
+\index{Client@{Client}!checkReviewFinished@{checkReviewFinished}}
+\index{checkReviewFinished@{checkReviewFinished}!Client@{Client}}
+\doxysubsubsection{\texorpdfstring{checkReviewFinished}{checkReviewFinished}}
+{\footnotesize\ttfamily void Client\+::check\+Review\+Finished (\begin{DoxyParamCaption}\item[{Q\+Byte\+Array}]{result }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [signal]}}
+
+
+
+查询课程评价成功后，发送给\+Main\+Window的信号 
+
+
+\begin{DoxyParams}{Parameters}
+{\em result} & 查询结果字节流（\+J\+S\+O\+N格式） \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classClient_adee3c0166ff137826ca0ce4fb94cddf5}\label{classClient_adee3c0166ff137826ca0ce4fb94cddf5}} 
+\index{Client@{Client}!getWithCookies@{getWithCookies}}
+\index{getWithCookies@{getWithCookies}!Client@{Client}}
+\doxysubsubsection{\texorpdfstring{getWithCookies()}{getWithCookies()}}
+{\footnotesize\ttfamily Q\+Network\+Reply $\ast$ Client\+::get\+With\+Cookies (\begin{DoxyParamCaption}\item[{const Q\+Url \&}]{api\+Url }\end{DoxyParamCaption})}
+
+
+
+发送带\+Cookies的\+G\+E\+T请求 
+
+
+\begin{DoxyParams}{Parameters}
+{\em api\+Url} & 请求的url \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+如果请求成功，返回服务器的回应(\+Q\+Network\+Reply$\ast$)，指针指向的内存需要调用者手动释放； 如果请求失败，返回nullptr，并发出login信号。 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classClient_a7dba3a66cc787ca890baf42d5e92b59f}\label{classClient_a7dba3a66cc787ca890baf42d5e92b59f}} 
+\index{Client@{Client}!search@{search}}
+\index{search@{search}!Client@{Client}}
+\doxysubsubsection{\texorpdfstring{search}{search}}
+{\footnotesize\ttfamily bool Client\+::search (\begin{DoxyParamCaption}\item[{const Q\+String \&}]{query,  }\item[{int}]{page = {\ttfamily 1} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [slot]}}
+
+
+
+查询课程 
+
+如果为在线模式，请求url \+: \href{https://course.sjtu.plus/api/search/?q={query}&page={page}&size=20}{\texttt{ https\+://course.\+sjtu.\+plus/api/search/?q=\{query\}\&page=\{page\}\&size=20}} ; 如果为离线模式，从本地缓存文件coredata.\+json中读取资源。
+
+
+\begin{DoxyParams}{Parameters}
+{\em query} & 查询内容 \\
+\hline
+{\em page} & 查询页面（从1开始） \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+是否查询成功 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classClient_ab9a18bdef02dc6990a2beedd73f8aa9f}\label{classClient_ab9a18bdef02dc6990a2beedd73f8aa9f}} 
+\index{Client@{Client}!searchFinished@{searchFinished}}
+\index{searchFinished@{searchFinished}!Client@{Client}}
+\doxysubsubsection{\texorpdfstring{searchFinished}{searchFinished}}
+{\footnotesize\ttfamily void Client\+::search\+Finished (\begin{DoxyParamCaption}\item[{Q\+Byte\+Array}]{result }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [signal]}}
+
+
+
+查询课程成功后，发送给\+Main\+Window的信号 
+
+
+\begin{DoxyParams}{Parameters}
+{\em result} & 查询结果字节流（\+J\+S\+O\+N格式） \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+src/client.\+h\item 
+src/client.\+cpp\end{DoxyCompactItemize}

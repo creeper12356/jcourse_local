@@ -15,9 +15,10 @@ void UserHead::setUserName(const QString &userName)
 
 void UserHead::paintEvent(QPaintEvent *event)
 {
-    int size = qMax(width() , height());
+    int size = qMin(width() , height());
     QPainter painter(this);
     painter.setBrush(mBgColor);
+    painter.setRenderHints(QPainter::Antialiasing | QPainter::TextAntialiasing);
     painter.setPen(Qt::white);
     painter.drawEllipse(0,0,size,size);
     if(!mUserName.isEmpty()){
@@ -30,6 +31,13 @@ bool UserHead::event(QEvent *event)
 {
     if(event->type() == QEvent::Enter){
         qDebug() << mUserName;
+        mBgColor.setAlpha(200);
+        update();
+        return true;
+    }
+    else if(event->type() == QEvent::Leave){
+        mBgColor.setAlpha(255);
+        update();
         return true;
     }
     return QWidget::event(event);

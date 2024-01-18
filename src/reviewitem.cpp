@@ -22,8 +22,9 @@ ReviewItem::ReviewItem()
     layout->addWidget(mReactionLabel,0);
 
     widget()->setLayout(layout);
-    //TODO : 调整item高度（自适应）
-    this->setSizeHint(QSize(sizeHint().width(),600));
+
+    //set fixed item height
+    setSizeHint(QSize(sizeHint().width(),400));
 }
 
 ReviewItem::~ReviewItem()

@@ -117,6 +117,12 @@ void AppModel::setOnlineAndNotify(bool isOnline)
     emit onlineChanged(isOnline);
 }
 
+void AppModel::clearData()
+{
+    setAccountAndNotify("","");
+    mCookieJar.clear();
+}
+
 QJsonObject Account::toJsonObject() const
 {
     QJsonObject obj;

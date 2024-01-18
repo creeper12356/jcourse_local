@@ -3,26 +3,52 @@
 
 #include "inc.h"
 
+/*!
+ * \brief 分页控件
+ */
 class PaginationWidget : public QWidget
 {
-    //分页控件
     Q_OBJECT
 public:
     explicit PaginationWidget(QWidget *parent = nullptr);
     ~PaginationWidget();
 
 public:
-    //返回mCount字段是否被成功修改
+
+    /*!
+     * \brief 设置总页数
+     * \param count
+     * \return 总页数是否发生变化
+     */
     bool setCount(int count);
-    //返回mCurrent字段是否被成功修改
+
+    /*!
+     * \brief 设置当前页数
+     * \param current
+     * \return 当前页数是否发生变化
+     */
     bool setCurrent(int current);
-    //根据给定的item总数和每页item数 ， 计算需要的总页数，通常与setCurrent一起使用
+
+    /*!
+     * \sa setCurrent
+     * \brief 计算需要的总页数
+     *
+     * 根据给定的条目总数和每页的条目数，计算需要的总页数，通常与setCurrent函数一起使用。
+     * \param itemCount 条目总数
+     * \param itemCountPerPage 每页的条目数
+     * \return 需要的总页数
+     */
     static int divideTotal(int itemCount , int itemCountPerPage);
-    int count() const;
-    int current() const;
+
+    int count() const;//!<总页数
+
+    int current() const;//!<当前页数
 signals:
-    //由于用户的点击
-    //页面发生变化
+
+    /*!
+     * \brief 当前页数改变的信号
+     * \param page 当前页数
+     */
     void currentPageChanged(int page);
 
 /* === above visible to user === */

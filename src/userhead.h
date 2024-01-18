@@ -19,6 +19,7 @@ private:
 private:
     QString mUserName;
     QColor mBgColor;
+    QPixmap mPicture;
 
 signals:
 
