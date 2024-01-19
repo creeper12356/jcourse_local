@@ -92,9 +92,12 @@ bool Client::search(const QString &query,int page)
         QJsonObject resultJsonObject = QJsonDocument::fromJson(replyData).object();
         QJsonArray resultsJsonArray = resultJsonObject["results"].toArray();
 
+        bool ok;
+
         for(auto it = resultsJsonArray.begin();it != resultsJsonArray.end(); ++it){
 
             Course *newCourse = mAppModel->coreData()->addCourse((*it).toObject()["id"].toInt(),(*it).toObject()["name"].toString());
+            //无论课程之前是否存在，更新课程数据
             newCourse->code = (*it).toObject()["code"].toString();
             newCourse->credit = (*it).toObject()["credit"].toInt();
             newCourse->department = (*it).toObject()["department"].toString();
@@ -102,14 +105,21 @@ bool Client::search(const QString &query,int page)
             newCourse->ratingCount = (*it).toObject()["rating"].toObject()["count"].toInt();
 
             QString teacherName = (*it).toObject()["teacher"].toString();
-            Teacher *newTeacher = mAppModel->coreData()->addTeacher(teacherName,Pinyin::getFullChars(teacherName));
+            Teacher *newTeacher = mAppModel->coreData()->addTeacher(teacherName,&ok);
+            if(ok){
+                //只有教师添加成功才更新教师拼音
+                newTeacher->pinyin = Pinyin::getFullChars(teacherName);
+                newTeacher->abbrPinyin = Pinyin::getCamelChars(teacherName).join("");
+            }
+
             mAppModel->coreData()->addMapping(newTeacher,newCourse);
         }
     }
     else{
         //离线模式
         //本地资源搜索结果
-        QVector<const Mapping*> courseMappings = mAppModel->coreData()->searchCourseMappings(query,query,query);
+        QVector<const Mapping*> courseMappings =
+                mAppModel->coreData()->searchCourseMappings(query,query,query,query,query);
         QJsonObject resultJsonObject;
         QJsonArray resultJsonArray;
 
