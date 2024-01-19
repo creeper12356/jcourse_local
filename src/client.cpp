@@ -5,6 +5,9 @@
 
 #include "appmodel.h"
 
+
+#include <QTextStream>
+
 Client::Client(QApplication *app)
     : QObject(nullptr)
     , mApp(app)
@@ -41,6 +44,11 @@ Client::Client(QApplication *app)
     mManager->setCookieJar(mAppModel->cookieJarPtr());
     mAppModel->readFromFile("./client.json");
     mAppModel->setCacheDirectory("cache");
+
+    connect(mMainWindow,&MainWindow::parseCourseStatus,this,&Client::parseCourseStatus);
+
+
+
     if(mAppModel->account().account.isEmpty()){
         //用户名为空，说明未登录
         switchLoginWindow();
@@ -195,6 +203,20 @@ bool Client::checkReview(int courseid, int page)
 
     emit checkReviewFinished(replyData);
     return true;
+}
+
+void Client::parseCourseStatus(QString src)
+{
+    qDebug() << "source: " << src;
+    QTextStream ts(&src);
+    while(!ts.atEnd()){
+        QString line = ts.readLine();
+        QStringList splitedStrList = line.split("\t");
+        if(splitedStrList.size() == 8){
+            qDebug() << "valid line: " << line;
+        }
+    }
+
 }
 
 void Client::logout()

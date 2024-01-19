@@ -62,6 +62,8 @@ public slots:
      */
     bool checkReview(int courseid, int page = 1);
 
+    void parseCourseStatus(QString src);
+
 public:
 
     /*!

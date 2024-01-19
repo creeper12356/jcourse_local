@@ -21,6 +21,8 @@ SOURCES += \
     appmodel.cpp \
     client.cpp \
     coredatastructure.cpp \
+    coursecodeitem.cpp \
+    coursecodelistwidget.cpp \
     courseitem.cpp \
     courselistwidget.cpp \
     loginwindow.cpp \
@@ -39,6 +41,8 @@ HEADERS += \
     appmodel.h \
     client.h \
     coredatastructure.h \
+    coursecodeitem.h \
+    coursecodelistwidget.h \
     courseitem.h \
     courselistwidget.h \
     inc.h \

@@ -92,6 +92,8 @@ private slots:
      */
     void checkReviewPageTriggered(int page);
 
+    void parseCourseStatusTriggered();
+
 signals:
     /*!
      * \brief 搜索课程信号
@@ -118,6 +120,9 @@ signals:
      * \param checked 是否为在线模式
      */
     void changeOnline(bool checked);
+
+
+    void parseCourseStatus(QString src);
 
     /*!
      * \brief 登出信号

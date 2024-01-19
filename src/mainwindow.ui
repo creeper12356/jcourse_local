@@ -44,7 +44,7 @@
        <enum>QTabWidget::Rounded</enum>
       </property>
       <property name="currentIndex">
-       <number>0</number>
+       <number>1</number>
       </property>
       <widget class="QWidget" name="search_tab">
        <attribute name="title">
@@ -143,6 +143,45 @@
            <widget class="PaginationWidget" name="review_page_widget" native="true"/>
           </item>
          </layout>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="download_tab">
+       <attribute name="title">
+        <string>备份</string>
+       </attribute>
+       <layout class="QVBoxLayout" name="verticalLayout_5" stretch="0,0,0">
+        <item>
+         <widget class="QTabWidget" name="import_src_tab_widget">
+          <property name="currentIndex">
+           <number>0</number>
+          </property>
+          <widget class="QWidget" name="course_status_tab">
+           <attribute name="title">
+            <string>从修业情况导入</string>
+           </attribute>
+           <layout class="QVBoxLayout" name="verticalLayout">
+            <item>
+             <widget class="QPlainTextEdit" name="course_status_edit"/>
+            </item>
+           </layout>
+          </widget>
+          <widget class="QWidget" name="tab_2">
+           <attribute name="title">
+            <string>Tab 2</string>
+           </attribute>
+          </widget>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="parse_button">
+          <property name="text">
+           <string>解析</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="CourseListWidget" name="download_course_list_widget"/>
         </item>
        </layout>
       </widget>

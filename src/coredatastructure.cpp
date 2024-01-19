@@ -252,3 +252,4 @@ QVector<const Mapping*> CoreData::searchCourseMappings(const QString &teacherNam
 
     return result;
 }
+

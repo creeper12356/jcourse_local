@@ -7,6 +7,7 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
 
+    //search_tab
     ui->search_edit->setPlaceholderText(
                 "搜索课程名/课号/教师姓名/教师姓名拼音"
                 );
@@ -32,6 +33,11 @@ MainWindow::MainWindow(QWidget *parent)
     connect(ui->course_item_list,&CourseListWidget::courseSelected,this,&MainWindow::checkReviewTriggered);
     connect(ui->review_page_widget,&PaginationWidget::currentPageChanged,this,&MainWindow::checkReviewPageTriggered);
     connect(ui->logout_button,&QPushButton::clicked,this,&MainWindow::logout);
+
+    //download_tab
+    ui->parse_button->setMaximumWidth(100);
+    connect(ui->parse_button,&QPushButton::clicked,this,&MainWindow::parseCourseStatusTriggered);
+
 }
 
 MainWindow::~MainWindow()
@@ -88,6 +94,16 @@ void MainWindow::checkReviewPageTriggered(int page)
 {
     ui->statusbar->showMessage(REVIEW_MESSAGE(mLastCourseid,page));
     emit checkReview(mLastCourseid,page);
+}
+
+void MainWindow::parseCourseStatusTriggered()
+{
+    QString plainText = ui->course_status_edit->toPlainText();
+    if(plainText.isEmpty()){
+        qDebug() << "course status source cannot be empty.";
+        return ;
+    }
+    emit parseCourseStatus(ui->course_status_edit->toPlainText());
 }
 
 void MainWindow::displaySearchResult(QByteArray result)
