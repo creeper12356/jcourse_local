@@ -42,7 +42,9 @@
 
 #define PAGE_SIZE 20
 
-#define LOGIN_URL QUrl("https://course.sjtu.plus/oauth/email/login/")
+#define EMAIL_LOGIN_URL QUrl("https://course.sjtu.plus/oauth/email/login/")
+#define EMAIL_SEND_CODE_URL QUrl("https://course.sjtu.plus/oauth/email/send-code/")
+#define EMAIL_VERIFY_URL QUrl("https://course.sjtu.plus/oauth/email/verify/")
 #define LOGOUT_URL QUrl("https://course.sjtu.plus/oauth/logout/")
 
 #define SEARCH_URL(query,page) \

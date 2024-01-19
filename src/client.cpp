@@ -17,8 +17,13 @@ Client::Client(QApplication *app)
 
     mAppModel = new AppModel(mMainWindow);
 
-    connect(mLoginWindow,&LoginWindow::loginSuccess,this,[this](QString account , QString password){
+    connect(mLoginWindow,&LoginWindow::emailPasswordLoginSuccess,this,[this](QString account , QString password){
         mAppModel->setAccountAndNotify(account,password);
+        switchMainWindow();
+    });
+    connect(mLoginWindow,&LoginWindow::emailCodeLoginSuccess,this,[this](QString account){
+        //TODO : 使用验证码登录，密码为空
+        mAppModel->setAccountAndNotify(account,"");
         switchMainWindow();
     });
 
@@ -207,7 +212,8 @@ QNetworkReply *Client::getWithCookies(const QUrl &apiUrl)
             return reply;
         }
         //获取资源失败
-        if(autoUpdateCookies()){
+        //只有账号密码登录条件下（密码不为空），才自动更新Cookies
+        if(!mAppModel->account().password.isEmpty() &&  autoUpdateCookies()){
             //重新自动获取Cookies成功
             delete reply;
             continue;
@@ -216,6 +222,7 @@ QNetworkReply *Client::getWithCookies(const QUrl &apiUrl)
         qDebug() << reply->attribute(QNetworkRequest::HttpStatusCodeAttribute);
         qDebug() << QString::fromUtf8(reply->readAll());
         delete reply;
+        //TODO : 登出
         return nullptr;
     }
 }
@@ -226,7 +233,7 @@ bool Client::autoUpdateCookies()
     mAppModel->cookieJarPtr()->clear();
 
     //更新Cookies
-    QNetworkRequest loginRequest(LOGIN_URL);
+    QNetworkRequest loginRequest(EMAIL_LOGIN_URL);
     loginRequest.setHeader(QNetworkRequest::ContentTypeHeader, "application/x-www-form-urlencoded");
     QUrlQuery postData;
     //TODO : assert not empty
