@@ -88,6 +88,7 @@ signals:
      */
     void checkReviewFinished(QByteArray result);
 
+    void parseCourseStatusFinished(QJsonObject resultJsonObject);
 
 private:
     /*!

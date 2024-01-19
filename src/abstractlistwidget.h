@@ -17,6 +17,7 @@ class AbstractListWidget : public QListWidget
     Q_OBJECT
 public:
     explicit AbstractListWidget(QWidget* parent = 0);
+    virtual ~AbstractListWidget();
 
     /*!
      * \brief 更新列表视图

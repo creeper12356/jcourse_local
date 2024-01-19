@@ -38,6 +38,8 @@ public slots:
     void displayCheckReviewResult(QByteArray result);
 
 
+    void displayParseCourseStatusResult(QJsonObject resultJsonObject);
+
     /*!
      * \brief 用户名改变的槽函数
      *

@@ -181,7 +181,7 @@
          </widget>
         </item>
         <item>
-         <widget class="CourseListWidget" name="download_course_list_widget"/>
+         <widget class="CourseCodeListWidget" name="download_course_list_widget"/>
         </item>
        </layout>
       </widget>
@@ -287,6 +287,11 @@
    <extends>QWidget</extends>
    <header location="global">switchbutton.h</header>
    <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>CourseCodeListWidget</class>
+   <extends>QListWidget</extends>
+   <header location="global">coursecodelistwidget.h</header>
   </customwidget>
  </customwidgets>
  <resources/>

@@ -46,6 +46,7 @@ Client::Client(QApplication *app)
     mAppModel->setCacheDirectory("cache");
 
     connect(mMainWindow,&MainWindow::parseCourseStatus,this,&Client::parseCourseStatus);
+    connect(this,&Client::parseCourseStatusFinished,mMainWindow,&MainWindow::displayParseCourseStatusResult);
 
 
 
@@ -207,16 +208,29 @@ bool Client::checkReview(int courseid, int page)
 
 void Client::parseCourseStatus(QString src)
 {
-    qDebug() << "source: " << src;
     QTextStream ts(&src);
+    QJsonObject resultJsonObject;
+    QJsonArray resultJsonArray;
     while(!ts.atEnd()){
         QString line = ts.readLine();
         QStringList splitedStrList = line.split("\t");
-        if(splitedStrList.size() == 8){
-            qDebug() << "valid line: " << line;
+        QJsonObject courseCodeObject;
+        if(splitedStrList.size() == 8 && !splitedStrList[0].isEmpty()){
+            qDebug() << splitedStrList[0];
+            if(splitedStrList[0] == "学号 " || splitedStrList[0] == "学院 "){
+                continue;
+            }
+            courseCodeObject.insert("code",splitedStrList[0]);
+            courseCodeObject.insert("name",splitedStrList[1]);
+            courseCodeObject.insert("semester",splitedStrList[2] + "-" + splitedStrList[3]);
+            courseCodeObject.insert("credit",splitedStrList[4]);
+            resultJsonArray.append(courseCodeObject);
         }
     }
 
+    resultJsonObject.insert("results",resultJsonArray);
+    qDebug() << resultJsonObject;
+    emit parseCourseStatusFinished(resultJsonObject);
 }
 
 void Client::logout()

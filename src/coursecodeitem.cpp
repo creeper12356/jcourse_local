@@ -12,6 +12,8 @@ CourseCodeItem::CourseCodeItem()
     layout->addWidget(mCodeLabel);
     layout->addWidget(mNameLabel);
     layout->addWidget(mSemesterLabel);
+
+    setSizeHint(QSize(sizeHint().width(),70));
 }
 
 CourseCodeItem::~CourseCodeItem()

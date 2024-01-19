@@ -42,11 +42,6 @@ MainWindow::MainWindow(QWidget *parent)
 
 MainWindow::~MainWindow()
 {
-    qDebug() << "delete items";
-    ui->course_item_list->clear();
-    ui->review_item_list->clear();
-
-    qDebug() << "delete ui";
     delete ui;
 }
 
@@ -121,6 +116,11 @@ void MainWindow::displayCheckReviewResult(QByteArray result)
     QJsonObject resultJsonObject = QJsonDocument::fromJson(result).object();
     ui->review_info_label->setText(REVIEW_INFO(resultJsonObject["count"].toInt()));
     ui->review_item_list->displayResult(resultJsonObject);
+}
+
+void MainWindow::displayParseCourseStatusResult(QJsonObject resultJsonObject)
+{
+    ui->download_course_list_widget->displayResult(resultJsonObject);
 }
 
 void MainWindow::userNameChangedSlot(QString userName)

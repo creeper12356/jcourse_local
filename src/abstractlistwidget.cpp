@@ -7,6 +7,11 @@ AbstractListWidget::AbstractListWidget(QWidget *parent)
     connect(this,&AbstractListWidget::itemClicked,this,&AbstractListWidget::itemClickedSlot);
 }
 
+AbstractListWidget::~AbstractListWidget()
+{
+    this->clear();
+}
+
 void AbstractListWidget::addItem(AbstractItem *item)
 {
     QListWidget::addItem(item);
