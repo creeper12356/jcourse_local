@@ -49,7 +49,7 @@ void CourseItem::updateItemInfo(const QJsonObject &courseJsonObject)
 
     QString detail = "%1学分 %2";
     detail = detail.arg(
-             QString::number(courseJsonObject["credit"].toInt()),
+             QString::number(courseJsonObject["credit"].toDouble()),
              courseJsonObject["department"].toString());
     mDetailLabel->setText(detail);
 

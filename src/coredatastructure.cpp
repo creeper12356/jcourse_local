@@ -28,7 +28,7 @@ bool CoreData::readFromJsonObject(const QJsonObject &obj)
 
         //new course added
         course->code = (*it).toObject()["code"].toString();
-        course->credit = (*it).toObject()["credit"].toInt();
+        course->credit = (*it).toObject()["credit"].toDouble();
         course->department = (*it).toObject()["department"].toString();
         course->ratingAvg = (*it).toObject()["ratingAvg"].toDouble();
         course->ratingCount = (*it).toObject()["ratingCount"].toInt();
