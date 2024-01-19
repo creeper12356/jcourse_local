@@ -23,7 +23,7 @@ Collaboration diagram for Review\+List\+Widget\+:
 \mbox{\Hypertarget{classReviewListWidget_a7ae17a227770dfca205a55abe9abad29}\label{classReviewListWidget_a7ae17a227770dfca205a55abe9abad29}} 
 {\bfseries Review\+List\+Widget} (Q\+Widget $\ast$parent=0)
 \item 
-void \mbox{\hyperlink{classReviewListWidget_a9ab16ad81eda3b85b7a6f769600b70f3}{display\+Result}} (Q\+Byte\+Array result) override
+void \mbox{\hyperlink{classReviewListWidget_a319a6adc24e8c16bf4806a5ca2c5d30b}{display\+Result}} (const Q\+Json\+Object \&result\+Json\+Object) override
 \begin{DoxyCompactList}\small\item\em 更新列表视图 \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsection*{Protected Member Functions}
 \begin{DoxyCompactItemize}
@@ -46,24 +46,24 @@ void {\bfseries item\+Clicked\+Slot} (Q\+List\+Widget\+Item $\ast$item) override
 Inherits\+: \mbox{\hyperlink{classAbstractListWidget}{Abstract\+List\+Widget}} 
 
 \doxysubsection{Member Function Documentation}
-\mbox{\Hypertarget{classReviewListWidget_a9ab16ad81eda3b85b7a6f769600b70f3}\label{classReviewListWidget_a9ab16ad81eda3b85b7a6f769600b70f3}} 
+\mbox{\Hypertarget{classReviewListWidget_a319a6adc24e8c16bf4806a5ca2c5d30b}\label{classReviewListWidget_a319a6adc24e8c16bf4806a5ca2c5d30b}} 
 \index{ReviewListWidget@{ReviewListWidget}!displayResult@{displayResult}}
 \index{displayResult@{displayResult}!ReviewListWidget@{ReviewListWidget}}
 \doxysubsubsection{\texorpdfstring{displayResult()}{displayResult()}}
-{\footnotesize\ttfamily void Review\+List\+Widget\+::display\+Result (\begin{DoxyParamCaption}\item[{Q\+Byte\+Array}]{result }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+{\footnotesize\ttfamily void Review\+List\+Widget\+::display\+Result (\begin{DoxyParamCaption}\item[{const Q\+Json\+Object \&}]{result\+Json\+Object }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
 
 
 
 更新列表视图 
 
-解析\+J\+S\+O\+N格式字节流，并显示到界面上，该方法需要派生类实现。 
+解析\+Q\+Json\+Object对象，并显示到界面上，该方法需要派生类实现。 
 \begin{DoxyParams}{Parameters}
-{\em result} & 待解析的\+J\+S\+O\+N格式字节流 \\
+{\em result\+Json\+Object} & 待解析的\+Q\+Json\+Object的引用 \\
 \hline
 \end{DoxyParams}
 
 
-Implements \mbox{\hyperlink{classAbstractListWidget_abac85d5f1926a7bad8edd4dca623af4e}{Abstract\+List\+Widget}}.
+Implements \mbox{\hyperlink{classAbstractListWidget_a66ea221e1595999bb5c734e3b0386f62}{Abstract\+List\+Widget}}.
 
 
 

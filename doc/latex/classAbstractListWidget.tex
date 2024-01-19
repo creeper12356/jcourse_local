@@ -23,7 +23,7 @@ Collaboration diagram for Abstract\+List\+Widget\+:
 \mbox{\Hypertarget{classAbstractListWidget_a21d16340521047b447278f8356360abb}\label{classAbstractListWidget_a21d16340521047b447278f8356360abb}} 
 {\bfseries Abstract\+List\+Widget} (Q\+Widget $\ast$parent=0)
 \item 
-virtual void \mbox{\hyperlink{classAbstractListWidget_abac85d5f1926a7bad8edd4dca623af4e}{display\+Result}} (Q\+Byte\+Array result)=0
+virtual void \mbox{\hyperlink{classAbstractListWidget_a66ea221e1595999bb5c734e3b0386f62}{display\+Result}} (const Q\+Json\+Object \&result\+Json\+Object)=0
 \begin{DoxyCompactList}\small\item\em 更新列表视图 \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{classAbstractListWidget_aed04e1bb7f41be8ddba3c3096cc2e9e8}\label{classAbstractListWidget_aed04e1bb7f41be8ddba3c3096cc2e9e8}} 
 void {\bfseries add\+Item} (\mbox{\hyperlink{classAbstractItem}{Abstract\+Item}} $\ast$item)
@@ -59,24 +59,24 @@ Inherited by\+: \mbox{\hyperlink{classCourseListWidget}{Course\+List\+Widget}}, 
 列表控件抽象类，支持连接分页控件使用。 
 
 \doxysubsection{Member Function Documentation}
-\mbox{\Hypertarget{classAbstractListWidget_abac85d5f1926a7bad8edd4dca623af4e}\label{classAbstractListWidget_abac85d5f1926a7bad8edd4dca623af4e}} 
+\mbox{\Hypertarget{classAbstractListWidget_a66ea221e1595999bb5c734e3b0386f62}\label{classAbstractListWidget_a66ea221e1595999bb5c734e3b0386f62}} 
 \index{AbstractListWidget@{AbstractListWidget}!displayResult@{displayResult}}
 \index{displayResult@{displayResult}!AbstractListWidget@{AbstractListWidget}}
 \doxysubsubsection{\texorpdfstring{displayResult()}{displayResult()}}
-{\footnotesize\ttfamily virtual void Abstract\+List\+Widget\+::display\+Result (\begin{DoxyParamCaption}\item[{Q\+Byte\+Array}]{result }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+{\footnotesize\ttfamily virtual void Abstract\+List\+Widget\+::display\+Result (\begin{DoxyParamCaption}\item[{const Q\+Json\+Object \&}]{result\+Json\+Object }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
 
 
 
 更新列表视图 
 
-解析\+J\+S\+O\+N格式字节流，并显示到界面上，该方法需要派生类实现。 
+解析\+Q\+Json\+Object对象，并显示到界面上，该方法需要派生类实现。 
 \begin{DoxyParams}{Parameters}
-{\em result} & 待解析的\+J\+S\+O\+N格式字节流 \\
+{\em result\+Json\+Object} & 待解析的\+Q\+Json\+Object的引用 \\
 \hline
 \end{DoxyParams}
 
 
-Implemented in \mbox{\hyperlink{classCourseListWidget_ade98cd8999977e6e2041100bd0f90119}{Course\+List\+Widget}}, and \mbox{\hyperlink{classReviewListWidget_a9ab16ad81eda3b85b7a6f769600b70f3}{Review\+List\+Widget}}.
+Implemented in \mbox{\hyperlink{classCourseListWidget_a4554567f8c115a5e995a08e393711ab7}{Course\+List\+Widget}}, and \mbox{\hyperlink{classReviewListWidget_a319a6adc24e8c16bf4806a5ca2c5d30b}{Review\+List\+Widget}}.
 
 \mbox{\Hypertarget{classAbstractListWidget_a2115f406fb6976063ec259e9eb196490}\label{classAbstractListWidget_a2115f406fb6976063ec259e9eb196490}} 
 \index{AbstractListWidget@{AbstractListWidget}!itemClickedSlot@{itemClickedSlot}}

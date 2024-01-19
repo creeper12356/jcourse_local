@@ -93,9 +93,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a21d16340521047b447278f8356360abb"><td class="memItemLeft" align="right" valign="top"><a id="a21d16340521047b447278f8356360abb"></a>
 &#160;</td><td class="memItemRight" valign="bottom"><b>AbstractListWidget</b> (QWidget *parent=0)</td></tr>
 <tr class="separator:a21d16340521047b447278f8356360abb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abac85d5f1926a7bad8edd4dca623af4e"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAbstractListWidget.html#abac85d5f1926a7bad8edd4dca623af4e">displayResult</a> (QByteArray result)=0</td></tr>
-<tr class="memdesc:abac85d5f1926a7bad8edd4dca623af4e"><td class="mdescLeft">&#160;</td><td class="mdescRight">更新列表视图  <a href="classAbstractListWidget.html#abac85d5f1926a7bad8edd4dca623af4e">More...</a><br /></td></tr>
-<tr class="separator:abac85d5f1926a7bad8edd4dca623af4e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a66ea221e1595999bb5c734e3b0386f62"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAbstractListWidget.html#a66ea221e1595999bb5c734e3b0386f62">displayResult</a> (const QJsonObject &amp;resultJsonObject)=0</td></tr>
+<tr class="memdesc:a66ea221e1595999bb5c734e3b0386f62"><td class="mdescLeft">&#160;</td><td class="mdescRight">更新列表视图  <a href="classAbstractListWidget.html#a66ea221e1595999bb5c734e3b0386f62">More...</a><br /></td></tr>
+<tr class="separator:a66ea221e1595999bb5c734e3b0386f62"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aed04e1bb7f41be8ddba3c3096cc2e9e8"><td class="memItemLeft" align="right" valign="top"><a id="aed04e1bb7f41be8ddba3c3096cc2e9e8"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>addItem</b> (<a class="el" href="classAbstractItem.html">AbstractItem</a> *item)</td></tr>
 <tr class="separator:aed04e1bb7f41be8ddba3c3096cc2e9e8"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -129,8 +129,8 @@ Private Attributes</h2></td></tr>
 <p>Inherited by: <a class="el" href="classCourseListWidget.html" title="课程列表控件">CourseListWidget</a>, <a class="el" href="classReviewListWidget.html" title="课程评价列表控件">ReviewListWidget</a></p>
 <p>列表控件抽象类，支持连接分页控件使用。 </p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
-<a id="abac85d5f1926a7bad8edd4dca623af4e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#abac85d5f1926a7bad8edd4dca623af4e">&#9670;&nbsp;</a></span>displayResult()</h2>
+<a id="a66ea221e1595999bb5c734e3b0386f62"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a66ea221e1595999bb5c734e3b0386f62">&#9670;&nbsp;</a></span>displayResult()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -141,8 +141,8 @@ Private Attributes</h2></td></tr>
         <tr>
           <td class="memname">virtual void AbstractListWidget::displayResult </td>
           <td>(</td>
-          <td class="paramtype">QByteArray&#160;</td>
-          <td class="paramname"><em>result</em></td><td>)</td>
+          <td class="paramtype">const QJsonObject &amp;&#160;</td>
+          <td class="paramname"><em>resultJsonObject</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -154,14 +154,14 @@ Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>更新列表视图 </p>
-<p>解析JSON格式字节流，并显示到界面上，该方法需要派生类实现。 </p><dl class="params"><dt>Parameters</dt><dd>
+<p>解析QJsonObject对象，并显示到界面上，该方法需要派生类实现。 </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">result</td><td>待解析的JSON格式字节流 </td></tr>
+    <tr><td class="paramname">resultJsonObject</td><td>待解析的QJsonObject的引用 </td></tr>
   </table>
   </dd>
 </dl>
 
-<p>Implemented in <a class="el" href="classCourseListWidget.html#ade98cd8999977e6e2041100bd0f90119">CourseListWidget</a>, and <a class="el" href="classReviewListWidget.html#a9ab16ad81eda3b85b7a6f769600b70f3">ReviewListWidget</a>.</p>
+<p>Implemented in <a class="el" href="classCourseListWidget.html#a4554567f8c115a5e995a08e393711ab7">CourseListWidget</a>, and <a class="el" href="classReviewListWidget.html#a319a6adc24e8c16bf4806a5ca2c5d30b">ReviewListWidget</a>.</p>
 
 </div>
 </div>

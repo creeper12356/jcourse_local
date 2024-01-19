@@ -29,7 +29,7 @@ void {\bfseries course\+Selected} (int courseid)
 \mbox{\Hypertarget{classCourseListWidget_ad0e1150330e4275f96ab4ee31848ed6c}\label{classCourseListWidget_ad0e1150330e4275f96ab4ee31848ed6c}} 
 {\bfseries Course\+List\+Widget} (Q\+Widget $\ast$parent=0)
 \item 
-void \mbox{\hyperlink{classCourseListWidget_ade98cd8999977e6e2041100bd0f90119}{display\+Result}} (Q\+Byte\+Array result) override
+void \mbox{\hyperlink{classCourseListWidget_a4554567f8c115a5e995a08e393711ab7}{display\+Result}} (const Q\+Json\+Object \&result\+Json\+Object) override
 \begin{DoxyCompactList}\small\item\em 更新列表视图 \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsection*{Protected Slots}
 \begin{DoxyCompactItemize}
@@ -45,24 +45,24 @@ void {\bfseries item\+Clicked\+Slot} (Q\+List\+Widget\+Item $\ast$item) override
 Inherits\+: \mbox{\hyperlink{classAbstractListWidget}{Abstract\+List\+Widget}} 
 
 \doxysubsection{Member Function Documentation}
-\mbox{\Hypertarget{classCourseListWidget_ade98cd8999977e6e2041100bd0f90119}\label{classCourseListWidget_ade98cd8999977e6e2041100bd0f90119}} 
+\mbox{\Hypertarget{classCourseListWidget_a4554567f8c115a5e995a08e393711ab7}\label{classCourseListWidget_a4554567f8c115a5e995a08e393711ab7}} 
 \index{CourseListWidget@{CourseListWidget}!displayResult@{displayResult}}
 \index{displayResult@{displayResult}!CourseListWidget@{CourseListWidget}}
 \doxysubsubsection{\texorpdfstring{displayResult()}{displayResult()}}
-{\footnotesize\ttfamily void Course\+List\+Widget\+::display\+Result (\begin{DoxyParamCaption}\item[{Q\+Byte\+Array}]{result }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+{\footnotesize\ttfamily void Course\+List\+Widget\+::display\+Result (\begin{DoxyParamCaption}\item[{const Q\+Json\+Object \&}]{result\+Json\+Object }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
 
 
 
 更新列表视图 
 
-解析\+J\+S\+O\+N格式字节流，并显示到界面上，该方法需要派生类实现。 
+解析\+Q\+Json\+Object对象，并显示到界面上，该方法需要派生类实现。 
 \begin{DoxyParams}{Parameters}
-{\em result} & 待解析的\+J\+S\+O\+N格式字节流 \\
+{\em result\+Json\+Object} & 待解析的\+Q\+Json\+Object的引用 \\
 \hline
 \end{DoxyParams}
 
 
-Implements \mbox{\hyperlink{classAbstractListWidget_abac85d5f1926a7bad8edd4dca623af4e}{Abstract\+List\+Widget}}.
+Implements \mbox{\hyperlink{classAbstractListWidget_a66ea221e1595999bb5c734e3b0386f62}{Abstract\+List\+Widget}}.
 
 
 

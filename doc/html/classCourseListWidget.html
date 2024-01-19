@@ -99,9 +99,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:ad0e1150330e4275f96ab4ee31848ed6c"><td class="memItemLeft" align="right" valign="top"><a id="ad0e1150330e4275f96ab4ee31848ed6c"></a>
 &#160;</td><td class="memItemRight" valign="bottom"><b>CourseListWidget</b> (QWidget *parent=0)</td></tr>
 <tr class="separator:ad0e1150330e4275f96ab4ee31848ed6c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ade98cd8999977e6e2041100bd0f90119"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCourseListWidget.html#ade98cd8999977e6e2041100bd0f90119">displayResult</a> (QByteArray result) override</td></tr>
-<tr class="memdesc:ade98cd8999977e6e2041100bd0f90119"><td class="mdescLeft">&#160;</td><td class="mdescRight">更新列表视图  <a href="classCourseListWidget.html#ade98cd8999977e6e2041100bd0f90119">More...</a><br /></td></tr>
-<tr class="separator:ade98cd8999977e6e2041100bd0f90119"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4554567f8c115a5e995a08e393711ab7"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCourseListWidget.html#a4554567f8c115a5e995a08e393711ab7">displayResult</a> (const QJsonObject &amp;resultJsonObject) override</td></tr>
+<tr class="memdesc:a4554567f8c115a5e995a08e393711ab7"><td class="mdescLeft">&#160;</td><td class="mdescRight">更新列表视图  <a href="classCourseListWidget.html#a4554567f8c115a5e995a08e393711ab7">More...</a><br /></td></tr>
+<tr class="separator:a4554567f8c115a5e995a08e393711ab7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_methods_classAbstractListWidget"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_classAbstractListWidget')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="classAbstractListWidget.html">AbstractListWidget</a></td></tr>
 <tr class="memitem:a21d16340521047b447278f8356360abb inherit pub_methods_classAbstractListWidget"><td class="memItemLeft" align="right" valign="top"><a id="a21d16340521047b447278f8356360abb"></a>
 &#160;</td><td class="memItemRight" valign="bottom"><b>AbstractListWidget</b> (QWidget *parent=0)</td></tr>
@@ -135,8 +135,8 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>itemClickedSlot</b> (
 <div class="textblock"><p>课程列表控件 </p>
 <p>Inherits: <a class="el" href="classAbstractListWidget.html" title="列表控件抽象类">AbstractListWidget</a> </p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
-<a id="ade98cd8999977e6e2041100bd0f90119"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ade98cd8999977e6e2041100bd0f90119">&#9670;&nbsp;</a></span>displayResult()</h2>
+<a id="a4554567f8c115a5e995a08e393711ab7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4554567f8c115a5e995a08e393711ab7">&#9670;&nbsp;</a></span>displayResult()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -147,8 +147,8 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>itemClickedSlot</b> (
         <tr>
           <td class="memname">void CourseListWidget::displayResult </td>
           <td>(</td>
-          <td class="paramtype">QByteArray&#160;</td>
-          <td class="paramname"><em>result</em></td><td>)</td>
+          <td class="paramtype">const QJsonObject &amp;&#160;</td>
+          <td class="paramname"><em>resultJsonObject</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -160,14 +160,14 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>itemClickedSlot</b> (
 </div><div class="memdoc">
 
 <p>更新列表视图 </p>
-<p>解析JSON格式字节流，并显示到界面上，该方法需要派生类实现。 </p><dl class="params"><dt>Parameters</dt><dd>
+<p>解析QJsonObject对象，并显示到界面上，该方法需要派生类实现。 </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">result</td><td>待解析的JSON格式字节流 </td></tr>
+    <tr><td class="paramname">resultJsonObject</td><td>待解析的QJsonObject的引用 </td></tr>
   </table>
   </dd>
 </dl>
 
-<p>Implements <a class="el" href="classAbstractListWidget.html#abac85d5f1926a7bad8edd4dca623af4e">AbstractListWidget</a>.</p>
+<p>Implements <a class="el" href="classAbstractListWidget.html#a66ea221e1595999bb5c734e3b0386f62">AbstractListWidget</a>.</p>
 
 </div>
 </div>

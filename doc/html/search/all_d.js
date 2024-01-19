@@ -1,7 +1,6 @@
 var searchData=
 [
-  ['updateiteminfo_74',['updateItemInfo',['../classAbstractItem.html#aa33291647da0a56887428f555d814c82',1,'AbstractItem::updateItemInfo()'],['../classCourseItem.html#a89cf2550921f7446ca5156d2c4a17c75',1,'CourseItem::updateItemInfo()'],['../classReviewItem.html#a263970240bac800363fcaf5b78af78cd',1,'ReviewItem::updateItemInfo()']]],
-  ['userhead_75',['UserHead',['../classUserHead.html',1,'']]],
-  ['usernamechanged_76',['userNameChanged',['../classAppModel.html#aaf4a4db9b32bfbc32a5c998cc9007483',1,'AppModel']]],
-  ['usernamechangedslot_77',['userNameChangedSlot',['../classMainWindow.html#a201019cc14140e70821254da747b2896',1,'MainWindow']]]
+  ['teacher_77',['Teacher',['../classTeacher.html',1,'']]],
+  ['tojsonarray_78',['toJsonArray',['../classMyNetworkCookieJar.html#a4633a4ce3585af7caac27fe4b2b898c3',1,'MyNetworkCookieJar']]],
+  ['tojsonobject_79',['toJsonObject',['../classCoreData.html#acbbe1ac905025e3a93bfae7fbdfbdcad',1,'CoreData']]]
 ];

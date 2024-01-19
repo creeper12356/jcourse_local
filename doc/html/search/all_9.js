@@ -1,5 +1,6 @@
 var searchData=
 [
-  ['paginationwidget_47',['PaginationWidget',['../classPaginationWidget.html',1,'PaginationWidget'],['../classAbstractListWidget.html#a8690f990c54c3c1ac5969dcd4cb0204c',1,'AbstractListWidget::paginationWidget()']]],
-  ['pinyin_48',['Pinyin',['../classPinyin.html',1,'Pinyin'],['../classTeacher.html#ab614786a174adf2b49431a2d8cefd824',1,'Teacher::pinyin()']]]
+  ['onlinechanged_49',['onlineChanged',['../classAppModel.html#a7f0e29c961c8b026b60f40603e6112e7',1,'AppModel']]],
+  ['onlinechangedslot_50',['onlineChangedSlot',['../classMainWindow.html#afcedbb2d0db465cba4bdfb8e89630a44',1,'MainWindow']]],
+  ['operator_3d_3d_51',['operator==',['../classMapping.html#ae16f8bd4fb944b321f39fe691da42847',1,'Mapping']]]
 ];

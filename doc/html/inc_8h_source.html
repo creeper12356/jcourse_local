@@ -113,30 +113,42 @@ $(function() {
 <div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160; </div>
 <div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;<span class="preprocessor">#define PAGE_SIZE 20</span></div>
 <div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160; </div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;<span class="preprocessor">#define LOGIN_URL QUrl(&quot;https://course.sjtu.plus/oauth/email/login/&quot;)</span></div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;<span class="preprocessor">#define LOGOUT_URL QUrl(&quot;https://course.sjtu.plus/oauth/logout/&quot;)</span></div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160; </div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;<span class="preprocessor">#define SEARCH_URL(query,page) \</span></div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;<span class="preprocessor">    QUrl(QString(&quot;https://course.sjtu.plus/api/search/?q=%1&amp;page=%2&amp;size=%3&quot;)\</span></div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;<span class="preprocessor">    .arg(query,QString::number(page),QString::number(PAGE_SIZE)))</span></div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;<span class="preprocessor">#define REVIEW_URL(courseid,page) \</span></div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;<span class="preprocessor">    QUrl(QString(&quot;https://course.sjtu.plus/api/course/%1/review/?&amp;page=%2&amp;size=%3&quot;)\</span></div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;<span class="preprocessor">    .arg(QString::number(courseid),QString::number(page),QString::number(PAGE_SIZE)))</span></div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160; </div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;<span class="comment">//缓存评价文件名</span></div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;<span class="comment">//int courseid , int page</span></div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;<span class="preprocessor">#define CACHE_REVIEW_BASENAME(courseid,page) \</span></div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;<span class="preprocessor">        QString(&quot;review_%1_%2.json&quot;).arg(QString::number(courseid),QString::number(page))</span></div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160; </div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;<span class="keyword">class </span><a class="code" href="classMainWindow.html">MainWindow</a>;</div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;<span class="keyword">class </span><a class="code" href="classLoginWindow.html">LoginWindow</a>;</div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;<span class="keyword">class </span><a class="code" href="classAccount.html">Account</a>;</div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;<span class="keyword">class </span><a class="code" href="classMyNetworkCookieJar.html">MyNetworkCookieJar</a>;</div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;<span class="keyword">class </span><a class="code" href="classAppModel.html">AppModel</a>;</div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;<span class="keyword">class </span><a class="code" href="classPaginationWidget.html">PaginationWidget</a>;</div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;<span class="keyword">class </span><a class="code" href="classAbstractItem.html">AbstractItem</a>;</div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160; </div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;<span class="preprocessor">#endif // INC_H</span></div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;<span class="preprocessor">#define EMAIL_LOGIN_URL QUrl(&quot;https://course.sjtu.plus/oauth/email/login/&quot;)</span></div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;<span class="preprocessor">#define EMAIL_SEND_CODE_URL QUrl(&quot;https://course.sjtu.plus/oauth/email/send-code/&quot;)</span></div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;<span class="preprocessor">#define EMAIL_VERIFY_URL QUrl(&quot;https://course.sjtu.plus/oauth/email/verify/&quot;)</span></div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;<span class="preprocessor">#define LOGOUT_URL QUrl(&quot;https://course.sjtu.plus/oauth/logout/&quot;)</span></div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160; </div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;<span class="preprocessor">#define SEARCH_URL(query,page) \</span></div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;<span class="preprocessor">    QUrl(QString(&quot;https://course.sjtu.plus/api/search/?q=%1&amp;page=%2&amp;size=%3&quot;)\</span></div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;<span class="preprocessor">    .arg(query,QString::number(page),QString::number(PAGE_SIZE)))</span></div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;<span class="preprocessor">#define REVIEW_URL(courseid,page) \</span></div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;<span class="preprocessor">    QUrl(QString(&quot;https://course.sjtu.plus/api/course/%1/review/?&amp;page=%2&amp;size=%3&quot;)\</span></div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;<span class="preprocessor">    .arg(QString::number(courseid),QString::number(page),QString::number(PAGE_SIZE)))</span></div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160; </div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;<span class="preprocessor">#define SEARCH_MESSAGE(query, page) \</span></div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;<span class="preprocessor">    QString(&quot;搜索课程：q=%1,page=%2...&quot;).arg(query,QString::number(page))</span></div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;<span class="preprocessor">#define REVIEW_MESSAGE(courseid,page) \</span></div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;<span class="preprocessor">    QString(&quot;查看评价：id=%1,page=%2...&quot;).arg(QString::number(courseid),QString::number(page))</span></div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;<span class="preprocessor">#define COURSE_INFO(courseCount) \</span></div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;<span class="preprocessor">    (courseCount ? QString(&quot;共有%1门课&quot;).arg(courseCount) : &quot;暂无数据&quot;)</span></div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;<span class="preprocessor">#define REVIEW_INFO(reviewCount) \</span></div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;<span class="preprocessor">    (reviewCount ? QString(&quot;点评（%1条）&quot;).arg(reviewCount) : &quot;暂无点评&quot;)</span></div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160; </div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160; </div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;<span class="comment">//缓存评价文件名</span></div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;<span class="comment">//int courseid , int page</span></div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;<span class="preprocessor">#define CACHE_REVIEW_BASENAME(courseid,page) \</span></div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;<span class="preprocessor">        QString(&quot;review_%1_%2.json&quot;).arg(QString::number(courseid),QString::number(page))</span></div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160; </div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;<span class="keyword">class </span><a class="code" href="classMainWindow.html">MainWindow</a>;</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;<span class="keyword">class </span><a class="code" href="classLoginWindow.html">LoginWindow</a>;</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;<span class="keyword">class </span><a class="code" href="classAccount.html">Account</a>;</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;<span class="keyword">class </span><a class="code" href="classMyNetworkCookieJar.html">MyNetworkCookieJar</a>;</div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;<span class="keyword">class </span><a class="code" href="classAppModel.html">AppModel</a>;</div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;<span class="keyword">class </span><a class="code" href="classPaginationWidget.html">PaginationWidget</a>;</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;<span class="keyword">class </span><a class="code" href="classAbstractItem.html">AbstractItem</a>;</div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160; </div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;<span class="preprocessor">#endif // INC_H</span></div>
 </div><!-- fragment --></div><!-- contents -->
 <div class="ttc" id="aclassPaginationWidget_html"><div class="ttname"><a href="classPaginationWidget.html">PaginationWidget</a></div><div class="ttdoc">分页控件</div><div class="ttdef"><b>Definition:</b> paginationwidget.h:9</div></div>
 <div class="ttc" id="aclassAppModel_html"><div class="ttname"><a href="classAppModel.html">AppModel</a></div><div class="ttdoc">存储客户端的所有永久性数据</div><div class="ttdef"><b>Definition:</b> appmodel.h:55</div></div>

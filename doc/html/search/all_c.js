@@ -1,6 +1,19 @@
 var searchData=
 [
-  ['teacher_71',['Teacher',['../classTeacher.html',1,'']]],
-  ['tojsonarray_72',['toJsonArray',['../classMyNetworkCookieJar.html#a4633a4ce3585af7caac27fe4b2b898c3',1,'MyNetworkCookieJar']]],
-  ['tojsonobject_73',['toJsonObject',['../classCoreData.html#acbbe1ac905025e3a93bfae7fbdfbdcad',1,'CoreData']]]
+  ['search_61',['search',['../classClient.html#a7dba3a66cc787ca890baf42d5e92b59f',1,'Client::search()'],['../classMainWindow.html#abdf55aa39f3f2b63849d566fce1d1219',1,'MainWindow::search()']]],
+  ['searchbartriggered_62',['searchBarTriggered',['../classMainWindow.html#a2677a8021c7bd7584a2fa2662df9f6e4',1,'MainWindow']]],
+  ['searchcoursemappings_63',['searchCourseMappings',['../classCoreData.html#a47f8f34f170fcffae18b910811245794',1,'CoreData']]],
+  ['searchfinished_64',['searchFinished',['../classClient.html#ab9a18bdef02dc6990a2beedd73f8aa9f',1,'Client']]],
+  ['searchpagetriggered_65',['searchPageTriggered',['../classMainWindow.html#a43d3e62fafbd279653ed416563e8a830',1,'MainWindow']]],
+  ['sendverificationcode_66',['sendVerificationCode',['../classLoginWindow.html#a2be9f9b12f1520ad9d36582b67ce3c3d',1,'LoginWindow']]],
+  ['setaccountandnotify_67',['setAccountAndNotify',['../classAppModel.html#a5febe5cfd510e7d98d0f1920a6921818',1,'AppModel::setAccountAndNotify(const Account &amp;account)'],['../classAppModel.html#a51f36fc051c9942a37721b5985e8d286',1,'AppModel::setAccountAndNotify(const QString &amp;account, const QString &amp;password)']]],
+  ['setcachedirectory_68',['setCacheDirectory',['../classAppModel.html#aaf5850fbcc30d9f175f3fb0862be966c',1,'AppModel']]],
+  ['setcount_69',['setCount',['../classPaginationWidget.html#a32a5111ef1c45df161d2184e58885d04',1,'PaginationWidget']]],
+  ['setcurrent_70',['setCurrent',['../classPaginationWidget.html#ad3629bbe5abf9e45d7ae07287ccd7b7b',1,'PaginationWidget']]],
+  ['setonline_71',['setOnline',['../classAppModel.html#a0cbdf845c783eda11b1a2bb1e30f47cf',1,'AppModel']]],
+  ['setonlineandnotify_72',['setOnlineAndNotify',['../classAppModel.html#a04e167be1d3812d2101d12ebcf4306f6',1,'AppModel']]],
+  ['setpaginationwidget_73',['setPaginationWidget',['../classAbstractListWidget.html#a32c04bb008a065687a25b51f7b942473',1,'AbstractListWidget']]],
+  ['switchbutton_74',['SwitchButton',['../classSwitchButton.html',1,'']]],
+  ['switchloginwindow_75',['switchLoginWindow',['../classClient.html#aed689c9c914db43e1a24970b6fb1628f',1,'Client']]],
+  ['switchmainwindow_76',['switchMainWindow',['../classClient.html#a9372b43eb11dbd5e1f8a7a77f90ae104',1,'Client']]]
 ];

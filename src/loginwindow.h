@@ -22,6 +22,7 @@ public:
 public slots:
     /*!
      * \brief 邮箱密码登录
+     *
      * 通过邮箱密码登录，登录成功后发送emailPasswordLoginSuccess信号
      * \sa emailPasswordLoginSuccess
      */
@@ -34,6 +35,7 @@ public slots:
 
     /*!
      * \brief 邮箱验证登录
+     *
      * 通过邮箱验证登录，登录成功后发送emailCodeLoginSuccess信号
      * \sa emailCodeLoginSuccess
      */
@@ -46,6 +48,7 @@ signals:
 
     /*!
      * \brief 邮箱密码登录成功信号
+     *
      * 用户通过邮箱密码登录成功后，此信号被发送给Client。
      * \param account 用户名
      * \param password 密码
@@ -55,6 +58,7 @@ signals:
 
     /*!
      * \brief 邮箱验证登录成功信号
+     *
      * 用户通过邮箱验证登录成功后，此信号被发送给Client。
      * \param account 用户名
      * \sa emailCodeLogin

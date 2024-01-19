@@ -1,5 +1,6 @@
 var searchData=
 [
-  ['loginwindow_35',['LoginWindow',['../classLoginWindow.html',1,'']]],
-  ['logout_36',['logout',['../classClient.html#aa977795294407c10fe843b5bc28b6685',1,'Client::logout()'],['../classMainWindow.html#ab2539ea587be5e2abde872300d475df7',1,'MainWindow::logout()']]]
+  ['id_37',['id',['../classCourse.html#a25fc48add606dc67349678c2699b875e',1,'Course']]],
+  ['isonline_38',['isOnline',['../classAppModel.html#a1261c5d5290049c5dd3c34934fa35ef2',1,'AppModel']]],
+  ['itemclickedslot_39',['itemClickedSlot',['../classAbstractListWidget.html#a2115f406fb6976063ec259e9eb196490',1,'AbstractListWidget']]]
 ];

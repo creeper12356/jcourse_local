@@ -1,6 +1,4 @@
 var searchData=
 [
-  ['onlinechanged_129',['onlineChanged',['../classAppModel.html#a7f0e29c961c8b026b60f40603e6112e7',1,'AppModel']]],
-  ['onlinechangedslot_130',['onlineChangedSlot',['../classMainWindow.html#afcedbb2d0db465cba4bdfb8e89630a44',1,'MainWindow']]],
-  ['operator_3d_3d_131',['operator==',['../classMapping.html#ae16f8bd4fb944b321f39fe691da42847',1,'Mapping']]]
+  ['logout_139',['logout',['../classClient.html#aa977795294407c10fe843b5bc28b6685',1,'Client::logout()'],['../classMainWindow.html#ab2539ea587be5e2abde872300d475df7',1,'MainWindow::logout()']]]
 ];

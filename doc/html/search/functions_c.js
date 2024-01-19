@@ -1,5 +1,6 @@
 var searchData=
 [
-  ['widget_157',['widget',['../classAbstractItem.html#affe001d5d4b85565963a6e7805e40b03',1,'AbstractItem']]],
-  ['writetofile_158',['writeToFile',['../classAppModel.html#ac194112f20f285975b88b7f33c452f72',1,'AppModel::writeToFile()'],['../classCoreData.html#ad33705f15c68340cd7e1bf155f797af4',1,'CoreData::writeToFile()']]]
+  ['updateiteminfo_166',['updateItemInfo',['../classAbstractItem.html#aa33291647da0a56887428f555d814c82',1,'AbstractItem::updateItemInfo()'],['../classCourseItem.html#a89cf2550921f7446ca5156d2c4a17c75',1,'CourseItem::updateItemInfo()'],['../classReviewItem.html#a263970240bac800363fcaf5b78af78cd',1,'ReviewItem::updateItemInfo()']]],
+  ['usernamechanged_167',['userNameChanged',['../classAppModel.html#aaf4a4db9b32bfbc32a5c998cc9007483',1,'AppModel']]],
+  ['usernamechangedslot_168',['userNameChangedSlot',['../classMainWindow.html#a201019cc14140e70821254da747b2896',1,'MainWindow']]]
 ];
