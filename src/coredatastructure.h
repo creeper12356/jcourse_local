@@ -28,7 +28,7 @@ public:
 
     QString name;
     QString code;
-    int credit;
+    qreal credit;
     QString department;
 
     qreal ratingAvg;

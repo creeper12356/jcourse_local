@@ -107,7 +107,7 @@ bool Client::search(const QString &query,int page)
             Course *newCourse = mAppModel->coreData()->addCourse((*it).toObject()["id"].toInt(),(*it).toObject()["name"].toString());
             //无论课程之前是否存在，更新课程数据
             newCourse->code = (*it).toObject()["code"].toString();
-            newCourse->credit = (*it).toObject()["credit"].toInt();
+            newCourse->credit = (*it).toObject()["credit"].toDouble();
             newCourse->department = (*it).toObject()["department"].toString();
             newCourse->ratingAvg = (*it).toObject()["rating"].toObject()["avg"].toDouble();
             newCourse->ratingCount = (*it).toObject()["rating"].toObject()["count"].toInt();
