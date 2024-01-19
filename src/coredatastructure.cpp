@@ -231,10 +231,11 @@ bool Mapping::operator ==(const Mapping &other) const
     return this->teacher == other.teacher && this->course == other.course;
 }
 
-QVector<const Mapping*> CoreData::searchCourseMappings(const QString& teacherName,
-                                                       const QString& teacherPinyin,
+QVector<const Mapping*> CoreData::searchCourseMappings(const QString &teacherName,
+                                                       const QString &teacherPinyin,
                                                        const QString &teacherAbbrPinyin,
-                                                       const QString& courseName) {
+                                                       const QString &courseName,
+                                                       const QString &courseCode) {
     QVector<const Mapping*> result;
 
     // 在数据集中搜索匹配条件的courseId
@@ -242,7 +243,8 @@ QVector<const Mapping*> CoreData::searchCourseMappings(const QString& teacherNam
         if (mapping.teacher->name.contains(teacherName,Qt::CaseInsensitive) ||
             mapping.teacher->pinyin.toLower() == teacherPinyin.toLower() ||
             mapping.teacher->abbrPinyin.toLower() == teacherAbbrPinyin.toLower() ||
-            mapping.course->name.contains(courseName, Qt::CaseInsensitive)){
+            mapping.course->name.contains(courseName, Qt::CaseInsensitive) ||
+            mapping.course->code.toLower() == courseCode.toLower()){
 
             result.push_back(&mapping);
         }

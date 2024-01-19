@@ -113,7 +113,8 @@ bool Client::search(const QString &query,int page)
     else{
         //离线模式
         //本地资源搜索结果
-        QVector<const Mapping*> courseMappings = mAppModel->coreData()->searchCourseMappings(query,query,query,query);
+        QVector<const Mapping*> courseMappings =
+                mAppModel->coreData()->searchCourseMappings(query,query,query,query,query);
         QJsonObject resultJsonObject;
         QJsonArray resultJsonArray;
 

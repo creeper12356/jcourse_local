@@ -72,17 +72,19 @@ public:
      * \brief 按照关键字搜索课程
      *
      * 按照关键字搜索教师-课程的对应关系，
-     * 目前支持的搜索方式有：教师姓名模糊搜索，教师拼音精确搜索，教师拼音缩写精确搜索，课程名称模糊搜索。
+     * 目前支持的搜索方式有：教师姓名模糊搜索，教师拼音精确搜索，教师拼音缩写精确搜索，课程名称模糊搜索，课号精确搜索。
      * \param teacherName 教师姓名搜索关键字
      * \param teacherPinyin 教师拼音搜索关键字
      * \param teacherAbbrPinyin 教师拼音缩写搜索关键字
      * \param courseName 课程名称搜索关键字
+     * \param courseCode 课号关键字
      * \return 所有符合搜索要求的教师-课程关系，存储在一个QVector容器中。
      */
     QVector<const Mapping*> searchCourseMappings(const QString &teacherName,
                                                  const QString &teacherPinyin,
                                                  const QString &teacherAbbrPinyin,
-                                                 const QString &courseName);
+                                                 const QString &courseName,
+                                                 const QString &courseCode);
 
     /*!
      * \brief 从QJsonObject对象中读取信息
