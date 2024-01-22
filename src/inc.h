@@ -41,11 +41,15 @@
 #include <QDebug>
 
 #define PAGE_SIZE 20
+#define CONCAT(str1,str2) str1 str2
 
-#define EMAIL_LOGIN_URL QUrl("https://course.sjtu.plus/oauth/email/login/")
-#define EMAIL_SEND_CODE_URL QUrl("https://course.sjtu.plus/oauth/email/send-code/")
-#define EMAIL_VERIFY_URL QUrl("https://course.sjtu.plus/oauth/email/verify/")
-#define LOGOUT_URL QUrl("https://course.sjtu.plus/oauth/logout/")
+#define AUTHORITY "https://course.sjtu.plus"
+
+#define LOGIN_URL QUrl(CONCAT(AUTHORITY,"/oauth/login/"))
+#define EMAIL_LOGIN_URL QUrl(CONCAT(AUTHORITY,"/oauth/email/login/"))
+#define EMAIL_SEND_CODE_URL QUrl(CONCAT(AUTHORITY,"/oauth/email/send-code/"))
+#define EMAIL_VERIFY_URL QUrl(CONCAT(AUTHORITY,"/oauth/email/verify/"))
+#define LOGOUT_URL QUrl(CONCAT(AUTHORITY,"/oauth/logout/"))
 
 #define SEARCH_URL(query,page) \
     QUrl(QString("https://course.sjtu.plus/api/search/?q=%1&page=%2&size=%3")\
