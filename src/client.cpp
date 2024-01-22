@@ -20,15 +20,24 @@ Client::Client(QApplication *app)
 
     mAppModel = new AppModel(mMainWindow);
 
+    //连接登录成功信号的槽
     connect(mLoginWindow,&LoginWindow::emailPasswordLoginSuccess,this,[this](QString account , QString password){
+        mAppModel->setLoginMode("emailPasswordLogin");
         mAppModel->setAccountAndNotify(account,password);
         switchMainWindow();
     });
     connect(mLoginWindow,&LoginWindow::emailCodeLoginSuccess,this,[this](QString account){
+        mAppModel->setLoginMode("emailCodeLogin");
         //TODO : 使用验证码登录，密码为空
         mAppModel->setAccountAndNotify(account,"");
         switchMainWindow();
     });
+    connect(mLoginWindow,&LoginWindow::userPasswordLoginSuccess,this,[this](QString user , QString password){
+        mAppModel->setLoginMode("userPasswordLogin");
+        mAppModel->setAccountAndNotify(user,password);
+        switchMainWindow();
+    });
+
 
     connect(mMainWindow,&MainWindow::search,this,&Client::search);
     connect(this,&Client::searchFinished,mMainWindow,&MainWindow::displaySearchResult);
@@ -258,8 +267,7 @@ QNetworkReply *Client::getWithCookies(const QUrl &apiUrl)
             return reply;
         }
         //获取资源失败
-        //只有账号密码登录条件下（密码不为空），才自动更新Cookies
-        if(!mAppModel->account().password.isEmpty() &&  autoUpdateCookies()){
+        if(autoUpdateCookies()){
             //重新自动获取Cookies成功
             delete reply;
             continue;
@@ -279,12 +287,25 @@ bool Client::autoUpdateCookies()
     mAppModel->cookieJarPtr()->clear();
 
     //更新Cookies
-    QNetworkRequest loginRequest(EMAIL_LOGIN_URL);
+    QNetworkRequest loginRequest;
     loginRequest.setHeader(QNetworkRequest::ContentTypeHeader, "application/x-www-form-urlencoded");
     QUrlQuery postData;
-    //TODO : assert not empty
-    postData.addQueryItem("account",mAppModel->account().account);
-    postData.addQueryItem("password",mAppModel->account().password);
+    if(mAppModel->loginMode() == "emailPasswordLogin"){
+        //使用邮箱密码登录
+        loginRequest.setUrl(EMAIL_LOGIN_URL);
+        postData.addQueryItem("account",mAppModel->account().account);
+        postData.addQueryItem("password",mAppModel->account().password);
+    }
+    else if(mAppModel->loginMode() == "userPasswordLogin"){
+        //使用账号密码登录
+        loginRequest.setUrl(LOGIN_URL);
+        postData.addQueryItem("username",mAppModel->account().account);
+        postData.addQueryItem("password",mAppModel->account().password);
+    }
+    else{
+        //使用其他方式登录，无法自动更新Cookies
+        return false;
+    }
     QNetworkReply* reply = mManager->post(loginRequest,postData.toString(QUrl::FullyEncoded).toUtf8());
     mEventLoop->exec();
     auto error = reply->error();

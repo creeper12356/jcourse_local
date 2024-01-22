@@ -43,6 +43,23 @@ LoginWindow::LoginWindow(QNetworkAccessManager *manager, QWidget *parent) :
     connect(ui->email_send_get_code_button,&QPushButton::clicked,this,&LoginWindow::sendVerificationCode);
     connect(ui->email_send_login_button,&QPushButton::clicked,this,&LoginWindow::emailCodeLogin);
     connect(ui->email_send_cancel_button,&QPushButton::clicked,this,&LoginWindow::rejected);
+
+
+    ui->login_account_edit->setEchoMode(QLineEdit::Normal);
+    ui->login_account_edit->setMaximumHeight(30);
+    ui->login_account_edit->setPlaceholderText("选课社区用户名");
+
+    ui->login_password_edit->setEchoMode(QLineEdit::Password);
+    ui->login_password_edit->setMaximumHeight(30);
+    ui->login_password_edit->setPlaceholderText("选课社区密码");
+
+    ui->login_edit_layout->setAlignment(Qt::AlignCenter);
+
+    ui->login_cancel_button->setFocusPolicy(Qt::NoFocus);
+
+    connect(ui->login_login_button,&QPushButton::clicked,this,&LoginWindow::userPasswordLogin);
+    connect(ui->login_cancel_button,&QPushButton::clicked,this,&LoginWindow::rejected);
+
 }
 
 LoginWindow::~LoginWindow()
@@ -156,6 +173,42 @@ void LoginWindow::emailCodeLogin()
         emit emailCodeLoginSuccess(account);
     }
 }
+
+void LoginWindow::userPasswordLogin()
+{
+    QEventLoop eventLoop;
+    connect(mManager,&QNetworkAccessManager::finished,&eventLoop,&QEventLoop::quit);
+
+    //清除之前的Cookies
+    cookieJar()->clear();
+
+    //更新Cookies
+    QNetworkRequest loginRequest(LOGIN_URL);
+    loginRequest.setHeader(QNetworkRequest::ContentTypeHeader, "application/x-www-form-urlencoded");
+    QUrlQuery postData;
+
+    QString username = ui->login_account_edit->text();
+    QString password = ui->login_password_edit->text();
+    if(username.isEmpty() || password.isEmpty()){
+        qDebug() << "username or password cannot be empty.";
+        return ;
+    }
+    postData.addQueryItem("username",username);
+    postData.addQueryItem("password",password);
+    qDebug() << "try login: " << username;
+    QNetworkReply* reply = mManager->post(loginRequest,postData.toString(QUrl::FullyEncoded).toUtf8());
+    eventLoop.exec();
+    auto error = reply->error();
+    displayReplyStatus(reply);
+    delete reply;
+
+    if(error == QNetworkReply::NoError){
+        //TODO : BUG ，连点可以强行登录
+        //登录成功
+        emit userPasswordLoginSuccess(username,password);
+    }
+}
+
 void LoginWindow::showEvent(QShowEvent *)
 {
     ui->email_login_account_edit->setFocus();

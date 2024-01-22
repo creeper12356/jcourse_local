@@ -41,6 +41,15 @@ public slots:
      */
     void emailCodeLogin();
 
+
+    /*!
+     * \brief 账号密码登录
+     *
+     * 通过账号密码登录，登录成功后发送userPasswordLoginSuccess信号
+     * \sa userPasswordLoginSuccess
+     */
+    void userPasswordLogin();
+
 protected:
     void showEvent(QShowEvent* );
 
@@ -64,6 +73,8 @@ signals:
      * \sa emailCodeLogin
      */
     void emailCodeLoginSuccess(QString account);
+
+    void userPasswordLoginSuccess(QString user, QString password);
 protected:
     MyNetworkCookieJar* cookieJar();
 private:

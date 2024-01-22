@@ -52,10 +52,10 @@
 #define LOGOUT_URL QUrl(CONCAT(AUTHORITY,"/oauth/logout/"))
 
 #define SEARCH_URL(query,page) \
-    QUrl(QString("https://course.sjtu.plus/api/search/?q=%1&page=%2&size=%3")\
+    QUrl(QString(CONCAT(AUTHORITY,"/api/search/?q=%1&page=%2&size=%3"))\
     .arg(query,QString::number(page),QString::number(PAGE_SIZE)))
 #define REVIEW_URL(courseid,page) \
-    QUrl(QString("https://course.sjtu.plus/api/course/%1/review/?&page=%2&size=%3")\
+    QUrl(QString(CONCAT(AUTHORITY,"/api/course/%1/review/?&page=%2&size=%3"))\
     .arg(QString::number(courseid),QString::number(page),QString::number(PAGE_SIZE)))
 
 #define SEARCH_MESSAGE(query, page) \

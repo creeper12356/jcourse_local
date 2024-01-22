@@ -72,6 +72,7 @@ public:
      */
     bool writeToFile(const QString& fileName) const;
 public:
+    const QString& loginMode() const;		     //!<登录模式
     const Account& account() const;                 //!<当前账号（包含账号和密码)
     const MyNetworkCookieJar& cookieJar () const;   //!<当前cookieJar，不可修改
     MyNetworkCookieJar* cookieJarPtr();             //!<指向当前cookieJar的指针，可修改
@@ -80,6 +81,7 @@ public:
     CoreData* coreData();                           //!<指向核心数据的指针
 
 public slots:
+    void setLoginMode(const QString& loginMode);	                         //!<设置登录模式
     void setAccountAndNotify(const Account& account);                           //!<设置账号并通知MainWindow
     void setAccountAndNotify(const QString& account , const QString& password); //!<设置账号并通知MainWindow
     void setCacheDirectory(const QString &cacheDirectory);                      //!<设置缓存目录
@@ -108,6 +110,8 @@ private:
     //显示界面
     MainWindow* mMainWindow = nullptr;
 private:
+    //登录模式：emailPasswordLogin,emailCodeLogin,userPasswordLogin三种模式
+    QString mLoginMode;
     //选课社区邮箱账号密码
     Account mAccount;
     MyNetworkCookieJar mCookieJar;

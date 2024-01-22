@@ -25,6 +25,8 @@ bool AppModel::readFromFile(const QString &fileName)
         return false;
     }
     QJsonObject clientJsonObject = clientJsonDoc.object();
+    //读入登录模式
+    setLoginMode(clientJsonObject["loginMode"].toString());
     //读入账号密码
     setAccountAndNotify(clientJsonObject["account"].toObject()["account"].toString(),
             clientJsonObject["account"].toObject()["password"].toString());
@@ -45,6 +47,7 @@ bool AppModel::writeToFile(const QString &fileName) const
     QFile writer(fileName);
     writer.open(QIODevice::WriteOnly);
     QJsonObject clientJsonObject;
+    clientJsonObject.insert("loginMode",mLoginMode);
     clientJsonObject.insert("account",mAccount.toJsonObject());
     clientJsonObject.insert("cookies",mCookieJar.toJsonArray());
     clientJsonObject.insert("isOnline",mOnline);
@@ -85,6 +88,11 @@ CoreData *AppModel::coreData()
     return &mCoreData;
 }
 
+const QString &AppModel::loginMode() const
+{
+    return mLoginMode;
+}
+
 void AppModel::setAccountAndNotify(const Account &account)
 {
     mAccount = account;
@@ -115,6 +123,11 @@ void AppModel::setOnlineAndNotify(bool isOnline)
 {
     mOnline = isOnline;
     emit onlineChanged(isOnline);
+}
+
+void AppModel::setLoginMode(const QString &loginMode)
+{
+    mLoginMode = loginMode;
 }
 
 void AppModel::clearData()
