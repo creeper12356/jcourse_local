@@ -13,7 +13,9 @@ public:
 protected:
     void itemClickedSlot(QListWidgetItem *item) override;
     void contextMenuEvent(QContextMenuEvent* event) override;
-
+signals:
+    //缓存所有课号为courseCode的课程评价信号，发送给MainWindow
+    void cacheCourseCodeReview(QString courseCode);
 private:
     QAction* mCacheAction;
 };

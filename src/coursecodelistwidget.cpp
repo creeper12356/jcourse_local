@@ -6,6 +6,7 @@ CourseCodeListWidget::CourseCodeListWidget(QWidget *parent)
 {
     mCacheAction = new QAction("缓存这门课");
     mContextMenu->addAction(mCacheAction);
+    this->setVerticalScrollMode(QAbstractItemView::ScrollPerPixel);
 }
 
 CourseCodeListWidget::~CourseCodeListWidget()
@@ -32,6 +33,11 @@ void CourseCodeListWidget::itemClickedSlot(QListWidgetItem *item)
 
 void CourseCodeListWidget::contextMenuEvent(QContextMenuEvent *event)
 {
-    qDebug() << this->itemAt(event->pos());
-    mContextMenu->exec(event->globalPos());
+    if(itemAt(event->pos())){
+        auto action = mContextMenu->exec(event->globalPos());
+        if(action == mCacheAction){
+            CourseCodeItem* targetItem = dynamic_cast<CourseCodeItem*> (itemAt(event->pos()));
+            emit cacheCourseCodeReview(targetItem->courseCode());
+        }
+    }
 }

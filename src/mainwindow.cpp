@@ -38,6 +38,7 @@ MainWindow::MainWindow(QWidget *parent)
     ui->parse_button->setMaximumWidth(100);
     connect(ui->parse_button,&QPushButton::clicked,this,&MainWindow::parseCourseStatusTriggered);
     connect(ui->course_item_list,&CourseListWidget::cacheCourseReview,this,&MainWindow::cacheCourseReview);
+    connect(ui->download_course_list_widget,&CourseCodeListWidget::cacheCourseCodeReview,this,&MainWindow::cacheCourseCodeReview);
 }
 
 MainWindow::~MainWindow()

@@ -129,6 +129,9 @@ signals:
     //发送给Client的缓存课程评价信号
     void cacheCourseReview(int courseid);
 
+    //发送给Client的缓存所有课号为courseCode的课程评价信号
+    void cacheCourseCodeReview(QString courseCode);
+
     /*!
      * \brief 登出信号
      *

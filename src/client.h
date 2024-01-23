@@ -76,8 +76,18 @@ public slots:
      *
      * 将指定课程的所有评价都缓存入文件，调用此函数要求客户端为在线模式。
      * \param courseid 缓存的课程id
+     * \sa cacheCourseCodeReview
      */
     void cacheCourseReview(int courseid);
+
+    /*!
+     * \brief 缓存指定课号的所有课程评价
+     *
+     * 将指定课号的所有课程的所有评价都缓存入文件，调用此函数要求客户端为在线模式
+     * \param courseCode 缓存的课号
+     * \sa cacheCourseReview
+     */
+    void cacheCourseCodeReview(QString courseCode);
     
 public:
 
@@ -90,13 +100,35 @@ public:
     QNetworkReply *getWithCookies(const QUrl &apiUrl);
 
     /*!
+     * \brief 在线搜索课程
+     * \param query 搜索内容
+     * \param page 搜索页面
+     * \return 如果请求成功，返回服务器回应的JSON格式字节流；
+     * 如果请求失败，返回空。
+     */
+    QByteArray getSearchResult(const QString& query , int page);
+
+    /*!
      * \brief 在线请求课程评价
      * \param courseid 课程id
      * \param page 请求页面
-     * \return 如果请求成功，返回服务器返回的JSON格式字节流；
+     * \return 如果请求成功，返回服务器回应的JSON格式字节流；
      * 如果请求失败，返回空。
      */
     QByteArray getCourseReview(int courseid, int page);
+
+    /*!
+     * \brief 将搜索结果缓存
+     * \param replyData 搜索结果字节流
+     */
+    void cacheSearchResult(const QByteArray& replyData);
+    /*!
+     * \brief 将搜索结果缓存
+     * \param replyJsonObject 解析为QJsonObject的搜索结果
+     */
+    void cacheSearchResult(const QJsonObject& replyJsonObject);
+
+
 
     /*!
      * \brief 将服务器回应数据写入文件

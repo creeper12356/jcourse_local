@@ -59,6 +59,7 @@ Client::Client(QApplication *app)
     connect(this,&Client::parseCourseStatusFinished,mMainWindow,&MainWindow::displayParseCourseStatusResult);
 
     connect(mMainWindow,&MainWindow::cacheCourseReview,this,&Client::cacheCourseReview);
+    connect(mMainWindow,&MainWindow::cacheCourseCodeReview,this,&Client::cacheCourseCodeReview);
 
     if(mAppModel->account().account.isEmpty()){
         //用户名为空，说明未登录
@@ -101,38 +102,13 @@ bool Client::search(const QString &query,int page)
     if(mAppModel->isOnline()){
         //在线模式
         //请求api,缓存资源到本地
-        auto reply = getWithCookies(SEARCH_URL(query,page));
-        if(!reply){
-            //在线获取资源失败
+        replyData = getSearchResult(query,page);
+        if(replyData.isEmpty()){
             return false;
         }
-        replyData = reply->readAll();
-        delete reply;
-        QJsonObject resultJsonObject = QJsonDocument::fromJson(replyData).object();
-        QJsonArray resultsJsonArray = resultJsonObject["results"].toArray();
 
-        bool ok;
-
-        for(auto it = resultsJsonArray.begin();it != resultsJsonArray.end(); ++it){
-
-            Course *newCourse = mAppModel->coreData()->addCourse((*it).toObject()["id"].toInt(),(*it).toObject()["name"].toString());
-            //无论课程之前是否存在，更新课程数据
-            newCourse->code = (*it).toObject()["code"].toString();
-            newCourse->credit = (*it).toObject()["credit"].toDouble();
-            newCourse->department = (*it).toObject()["department"].toString();
-            newCourse->ratingAvg = (*it).toObject()["rating"].toObject()["avg"].toDouble();
-            newCourse->ratingCount = (*it).toObject()["rating"].toObject()["count"].toInt();
-
-            QString teacherName = (*it).toObject()["teacher"].toString();
-            Teacher *newTeacher = mAppModel->coreData()->addTeacher(teacherName,&ok);
-            if(ok){
-                //只有教师添加成功才更新教师拼音
-                newTeacher->pinyin = Pinyin::getFullChars(teacherName);
-                newTeacher->abbrPinyin = Pinyin::getCamelChars(teacherName).join("");
-            }
-
-            mAppModel->coreData()->addMapping(newTeacher,newCourse);
-        }
+        //缓存数据
+        cacheSearchResult(replyData);
     }
     else{
         //离线模式
@@ -234,6 +210,21 @@ void Client::parseCourseStatus(QString src)
     emit parseCourseStatusFinished(resultJsonObject);
 }
 
+QByteArray Client::getSearchResult(const QString &query, int page)
+{
+    //TODO : merge with getCourseReview
+    QByteArray replyData;
+    assert(mAppModel->isOnline());
+    auto reply = getWithCookies(SEARCH_URL(query,page));
+    if(!reply){
+        return "";
+    }
+    assert(reply->error() == QNetworkReply::NoError);
+    replyData = reply->readAll();
+    delete reply;
+    return replyData;
+}
+
 QByteArray Client::getCourseReview(int courseid, int page)
 {
     QByteArray replyData;
@@ -271,6 +262,38 @@ void Client::cacheCourseReview(int courseid)
     qDebug() << "cache course " << courseid << " finished!";
 }
 
+void Client::cacheCourseCodeReview(QString courseCode)
+{
+    assert(mAppModel->isOnline());
+    QByteArray replyData;
+    int pageCount , pageCurrent = 1;
+    QVector<int> courseidList = {};
+
+    do {
+        replyData = getSearchResult(courseCode,pageCurrent);
+        if(replyData.isEmpty()){
+            qDebug() << "error";
+            return ;
+        }
+        auto replyJsonObject = QJsonDocument::fromJson(replyData).object();
+        if(pageCurrent == 1){
+            pageCount = PaginationWidget::divideTotal(replyJsonObject["count"].toInt(),PAGE_SIZE);
+        }
+        QJsonArray resultJsonArray = replyJsonObject["results"].toArray();
+        for(auto it = resultJsonArray.begin();it != resultJsonArray.end();++it){
+            courseidList.push_back((*it).toObject()["id"].toInt());
+        }
+
+        cacheSearchResult(replyJsonObject);
+        ++pageCurrent;
+    } while(pageCurrent <= pageCount);
+
+    for(int courseid: courseidList){
+        cacheCourseReview(courseid);
+    }
+    qDebug() << "cache course code " << courseCode << " finished!";
+}
+
 void Client::cacheReplyData(const QByteArray &replyData, const QString &fileName)
 {
     QFile downloader;
@@ -279,6 +302,38 @@ void Client::cacheReplyData(const QByteArray &replyData, const QString &fileName
     downloader.open(QIODevice::WriteOnly);
     downloader.write(replyData);
     downloader.close();
+}
+
+void Client::cacheSearchResult(const QByteArray &replyData)
+{
+    QJsonObject replyJsonObject = QJsonDocument::fromJson(replyData).object();
+    cacheSearchResult(replyJsonObject);
+}
+
+void Client::cacheSearchResult(const QJsonObject &replyJsonObject)
+{
+    auto resultsJsonArray = replyJsonObject["results"].toArray();
+    bool ok;
+    for(auto it = resultsJsonArray.begin();it != resultsJsonArray.end(); ++it){
+
+        Course *newCourse = mAppModel->coreData()->addCourse((*it).toObject()["id"].toInt(),(*it).toObject()["name"].toString());
+        //无论课程之前是否存在，更新课程数据
+        newCourse->code = (*it).toObject()["code"].toString();
+        newCourse->credit = (*it).toObject()["credit"].toDouble();
+        newCourse->department = (*it).toObject()["department"].toString();
+        newCourse->ratingAvg = (*it).toObject()["rating"].toObject()["avg"].toDouble();
+        newCourse->ratingCount = (*it).toObject()["rating"].toObject()["count"].toInt();
+
+        QString teacherName = (*it).toObject()["teacher"].toString();
+        Teacher *newTeacher = mAppModel->coreData()->addTeacher(teacherName,&ok);
+        if(ok){
+            //只有教师添加成功才更新教师拼音
+            newTeacher->pinyin = Pinyin::getFullChars(teacherName);
+            newTeacher->abbrPinyin = Pinyin::getCamelChars(teacherName).join("");
+        }
+
+        mAppModel->coreData()->addMapping(newTeacher,newCourse);
+    }
 }
 
 void Client::logout()
@@ -319,6 +374,7 @@ QNetworkReply *Client::getWithCookies(const QUrl &apiUrl)
         return nullptr;
     }
 }
+
 
 bool Client::autoUpdateCookies()
 {

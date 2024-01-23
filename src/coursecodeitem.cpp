@@ -23,7 +23,8 @@ CourseCodeItem::~CourseCodeItem()
 
 void CourseCodeItem::updateItemInfo(const QJsonObject &jsonObject)
 {
-    mCodeLabel->setText(jsonObject["code"].toString());
+    mCourseCode = jsonObject["code"].toString();
+    mCodeLabel->setText(mCourseCode);
     mNameLabel->setText(jsonObject["name"].toString());
     mSemesterLabel->setText(jsonObject["semester"].toString());
     mCreditLabel->setText(QString::number(jsonObject["credit"].toDouble()));
