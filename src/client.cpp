@@ -190,23 +190,23 @@ void Client::parseCourseStatus(QString src)
     QJsonArray resultJsonArray;
     while(!ts.atEnd()){
         QString line = ts.readLine();
-        QStringList splitedStrList = line.split("\t");
+        QStringList splitedStrList = line.split("\t",QString::SkipEmptyParts);
         QJsonObject courseCodeObject;
-        if(splitedStrList.size() == 8 && !splitedStrList[0].isEmpty()){
-            qDebug() << splitedStrList[0];
-            if(splitedStrList[0] == "学号 " || splitedStrList[0] == "学院 "){
+        if(splitedStrList.size() == 8){
+//            qDebug() << splitedStrList[0];
+            if(splitedStrList[0].trimmed() == "姓名" || splitedStrList[0].trimmed() == "学号" || splitedStrList[0].trimmed() == "学院"){
                 continue;
             }
-            courseCodeObject.insert("code",splitedStrList[0]);
-            courseCodeObject.insert("name",splitedStrList[1]);
-            courseCodeObject.insert("semester",splitedStrList[2] + "-" + splitedStrList[3]);
-            courseCodeObject.insert("credit",splitedStrList[4]);
+            courseCodeObject.insert("code",splitedStrList[0].trimmed());
+            courseCodeObject.insert("name",splitedStrList[1].trimmed());
+            courseCodeObject.insert("semester",splitedStrList[2].trimmed() + "-" + splitedStrList[3].trimmed());
+            courseCodeObject.insert("credit",splitedStrList[4].trimmed());
             resultJsonArray.append(courseCodeObject);
         }
     }
 
     resultJsonObject.insert("results",resultJsonArray);
-    qDebug() << resultJsonObject;
+//    qDebug() << resultJsonObject;
     emit parseCourseStatusFinished(resultJsonObject);
 }
 
