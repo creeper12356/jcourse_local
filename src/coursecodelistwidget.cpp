@@ -4,7 +4,13 @@
 CourseCodeListWidget::CourseCodeListWidget(QWidget *parent)
     : AbstractListWidget(parent)
 {
+    mCacheAction = new QAction("缓存这门课");
+    mContextMenu->addAction(mCacheAction);
+}
 
+CourseCodeListWidget::~CourseCodeListWidget()
+{
+    delete mCacheAction;
 }
 
 void CourseCodeListWidget::displayResult(const QJsonObject &resultJsonObject)
@@ -21,5 +27,11 @@ void CourseCodeListWidget::displayResult(const QJsonObject &resultJsonObject)
 
 void CourseCodeListWidget::itemClickedSlot(QListWidgetItem *item)
 {
+    qDebug() << "do nothing.";
+}
 
+void CourseCodeListWidget::contextMenuEvent(QContextMenuEvent *event)
+{
+    qDebug() << this->itemAt(event->pos());
+    mContextMenu->exec(event->globalPos());
 }

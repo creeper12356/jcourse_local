@@ -62,17 +62,48 @@ public slots:
      */
     bool checkReview(int courseid, int page = 1);
 
+    /*!
+     * \brief 解析修业情况查询结果
+     *
+     * 对修业情况查询结果进行解析，解析完成后发送parseCourseStatusFinished信号给界面，将解析结果显示在列表中。
+     * \param src 待解析的字符串
+     * \sa parseCourseStatusFinished
+     */
     void parseCourseStatus(QString src);
 
+    /*!
+     * \brief 缓存课程评价
+     *
+     * 将指定课程的所有评价都缓存入文件，调用此函数要求客户端为在线模式。
+     * \param courseid 缓存的课程id
+     */
+    void cacheCourseReview(int courseid);
+    
 public:
 
     /*!
      * \brief 发送带Cookies的GET请求
      * \param apiUrl 请求的url
      * \return 如果请求成功，返回服务器的回应(QNetworkReply*)，指针指向的内存需要调用者手动释放；
-     *         如果请求失败，返回nullptr，并发出login信号。
+     *         如果请求失败，返回nullptr，//TODO : Modify: 并发出login信号。
      */
     QNetworkReply *getWithCookies(const QUrl &apiUrl);
+
+    /*!
+     * \brief 在线请求课程评价
+     * \param courseid 课程id
+     * \param page 请求页面
+     * \return 如果请求成功，返回服务器返回的JSON格式字节流；
+     * 如果请求失败，返回空。
+     */
+    QByteArray getCourseReview(int courseid, int page);
+
+    /*!
+     * \brief 将服务器回应数据写入文件
+     * \param replyData 服务器回应的字节流
+     * \param fileName 写入文件路径
+     */
+    void cacheReplyData(const QByteArray& replyData , const QString& fileName);
 
 signals:
 

@@ -3,6 +3,7 @@
 AbstractListWidget::AbstractListWidget(QWidget *parent)
     : QListWidget(parent)
 {
+    mContextMenu = new QMenu;
     //信号与虚槽函数连接，实现多态
     connect(this,&AbstractListWidget::itemClicked,this,&AbstractListWidget::itemClickedSlot);
 }
@@ -10,6 +11,7 @@ AbstractListWidget::AbstractListWidget(QWidget *parent)
 AbstractListWidget::~AbstractListWidget()
 {
     this->clear();
+    delete mContextMenu;
 }
 
 void AbstractListWidget::addItem(AbstractItem *item)

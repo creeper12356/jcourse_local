@@ -13,9 +13,11 @@
 #include <QListWidgetItem>
 #include <QListWidget>
 #include <QComboBox>
+#include <QMenu>
 
 #include <QEventLoop>
 #include <QApplication>
+#include <QContextMenuEvent>
 
 #include <QNetworkAccessManager>
 #include <QNetworkRequest>

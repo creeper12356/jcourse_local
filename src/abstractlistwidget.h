@@ -54,7 +54,8 @@ protected slots:
      */
     virtual void itemClickedSlot(QListWidgetItem *item) = 0;
 
-private:
+protected:
+    QMenu* mContextMenu = nullptr;
     PaginationWidget* mPaginationWidget = nullptr;
 };
 

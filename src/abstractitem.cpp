@@ -4,7 +4,6 @@ AbstractItem::AbstractItem()
     :QListWidgetItem(nullptr)
 {
     mWidget = new QWidget(nullptr);
-
 }
 
 AbstractItem::~AbstractItem()

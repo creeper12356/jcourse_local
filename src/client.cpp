@@ -4,6 +4,7 @@
 #include "pinyin.h"
 
 #include "appmodel.h"
+#include "paginationwidget.h"
 
 
 #include <QTextStream>
@@ -57,7 +58,7 @@ Client::Client(QApplication *app)
     connect(mMainWindow,&MainWindow::parseCourseStatus,this,&Client::parseCourseStatus);
     connect(this,&Client::parseCourseStatusFinished,mMainWindow,&MainWindow::displayParseCourseStatusResult);
 
-
+    connect(mMainWindow,&MainWindow::cacheCourseReview,this,&Client::cacheCourseReview);
 
     if(mAppModel->account().account.isEmpty()){
         //用户名为空，说明未登录
@@ -177,23 +178,14 @@ bool Client::checkReview(int courseid, int page)
     QString cacheReviewFileName = mAppModel->cacheDirectory() + "/" + CACHE_REVIEW_BASENAME(courseid,page);
     qDebug() << "cacheReviewFileName: "  << cacheReviewFileName;
     if(mAppModel->isOnline()){
-        qDebug() << REVIEW_URL(courseid,page);
-        auto reply = getWithCookies(REVIEW_URL(courseid,page));
-        if(!reply){
+
+        replyData = getCourseReview(courseid,page);
+        if(replyData.isEmpty()){
             return false;
         }
-        //TODO : check reply error?
-        replyData = reply->readAll();
 
         //缓存资源
-        QFile downloader;
-        downloader.setFileName(cacheReviewFileName);
-        qDebug() << "cache to file: " << downloader.fileName();
-        downloader.open(QIODevice::WriteOnly);
-        downloader.write(replyData);
-        downloader.close();
-
-        delete reply;
+        cacheReplyData(replyData,cacheReviewFileName);
     }
     else{
         QFile loader;
@@ -240,6 +232,53 @@ void Client::parseCourseStatus(QString src)
     resultJsonObject.insert("results",resultJsonArray);
     qDebug() << resultJsonObject;
     emit parseCourseStatusFinished(resultJsonObject);
+}
+
+QByteArray Client::getCourseReview(int courseid, int page)
+{
+    QByteArray replyData;
+    assert(mAppModel->isOnline());
+    auto reply = getWithCookies(REVIEW_URL(courseid,page));
+    if(!reply){
+        return "";
+    }
+    assert(reply->error() == QNetworkReply::NoError);
+    replyData = reply->readAll();
+    delete reply;
+    return replyData;
+}
+
+void Client::cacheCourseReview(int courseid)
+{
+    assert(mAppModel->isOnline());
+    QByteArray replyData;
+    int pageCount , pageCurrent = 1;
+
+    do {
+        replyData = getCourseReview(courseid,pageCurrent);
+        if(replyData.isEmpty()){
+            qDebug() << "error";
+            return ;
+        }
+        if(pageCurrent == 1){
+            pageCount = PaginationWidget::divideTotal(QJsonDocument::fromJson(replyData).object()["count"].toInt(),PAGE_SIZE);
+        }
+
+        cacheReplyData(replyData , mAppModel->cacheDirectory() + "/" + CACHE_REVIEW_BASENAME(courseid,pageCurrent));
+        ++pageCurrent;
+    } while(pageCurrent <= pageCount);
+
+    qDebug() << "cache course " << courseid << " finished!";
+}
+
+void Client::cacheReplyData(const QByteArray &replyData, const QString &fileName)
+{
+    QFile downloader;
+    downloader.setFileName(fileName);
+    qDebug() << "cache to file: " << downloader.fileName();
+    downloader.open(QIODevice::WriteOnly);
+    downloader.write(replyData);
+    downloader.close();
 }
 
 void Client::logout()

@@ -126,6 +126,9 @@ signals:
 
     void parseCourseStatus(QString src);
 
+    //发送给Client的缓存课程评价信号
+    void cacheCourseReview(int courseid);
+
     /*!
      * \brief 登出信号
      *
