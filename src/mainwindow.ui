@@ -14,7 +14,7 @@
    <string>jCourse Client</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <layout class="QVBoxLayout" name="verticalLayout_2" stretch="0,0">
+   <layout class="QVBoxLayout" name="verticalLayout_2" stretch="0,0,0">
     <item>
      <layout class="QHBoxLayout" name="top_layout">
       <item>
@@ -34,6 +34,13 @@
        </widget>
       </item>
      </layout>
+    </item>
+    <item>
+     <widget class="QProgressBar" name="progressbar">
+      <property name="value">
+       <number>24</number>
+      </property>
+     </widget>
     </item>
     <item>
      <widget class="QTabWidget" name="tab_widget">

@@ -27,6 +27,10 @@ MainWindow::MainWindow(QWidget *parent)
     ui->course_info_label->setAlignment(Qt::AlignCenter);
     ui->review_info_label->setAlignment(Qt::AlignCenter);
 
+    ui->progressbar->setRange(0,0);
+    ui->progressbar->setMaximumHeight(10);
+    ui->progressbar->hide();
+
     connect(ui->search_button,&QPushButton::clicked,this,&MainWindow::searchBarTriggered);
     connect(ui->search_edit,&QLineEdit::returnPressed,this,&MainWindow::searchBarTriggered);
     connect(ui->course_page_widget,&PaginationWidget::currentPageChanged,this,&MainWindow::searchPageTriggered);
@@ -62,6 +66,7 @@ void MainWindow::searchBarTriggered()
 
     ui->search_edit->clear();
     ui->statusbar->showMessage(SEARCH_MESSAGE(mLastQuery,1));
+    ui->progressbar->show();
     emit search(mLastQuery,1);
 }
 
@@ -73,6 +78,7 @@ void MainWindow::searchPageTriggered(int page)
         return ;
     }
     ui->statusbar->showMessage(SEARCH_MESSAGE(mLastQuery,page));
+    ui->progressbar->show();
     emit search(mLastQuery,page);
 }
 
@@ -83,12 +89,14 @@ void MainWindow::checkReviewTriggered(int courseid)
     //保存请求
     mLastCourseid = courseid;
     ui->statusbar->showMessage(REVIEW_MESSAGE(courseid,1));
+    ui->progressbar->show();
     emit checkReview(courseid,1);
 }
 
 void MainWindow::checkReviewPageTriggered(int page)
 {
     ui->statusbar->showMessage(REVIEW_MESSAGE(mLastCourseid,page));
+    ui->progressbar->show();
     emit checkReview(mLastCourseid,page);
 }
 
@@ -99,11 +107,13 @@ void MainWindow::parseCourseStatusTriggered()
         qDebug() << "course status source cannot be empty.";
         return ;
     }
+    //TODO : progressbar
     emit parseCourseStatus(ui->course_status_edit->toPlainText());
 }
 
 void MainWindow::displaySearchResult(QByteArray result)
 {
+    ui->progressbar->hide();
     ui->statusbar->clearMessage();
     QJsonObject resultJsonObject = QJsonDocument::fromJson(result).object();
     ui->course_info_label->setText(COURSE_INFO(resultJsonObject["count"].toInt()));
@@ -113,6 +123,7 @@ void MainWindow::displaySearchResult(QByteArray result)
 
 void MainWindow::displayCheckReviewResult(QByteArray result)
 {
+    ui->progressbar->hide();
     ui->statusbar->clearMessage();
     QJsonObject resultJsonObject = QJsonDocument::fromJson(result).object();
     ui->review_info_label->setText(REVIEW_INFO(resultJsonObject["count"].toInt()));
@@ -121,6 +132,7 @@ void MainWindow::displayCheckReviewResult(QByteArray result)
 
 void MainWindow::displayParseCourseStatusResult(QJsonObject resultJsonObject)
 {
+    //TODO: progressbar
     ui->download_course_list_widget->displayResult(resultJsonObject);
 }
 
