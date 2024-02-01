@@ -3,6 +3,8 @@
 
 #include "coredatastructure.h"
 #include "inc.h"
+#include "circularqueue.h"
+#include "simplenetworkreply.h"
 
 /*!
  * \brief 选课社区账号
@@ -92,6 +94,8 @@ public slots:
      * \brief 清除所有数据，包括账号/密码，Cookies
      */
     void clearData();
+    //添加GET请求历史
+    void addNetworkReplyHistory(const QString &requestpi , const QByteArray& replyData);
 
 signals:
 
@@ -121,7 +125,10 @@ private:
     bool mOnline;
     //缓存路径,默认为"cache"
     QString mCacheDirectory;
+    //核心数据
     CoreData mCoreData;
+    //请求记录
+    CircularQueue<SimpleNetworkReply> mNetworkReplyHistory;
 
 };
 

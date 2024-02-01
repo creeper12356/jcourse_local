@@ -25,8 +25,7 @@ public:
      */
     void switchMainWindow();
 
-    /*!
-     * \brief 切换到登录窗口
+    /*! * \brief 切换到登录窗口
      */
     void switchLoginWindow();
 
@@ -92,12 +91,24 @@ public slots:
 public:
 
     /*!
-     * \brief 发送带Cookies的GET请求
+     * \brief 发送带Cookies的GET请求，获得服务器回应对象
      * \param apiUrl 请求的url
      * \return 如果请求成功，返回服务器的回应(QNetworkReply*)，指针指向的内存需要调用者手动释放；
      *         如果请求失败，返回nullptr，//TODO : Modify: 并发出login信号。
+     * \sa getApiData
      */
-    QNetworkReply *getWithCookies(const QUrl &apiUrl);
+    QNetworkReply *getApiReply(const QUrl &apiUrl);
+
+    /*!
+     * \brief 发送带Cookies的GET请求，获得服务器回应字节流
+     * \param apiUrl 请求的url
+     * \param ok 请求结果
+     * \return 当ok != 0时，通过*ok返回请求是否成功。
+     * 	       如果请求成功，返回服务器回应的字节流；
+     * 	       如果请求失败，返回""；
+     * \sa getApiReply
+     */
+    QByteArray getApiData(const QUrl &apiUrl, bool* ok = nullptr);
 
     /*!
      * \brief 在线搜索课程

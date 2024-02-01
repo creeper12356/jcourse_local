@@ -33,7 +33,9 @@ SOURCES += \
     reviewitem.cpp \
     reviewlistwidget.cpp \
     switchbutton.cpp \
-    userhead.cpp
+    userhead.cpp \
+    circularqueue.cpp \
+    simplenetworkreply.cpp
 
 HEADERS += \
     abstractitem.h \
@@ -53,7 +55,9 @@ HEADERS += \
     reviewitem.h \
     reviewlistwidget.h \
     switchbutton.h \
-    userhead.h
+    userhead.h \
+    circularqueue.h \
+    simplenetworkreply.h
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

@@ -45,6 +45,7 @@
 #include <QDebug>
 
 #define PAGE_SIZE 20
+#define HISTORY_SIZE 20
 #define CONCAT(str1,str2) str1 str2
 
 #define AUTHORITY "https://course.sjtu.plus"

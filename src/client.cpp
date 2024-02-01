@@ -6,9 +6,6 @@
 #include "appmodel.h"
 #include "paginationwidget.h"
 
-
-#include <QTextStream>
-
 Client::Client(QApplication *app)
     : QObject(nullptr)
     , mApp(app)
@@ -69,7 +66,6 @@ Client::Client(QApplication *app)
         //已经登录
         switchMainWindow();
     }
-
 }
 
 Client::~Client()
@@ -213,30 +209,12 @@ void Client::parseCourseStatus(QString src)
 QByteArray Client::getSearchResult(const QString &query, int page)
 {
     //TODO : merge with getCourseReview
-    QByteArray replyData;
-    assert(mAppModel->isOnline());
-    auto reply = getWithCookies(SEARCH_URL(query,page));
-    if(!reply){
-        return "";
-    }
-    assert(reply->error() == QNetworkReply::NoError);
-    replyData = reply->readAll();
-    delete reply;
-    return replyData;
+    return getApiData(SEARCH_URL(query,page));
 }
 
 QByteArray Client::getCourseReview(int courseid, int page)
 {
-    QByteArray replyData;
-    assert(mAppModel->isOnline());
-    auto reply = getWithCookies(REVIEW_URL(courseid,page));
-    if(!reply){
-        return "";
-    }
-    assert(reply->error() == QNetworkReply::NoError);
-    replyData = reply->readAll();
-    delete reply;
-    return replyData;
+    return getApiData(REVIEW_URL(courseid,page));
 }
 
 void Client::cacheCourseReview(int courseid)
@@ -338,16 +316,13 @@ void Client::cacheSearchResult(const QJsonObject &replyJsonObject)
 
 void Client::logout()
 {
-    auto reply = getWithCookies(LOGOUT_URL);
-    if(reply){
-        delete reply;
-    }
+    getApiData(LOGOUT_URL);
     //清除数据
     mAppModel->clearData();
     switchLoginWindow();
 }
 
-QNetworkReply *Client::getWithCookies(const QUrl &apiUrl)
+QNetworkReply *Client::getApiReply(const QUrl &apiUrl)
 {
     QNetworkRequest request(apiUrl);
     request.setHeader(QNetworkRequest::ContentTypeHeader, "application/x-www-form-urlencoded");
@@ -372,6 +347,25 @@ QNetworkReply *Client::getWithCookies(const QUrl &apiUrl)
         delete reply;
         //TODO : 登出
         return nullptr;
+    }
+}
+
+QByteArray Client::getApiData(const QUrl &apiUrl, bool *ok)
+{
+    QNetworkReply* reply = getApiReply(apiUrl);
+    if(ok) {
+        *ok = reply;
+    }
+    if(reply) {
+        //请求成功
+        QByteArray replyData = reply->readAll();
+        mAppModel->addNetworkReplyHistory(reply->request().url().toString(),replyData);
+        delete reply;
+        return replyData;
+    }
+    else {
+        //请求失败
+        return "";
     }
 }
 

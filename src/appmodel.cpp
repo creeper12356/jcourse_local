@@ -3,6 +3,7 @@
 AppModel::AppModel(MainWindow *mainWindow, QObject *parent)
     : QObject(parent)
     , mMainWindow(mainWindow)
+    , mNetworkReplyHistory(HISTORY_SIZE)
 {
     connect(this,&AppModel::userNameChanged,mMainWindow,&MainWindow::userNameChangedSlot);
 
@@ -39,6 +40,20 @@ bool AppModel::readFromFile(const QString &fileName)
 
     setOnlineAndNotify(clientJsonObject["isOnline"].toBool());
 
+    //read history
+    QFile replyHistoryReader("getHistory.json");
+    if(!replyHistoryReader.open(QIODevice::ReadOnly)) {
+        return false;
+    }
+    QJsonArray replyHistoryJsonArray = QJsonDocument::fromJson(replyHistoryReader.readAll()).array();
+    replyHistoryReader.close();
+    for(auto it = replyHistoryJsonArray.begin();it != replyHistoryJsonArray.end();++it) {
+        //TODO : 优化
+        SimpleNetworkReply reply;
+        reply.readFromJsonObject((*it).toObject());
+        mNetworkReplyHistory.push(reply);
+    }
+
     return true;
 }
 
@@ -55,6 +70,17 @@ bool AppModel::writeToFile(const QString &fileName) const
     writer.write(QJsonDocument(clientJsonObject).toJson());
     writer.close();
     mCoreData.writeToFile("coredata.json");
+
+    //write history
+    QJsonArray replyHistoryJsonArray;
+    for(auto it = mNetworkReplyHistory.begin();it != mNetworkReplyHistory.end();++it) {
+        replyHistoryJsonArray.append((*it).toJsonObject());
+    }
+    QFile replyHistoryWriter("getHistory.json");
+    replyHistoryWriter.open(QIODevice::WriteOnly);
+    replyHistoryWriter.write(QJsonDocument(replyHistoryJsonArray).toJson());
+    replyHistoryWriter.close();
+
     return true;
 }
 
@@ -134,6 +160,12 @@ void AppModel::clearData()
 {
     setAccountAndNotify("","");
     mCookieJar.clear();
+}
+
+void AppModel::addNetworkReplyHistory(const QString &requestApi, const QByteArray &replyData)
+{
+    //TODO: 优化性能
+    mNetworkReplyHistory.push(SimpleNetworkReply(requestApi,replyData));
 }
 
 QJsonObject Account::toJsonObject() const
