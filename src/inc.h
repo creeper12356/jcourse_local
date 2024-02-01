@@ -1,6 +1,8 @@
 #ifndef INC_H
 #define INC_H
 
+#include <cassert>
+
 #include <QMainWindow>
 #include <QDialog>
 #include <QTextBrowser>
@@ -15,8 +17,8 @@
 #include <QComboBox>
 #include <QMenu>
 
-#include <QEventLoop>
 #include <QApplication>
+#include <QEventLoop>
 #include <QContextMenuEvent>
 
 #include <QNetworkAccessManager>

@@ -4,7 +4,7 @@
 CourseListWidget::CourseListWidget(QWidget *parent)
     : AbstractListWidget(parent)
 {
-    mCacheAction = new QAction("download all review");
+    mCacheAction = new QAction("download all review",this);
     mContextMenu->addAction(mCacheAction);
 
 }
