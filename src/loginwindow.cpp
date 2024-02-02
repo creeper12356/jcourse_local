@@ -10,6 +10,8 @@ LoginWindow::LoginWindow(QNetworkAccessManager *manager, QWidget *parent) :
 {
     ui->setupUi(this);
 
+    LOAD_QSS(QSS_FILE);
+
     ui->email_login_account_edit->setEchoMode(QLineEdit::Normal);
     ui->email_login_account_edit->setMaximumHeight(30);
     ui->email_login_account_edit->setPlaceholderText("jAccount用户名");

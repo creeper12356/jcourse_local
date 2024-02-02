@@ -71,6 +71,12 @@
     (courseCount ? QString("共有%1门课").arg(courseCount) : "暂无数据")
 #define REVIEW_INFO(reviewCount) \
     (reviewCount ? QString("点评（%1条）").arg(reviewCount) : "暂无点评")
+#define LOAD_QSS(fileName) QFile qssReader(fileName);\
+                 if(qssReader.open(QIODevice::ReadOnly)) {\
+                    setStyleSheet(qssReader.readAll());\
+                    qssReader.close();\
+                 }
+#define QSS_FILE "qss/SpyBot.qss"
 
 
 //缓存评价文件名

@@ -7,11 +7,7 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
 
-    //load qss
-    QFile qssReader("qss/SpyBot.qss");
-    qssReader.open(QIODevice::ReadOnly);
-    setStyleSheet(qssReader.readAll());
-    qssReader.close();
+    LOAD_QSS(QSS_FILE);
 
     //search_tab
     ui->search_edit->setPlaceholderText(

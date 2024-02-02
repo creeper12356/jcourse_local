@@ -25,7 +25,6 @@ QWidget
 {
 	background-color: qlineargradient(spread:repeat, x1:1, y1:0, x2:1, y2:1, stop:0 rgba(27, 39, 50, 255),stop:1 rgba(47, 53, 74, 255));
 	color: #000000;
-
 }
 
 
@@ -34,17 +33,69 @@ QLabel
 {
 	background-color: transparent;
 	color: #c2c7d5;
-	font-size: 13px;
-
+	font-size: 15px;
 }
 
+/*-----QMenu-----*/
+QMenu {
+	background-color: transparent; /* 设置菜单背景色 */
+	border: 1px solid #d4d4d4; /* 设置菜单边框 */
+	color: #ffffff;
+}
+
+QMenu::item {
+	padding: 5px 20px; /* 设置菜单项的内边距 */
+	background-color: transparent; /* 菜单项的背景透明，使用QMenu的背景色 */
+}
+
+QMenu::item:selected {
+	background-color: rgba(54, 197, 177, 255); /* 设置选中菜单项的背景色 */
+    	color: #ffffff; /* 设置选中菜单项的文本颜色 */
+}
+
+
+/*-----QStatusBar-----*/
+QStatusBar
+{
+	color: rgba(54, 197, 177, 255);
+}
+
+/*-----QProgressBar-----*/
+QProgressBar 
+{
+	border: 2px solid grey;
+	border-radius: 5px;
+	background-color: #f0f0f0;
+}
+
+QProgressBar::chunk 
+{
+	background-color: rgba(54, 197, 177, 255);
+}
+
+
+/*-----QTextBrowser-----*/
+QTextBrowser
+{
+	background-color: transparent;
+	color: #c2c7d5;
+	font-size: 15px;
+}
+
+/*-----QPlainTextEdit-----*/
+QPlainTextEdit
+{
+	background-color: transparent;
+	color: #c2c7d5;
+	font-size: 15px;
+}
 
 /*-----QPushButton-----*/
 QPushButton
 {
 	background-color: qlineargradient(spread:pad, x1:0, y1:0.511, x2:1, y2:0.511, stop:0 rgba(0, 172, 149, 255),stop:0.995192 rgba(54, 197, 177, 255));
 	color: #fff;
-	font-size: 11px;
+	font-size: 14px;
 	font-weight: bold;
 	border: none;
 	border-radius: 3px;
@@ -122,9 +173,9 @@ QLineEdit
 {
 	background-color: #c2c7d5;
 	color: #000;
-	font-weight: bold;
 	border: none;
-	border-radius: 2px;
+	font-size: 16px;
+	border-radius: 3px;
 	padding: 3px;
 
 }
@@ -135,8 +186,7 @@ QListView
 {
 	background-color: qlineargradient(spread:pad, x1:1, y1:0, x2:1, y2:1, stop:0 rgba(50, 61, 80, 255),stop:1 rgba(44, 49, 69, 255));
 	color: #fff;
-	font-size: 12px;
-	font-weight: bold;
+	font-size: 15px;
 	border: 1px solid #191919;
 	show-decoration-selected: 0;
 
@@ -422,3 +472,4 @@ QScrollBar::sub-page:vertical
     background-color: transparent;
 
 }
+

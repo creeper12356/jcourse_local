@@ -6,6 +6,7 @@ CourseListWidget::CourseListWidget(QWidget *parent)
 {
     mCacheAction = new QAction("download all review",this);
     mContextMenu->addAction(mCacheAction);
+    setVerticalScrollMode(QAbstractItemView::ScrollPerPixel);
 
 }
 

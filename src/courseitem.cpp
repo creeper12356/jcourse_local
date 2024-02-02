@@ -26,7 +26,7 @@ CourseItem::CourseItem()
     layout->addLayout(bottomLayout,1);
 
     widget()->setLayout(layout);
-    setSizeHint(QSize(sizeHint().width(),70));
+    setSizeHint(QSize(sizeHint().width(),90));
 }
 
 CourseItem::~CourseItem()
