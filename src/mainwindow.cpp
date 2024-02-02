@@ -7,6 +7,12 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
 
+    //load qss
+    QFile qssReader("qss/SpyBot.qss");
+    qssReader.open(QIODevice::ReadOnly);
+    setStyleSheet(qssReader.readAll());
+    qssReader.close();
+
     //search_tab
     ui->search_edit->setPlaceholderText(
                 "搜索课程名/课号/教师姓名/教师姓名拼音"
