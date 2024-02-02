@@ -16,5 +16,6 @@
   - [ ] 社区资源的手动缓存
   - [ ] 缓存资源的自动化管理
 ### 4.应用快照
-2024-01-14更新
-<img src="doc/img/Screenshot from 2024-01-14 19-48-40.png">
+2024-02-02更新
+<img src="doc/img/Screenshot from 2024-02-02 11-03-25.png">
+<img src="doc/img/Screenshot from 2024-02-02 11-04-05.png">
