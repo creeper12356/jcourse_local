@@ -94,8 +94,12 @@ public slots:
      * \brief 清除所有数据，包括账号/密码，Cookies
      */
     void clearData();
+
+    //TODO : 重命名函数
     //添加GET请求历史
-    void addNetworkReplyHistory(const QString &requestpi , const QByteArray& replyData);
+    void addNetworkReplyHistory(const QString &requestApi , const QByteArray& replyData);
+    //在请求历史中查找最近一次请求api为requestApi的请求，如果存在，返回该请求，不存在返回nullptr
+    SimpleNetworkReply* findHistoryReply(const QString& requestApi);
 
 signals:
 

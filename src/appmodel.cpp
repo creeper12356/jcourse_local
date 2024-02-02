@@ -168,6 +168,16 @@ void AppModel::addNetworkReplyHistory(const QString &requestApi, const QByteArra
     mNetworkReplyHistory.push(SimpleNetworkReply(requestApi,replyData));
 }
 
+SimpleNetworkReply *AppModel::findHistoryReply(const QString &requestApi)
+{
+    for(auto it = mNetworkReplyHistory.begin();it != mNetworkReplyHistory.end();++it) {
+        if(requestApi == (*it).requestApi) {
+            return &(*it);
+        }
+    }
+    return nullptr;
+}
+
 QJsonObject Account::toJsonObject() const
 {
     QJsonObject obj;
