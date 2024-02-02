@@ -215,7 +215,7 @@ void LoginWindow::showEvent(QShowEvent *)
     //    ui->login_button->setFocus();
 }
 
-MyNetworkCookieJar *LoginWindow::cookieJar()
+CustomNetworkCookieJar *LoginWindow::cookieJar()
 {
-    return dynamic_cast<MyNetworkCookieJar*>(mManager->cookieJar());
+    return dynamic_cast<CustomNetworkCookieJar*>(mManager->cookieJar());
 }

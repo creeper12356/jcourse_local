@@ -3,8 +3,7 @@
 
 #include "coredatastructure.h"
 #include "inc.h"
-#include "circularqueue.h"
-#include "simplenetworkreply.h"
+#include "networkreplyhistory.h"
 
 /*!
  * \brief 选课社区账号
@@ -22,10 +21,10 @@ public:
 /*!
  * \brief 管理Cookies的类
  */
-class MyNetworkCookieJar : public QNetworkCookieJar
+class CustomNetworkCookieJar : public QNetworkCookieJar
 {
 public:
-    MyNetworkCookieJar(QObject *parent = 0);
+    CustomNetworkCookieJar(QObject *parent = 0);
 
     /*!
      * \brief 所有Cookies的列表
@@ -76,11 +75,12 @@ public:
 public:
     const QString& loginMode() const;		     //!<登录模式
     const Account& account() const;                 //!<当前账号（包含账号和密码)
-    const MyNetworkCookieJar& cookieJar () const;   //!<当前cookieJar，不可修改
-    MyNetworkCookieJar* cookieJarPtr();             //!<指向当前cookieJar的指针，可修改
+    const CustomNetworkCookieJar& cookieJar () const;   //!<当前cookieJar，不可修改
+    CustomNetworkCookieJar* cookieJarPtr();             //!<指向当前cookieJar的指针，可修改
     const QString& cacheDirectory() const;          //!<课程评价缓存目录
     bool isOnline() const;                          //!<是否为在线模式
     CoreData* coreData();                           //!<指向核心数据的指针
+    NetworkReplyHistory* networkReplyHistory();     //!<指向请求历史的指针
 
 public slots:
     void setLoginMode(const QString& loginMode);	                         //!<设置登录模式
@@ -94,12 +94,6 @@ public slots:
      * \brief 清除所有数据，包括账号/密码，Cookies
      */
     void clearData();
-
-    //TODO : 重命名函数
-    //添加GET请求历史
-    void addNetworkReplyHistory(const QString &requestApi , const QByteArray& replyData);
-    //在请求历史中查找最近一次请求api为requestApi的请求，如果存在，返回该请求，不存在返回nullptr
-    SimpleNetworkReply* findHistoryReply(const QString& requestApi);
 
 signals:
 
@@ -122,7 +116,7 @@ private:
     QString mLoginMode;
     //选课社区邮箱账号密码
     Account mAccount;
-    MyNetworkCookieJar mCookieJar;
+    CustomNetworkCookieJar mCookieJar;
     //是否为在线模式
     //在线模式：从url获取资源，缓存到本地
     //离线模式：从本地缓存获取资源
@@ -132,7 +126,7 @@ private:
     //核心数据
     CoreData mCoreData;
     //请求记录
-    CircularQueue<SimpleNetworkReply> mNetworkReplyHistory;
+    NetworkReplyHistory mNetworkReplyHistory;
 
 };
 

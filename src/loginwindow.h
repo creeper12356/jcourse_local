@@ -76,7 +76,7 @@ signals:
 
     void userPasswordLoginSuccess(QString user, QString password);
 protected:
-    MyNetworkCookieJar* cookieJar();
+    CustomNetworkCookieJar* cookieJar();
 private:
     Ui::LoginWindow *ui;
     QNetworkAccessManager* mManager;

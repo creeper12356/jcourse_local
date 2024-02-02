@@ -81,7 +81,7 @@
 class MainWindow;
 class LoginWindow;
 class Account;
-class MyNetworkCookieJar;
+class CustomNetworkCookieJar;
 class AppModel;
 class PaginationWidget;
 class AbstractItem;

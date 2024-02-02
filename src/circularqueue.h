@@ -143,7 +143,7 @@ public:
         return ConstIterator(this,back);
     }
 
-private:
+protected:
     Type *data;
     int capacity;
     int front;

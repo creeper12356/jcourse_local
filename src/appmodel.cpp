@@ -1,9 +1,10 @@
 #include "appmodel.h"
 #include "mainwindow.h"
+
 AppModel::AppModel(MainWindow *mainWindow, QObject *parent)
     : QObject(parent)
     , mMainWindow(mainWindow)
-    , mNetworkReplyHistory(HISTORY_SIZE)
+    , mNetworkReplyHistory()
 {
     connect(this,&AppModel::userNameChanged,mMainWindow,&MainWindow::userNameChangedSlot);
 
@@ -41,19 +42,8 @@ bool AppModel::readFromFile(const QString &fileName)
     setOnlineAndNotify(clientJsonObject["isOnline"].toBool());
 
     //read history
-    QFile replyHistoryReader("getHistory.json");
-    if(!replyHistoryReader.open(QIODevice::ReadOnly)) {
-        return false;
-    }
-    QJsonArray replyHistoryJsonArray = QJsonDocument::fromJson(replyHistoryReader.readAll()).array();
-    replyHistoryReader.close();
-    for(auto it = replyHistoryJsonArray.begin();it != replyHistoryJsonArray.end();++it) {
-        //TODO : 优化
-        SimpleNetworkReply reply;
-        reply.readFromJsonObject((*it).toObject());
-        mNetworkReplyHistory.push(reply);
-    }
-
+    //TODO  : return false?
+    mNetworkReplyHistory.readFromFile("history.json");
     return true;
 }
 
@@ -70,17 +60,7 @@ bool AppModel::writeToFile(const QString &fileName) const
     writer.write(QJsonDocument(clientJsonObject).toJson());
     writer.close();
     mCoreData.writeToFile("coredata.json");
-
-    //write history
-    QJsonArray replyHistoryJsonArray;
-    for(auto it = mNetworkReplyHistory.begin();it != mNetworkReplyHistory.end();++it) {
-        replyHistoryJsonArray.append((*it).toJsonObject());
-    }
-    QFile replyHistoryWriter("getHistory.json");
-    replyHistoryWriter.open(QIODevice::WriteOnly);
-    replyHistoryWriter.write(QJsonDocument(replyHistoryJsonArray).toJson());
-    replyHistoryWriter.close();
-
+    mNetworkReplyHistory.writeToFile("history.json");
     return true;
 }
 
@@ -89,12 +69,12 @@ const Account &AppModel::account() const
     return mAccount;
 }
 
-const MyNetworkCookieJar &AppModel::cookieJar() const
+const CustomNetworkCookieJar &AppModel::cookieJar() const
 {
     return mCookieJar;
 }
 
-MyNetworkCookieJar *AppModel::cookieJarPtr()
+CustomNetworkCookieJar *AppModel::cookieJarPtr()
 {
     return &mCookieJar;
 }
@@ -112,6 +92,11 @@ bool AppModel::isOnline() const
 CoreData *AppModel::coreData()
 {
     return &mCoreData;
+}
+
+NetworkReplyHistory *AppModel::networkReplyHistory()
+{
+    return &mNetworkReplyHistory;
 }
 
 const QString &AppModel::loginMode() const
@@ -162,22 +147,6 @@ void AppModel::clearData()
     mCookieJar.clear();
 }
 
-void AppModel::addNetworkReplyHistory(const QString &requestApi, const QByteArray &replyData)
-{
-    //TODO: 优化性能
-    mNetworkReplyHistory.push(SimpleNetworkReply(requestApi,replyData));
-}
-
-SimpleNetworkReply *AppModel::findHistoryReply(const QString &requestApi)
-{
-    for(auto it = mNetworkReplyHistory.begin();it != mNetworkReplyHistory.end();++it) {
-        if(requestApi == (*it).requestApi) {
-            return &(*it);
-        }
-    }
-    return nullptr;
-}
-
 QJsonObject Account::toJsonObject() const
 {
     QJsonObject obj;
@@ -186,18 +155,18 @@ QJsonObject Account::toJsonObject() const
     return obj;
 }
 
-MyNetworkCookieJar::MyNetworkCookieJar(QObject *parent)
+CustomNetworkCookieJar::CustomNetworkCookieJar(QObject *parent)
     :QNetworkCookieJar(parent)
 {
 
 }
 
-QList<QNetworkCookie> MyNetworkCookieJar::allCookies() const
+QList<QNetworkCookie> CustomNetworkCookieJar::allCookies() const
 {
     return QNetworkCookieJar::allCookies();
 }
 
-QJsonArray MyNetworkCookieJar::toJsonArray() const
+QJsonArray CustomNetworkCookieJar::toJsonArray() const
 {
     QJsonArray cookiesJsonArray;
     for(auto& cookie : allCookies()){
@@ -215,7 +184,7 @@ QJsonArray MyNetworkCookieJar::toJsonArray() const
     return cookiesJsonArray;
 }
 
-bool MyNetworkCookieJar::readFromJsonArray(const QJsonArray &arr)
+bool CustomNetworkCookieJar::readFromJsonArray(const QJsonArray &arr)
 {
     //清除所有cookies
     setAllCookies({});
@@ -237,7 +206,7 @@ bool MyNetworkCookieJar::readFromJsonArray(const QJsonArray &arr)
     return true;
 }
 
-void MyNetworkCookieJar::clear()
+void CustomNetworkCookieJar::clear()
 {
     setAllCookies({});
 }

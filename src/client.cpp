@@ -352,7 +352,7 @@ QNetworkReply *Client::getApiReply(const QUrl &apiUrl)
 
 QByteArray Client::getApiData(const QUrl &apiUrl, bool *ok)
 {
-    SimpleNetworkReply* historyReply = mAppModel->findHistoryReply(apiUrl.toString());
+    CustomNetworkReply* historyReply = mAppModel->networkReplyHistory()->findNetworkReply(apiUrl.toString());
     if(historyReply) {
         //最近请求过相同的api
         qDebug() << "recent request...";
@@ -367,7 +367,7 @@ QByteArray Client::getApiData(const QUrl &apiUrl, bool *ok)
     if(reply) {
         //请求成功
         QByteArray replyData = reply->readAll();
-        mAppModel->addNetworkReplyHistory(reply->request().url().toString(),replyData);
+        mAppModel->networkReplyHistory()->addNetworkReplyHistory(reply->request().url().toString() , replyData);
         delete reply;
         return replyData;
     }

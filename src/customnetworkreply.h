@@ -1,15 +1,17 @@
 #ifndef SIMPLENETWORKREPLY_H
 #define SIMPLENETWORKREPLY_H
 #include "inc.h"
-//简化的网络回应数据结构，用于记录GET请求历史
-class SimpleNetworkReply
+/*!
+ * \brief 自定义的网络回应数据结构，主要用于记录请求历史
+ */
+class CustomNetworkReply
 {
 public:
     QString requestApi;
     QByteArray replyData;
 
-    SimpleNetworkReply();
-    SimpleNetworkReply(const QString& requestApi,const QByteArray& replyData);
+    CustomNetworkReply();
+    CustomNetworkReply(const QString& requestApi,const QByteArray& replyData);
     void readFromJsonObject(const QJsonObject& jsonObject);
     QJsonObject toJsonObject() const;
 };
