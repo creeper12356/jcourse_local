@@ -28,7 +28,8 @@ MainWindow::MainWindow(QWidget *parent)
     ui->review_info_label->setAlignment(Qt::AlignCenter);
 
     ui->progressbar->setRange(0,0);
-    ui->progressbar->setMaximumHeight(10);
+    ui->progressbar->setFixedHeight(10);
+    ui->progressbar_spacer->setFixedHeight(10);
     ui->progressbar->hide();
 
     connect(ui->search_button,&QPushButton::clicked,this,&MainWindow::searchBarTriggered);
