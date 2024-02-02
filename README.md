@@ -17,5 +17,7 @@
   - [ ] 缓存资源的自动化管理
 ### 4.应用快照
 2024-02-02更新
+
 <img src="doc/img/Screenshot from 2024-02-02 11-03-25.png">
+
 <img src="doc/img/Screenshot from 2024-02-02 11-04-05.png">
