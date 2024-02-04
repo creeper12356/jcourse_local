@@ -71,6 +71,12 @@ bool PaginationWidget::setCurrent(int current)
     return true;
 }
 
+void PaginationWidget::reset()
+{
+    mCurrent = mCount = 1;
+    mPageLabel->setText("1/1");
+}
+
 int PaginationWidget::divideTotal(int itemCount, int itemCountPerPage)
 {
     if(itemCount == 0){

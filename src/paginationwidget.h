@@ -30,6 +30,11 @@ public:
     bool setCurrent(int current);
 
     /*!
+     * \brief 重置为1/1
+     */
+    void reset();
+
+    /*!
      * \sa setCurrent
      * \brief 计算需要的总页数
      *
@@ -38,6 +43,7 @@ public:
      * \param itemCountPerPage 每页的条目数
      * \return 需要的总页数
      */
+
     static int divideTotal(int itemCount , int itemCountPerPage);
 
     int count() const;//!<总页数

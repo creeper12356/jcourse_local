@@ -10,6 +10,7 @@ LoginWindow::LoginWindow(QNetworkAccessManager *manager, QWidget *parent) :
 {
     ui->setupUi(this);
 
+    //邮箱密码登录
     ui->email_login_account_edit->setEchoMode(QLineEdit::Normal);
     ui->email_login_account_edit->setMaximumHeight(30);
     ui->email_login_account_edit->setPlaceholderText("jAccount用户名");
@@ -25,7 +26,7 @@ LoginWindow::LoginWindow(QNetworkAccessManager *manager, QWidget *parent) :
     connect(ui->email_login_login_button,&QPushButton::clicked,this,&LoginWindow::emailPasswordLogin);
     connect(ui->email_login_cancel_button,&QPushButton::clicked,this,&LoginWindow::rejected);
 
-
+    //邮箱验证登录
     ui->email_send_account_edit->setEchoMode(QLineEdit::Normal);
     ui->email_send_account_edit->setMaximumHeight(30);
     ui->email_send_account_edit->setPlaceholderText("jAccount用户名");
@@ -44,7 +45,7 @@ LoginWindow::LoginWindow(QNetworkAccessManager *manager, QWidget *parent) :
     connect(ui->email_send_login_button,&QPushButton::clicked,this,&LoginWindow::emailCodeLogin);
     connect(ui->email_send_cancel_button,&QPushButton::clicked,this,&LoginWindow::rejected);
 
-
+    //账号密码登录
     ui->login_account_edit->setEchoMode(QLineEdit::Normal);
     ui->login_account_edit->setMaximumHeight(30);
     ui->login_account_edit->setPlaceholderText("选课社区用户名");
@@ -60,6 +61,10 @@ LoginWindow::LoginWindow(QNetworkAccessManager *manager, QWidget *parent) :
     connect(ui->login_login_button,&QPushButton::clicked,this,&LoginWindow::userPasswordLogin);
     connect(ui->login_cancel_button,&QPushButton::clicked,this,&LoginWindow::rejected);
 
+    //离线登录
+    ui->offline_cancel_button->setFocusPolicy(Qt::NoFocus);
+    connect(ui->offline_login_button,&QPushButton::clicked,this,&LoginWindow::offlineLoginSuccess);
+    connect(ui->offline_cancel_button,&QPushButton::clicked,this,&LoginWindow::rejected);
 }
 
 LoginWindow::~LoginWindow()

@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>400</width>
-    <height>300</height>
+    <width>473</width>
+    <height>333</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -255,6 +255,31 @@
             </widget>
            </item>
           </layout>
+         </item>
+        </layout>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="offline_tab">
+      <attribute name="title">
+       <string>离线登录</string>
+      </attribute>
+      <layout class="QVBoxLayout" name="verticalLayout">
+       <item>
+        <layout class="QHBoxLayout" name="horizontalLayout_13">
+         <item>
+          <widget class="QPushButton" name="offline_cancel_button">
+           <property name="text">
+            <string>取消</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="offline_login_button">
+           <property name="text">
+            <string>登录</string>
+           </property>
+          </widget>
          </item>
         </layout>
        </item>

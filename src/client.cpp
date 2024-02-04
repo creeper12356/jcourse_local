@@ -19,21 +19,10 @@ Client::Client(QApplication *app)
     mAppModel = new AppModel(mMainWindow);
 
     //连接登录成功信号的槽
-    connect(mLoginWindow,&LoginWindow::emailPasswordLoginSuccess,this,[this](QString account , QString password){
-        mAppModel->setLoginMode("emailPasswordLogin");
-        mAppModel->setAccountAndNotify(account,password);
-        switchMainWindow();
-    });
-    connect(mLoginWindow,&LoginWindow::emailCodeLoginSuccess,this,[this](QString account){
-        mAppModel->setLoginMode("emailCodeLogin");
-        mAppModel->setAccountAndNotify(account,"");
-        switchMainWindow();
-    });
-    connect(mLoginWindow,&LoginWindow::userPasswordLoginSuccess,this,[this](QString user , QString password){
-        mAppModel->setLoginMode("userPasswordLogin");
-        mAppModel->setAccountAndNotify(user,password);
-        switchMainWindow();
-    });
+    connect(mLoginWindow,&LoginWindow::emailPasswordLoginSuccess,this,&Client::emailPasswordLoginSuccess);
+    connect(mLoginWindow,&LoginWindow::emailCodeLoginSuccess,this,&Client::emailCodeLoginSuccess);
+    connect(mLoginWindow,&LoginWindow::userPasswordLoginSuccess,this,&Client::userPasswordLoginSuccess);
+    connect(mLoginWindow,&LoginWindow::offlineLoginSuccess,this,&Client::offlineLoginSuccess);
 
 
     connect(mMainWindow,&MainWindow::search,this,&Client::search);
@@ -89,6 +78,35 @@ void Client::switchLoginWindow()
 {
     mLoginWindow->show();
     mMainWindow->hide();
+}
+
+void Client::emailPasswordLoginSuccess(QString account, QString password)
+{
+    mAppModel->setLoginMode("emailPasswordLogin");
+    mAppModel->setAccountAndNotify(account,password);
+    switchMainWindow();
+}
+
+void Client::emailCodeLoginSuccess(QString account)
+{
+    mAppModel->setLoginMode("emailCodeLogin");
+    mAppModel->setAccountAndNotify(account,"");
+    switchMainWindow();
+
+}
+
+void Client::userPasswordLoginSuccess(QString user, QString password)
+{
+    mAppModel->setLoginMode("userPasswordLogin");
+    mAppModel->setAccountAndNotify(user,password);
+    switchMainWindow();
+}
+
+void Client::offlineLoginSuccess()
+{
+    mAppModel->setLoginMode("offlineLogin");
+    mAppModel->setAccountAndNotify("guest","");
+    switchMainWindow();
 }
 
 bool Client::search(const QString &query,int page)

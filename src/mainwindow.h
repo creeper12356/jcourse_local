@@ -96,6 +96,11 @@ private slots:
 
     void parseCourseStatusTriggered();
 
+protected:
+    /*!
+     * \brief 主窗口每次出现初始化
+     */
+    void showEvent(QShowEvent *event);
 signals:
     /*!
      * \brief 搜索课程信号

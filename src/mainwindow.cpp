@@ -11,7 +11,6 @@ MainWindow::MainWindow(QWidget *parent)
     ui->search_edit->setPlaceholderText(
                 "搜索课程名/课号/教师姓名/教师姓名拼音"
                 );
-    ui->search_edit->setFocus();
 
     ui->user_head->setMinimumSize(50,50);
     ui->top_layout->setAlignment(Qt::AlignLeft);
@@ -110,6 +109,23 @@ void MainWindow::parseCourseStatusTriggered()
     }
     //TODO : progressbar
     emit parseCourseStatus(ui->course_status_edit->toPlainText());
+}
+
+void MainWindow::showEvent(QShowEvent *event)
+{
+    ui->tab_widget->setCurrentIndex(0);
+
+    ui->search_edit->clear();
+    ui->course_item_list->clear();
+    ui->review_item_list->clear();
+
+    ui->course_status_edit->clear();
+    ui->download_course_list_widget->clear();
+
+    ui->course_page_widget->reset();
+    ui->review_page_widget->reset();
+
+    ui->search_edit->setFocus();
 }
 
 void MainWindow::displaySearchResult(QByteArray result)

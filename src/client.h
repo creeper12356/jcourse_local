@@ -30,6 +30,12 @@ public:
     void switchLoginWindow();
 
 public slots:
+    void emailPasswordLoginSuccess(QString account , QString password);
+    void emailCodeLoginSuccess(QString account);
+    void userPasswordLoginSuccess(QString user , QString password);
+    void offlineLoginSuccess();
+
+public slots:
 
     /*!
      * \brief 登出
@@ -87,7 +93,6 @@ public slots:
      * \sa cacheCourseReview
      */
     void cacheCourseCodeReview(QString courseCode);
-    
 public:
 
     /*!

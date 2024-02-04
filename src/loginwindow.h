@@ -27,7 +27,6 @@ public slots:
      * \sa emailPasswordLoginSuccess
      */
     void emailPasswordLogin();
-
     /*!
      * \brief 发送邮箱验证码
      */
@@ -74,7 +73,19 @@ signals:
      */
     void emailCodeLoginSuccess(QString account);
 
+    /*!
+     * \brief 账号密码登录成功信号
+     *
+     * 用户通过账号密码登录成功后，此信号被发送给Client。
+     * \param user 用户名
+     * \param password 密码
+     */
     void userPasswordLoginSuccess(QString user, QString password);
+
+    /*!
+     * \brief 用户选择离线登录后，此信号被发送给Client。
+     */
+    void offlineLoginSuccess();
 protected:
     CustomNetworkCookieJar* cookieJar();
 private:
