@@ -94,7 +94,7 @@ public:
      * \brief 发送带Cookies的GET请求，获得服务器回应对象
      * \param apiUrl 请求的url
      * \return 如果请求成功，返回服务器的回应(QNetworkReply*)，指针指向的内存需要调用者手动释放；
-     *         如果请求失败，返回nullptr，//TODO : Modify: 并发出login信号。
+     *         如果请求失败，返回nullptr。
      * \sa getApiData
      */
     QNetworkReply *getApiReply(const QUrl &apiUrl);

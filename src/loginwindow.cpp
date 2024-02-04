@@ -103,13 +103,15 @@ void LoginWindow::emailPasswordLogin()
     postData.addQueryItem("password",password);
     qDebug() << "try login: " << account;
     QNetworkReply* reply = mManager->post(loginRequest,postData.toString(QUrl::FullyEncoded).toUtf8());
+    ui->email_login_login_button->setDisabled(true);
     eventLoop.exec();
+    ui->email_login_login_button->setEnabled(true);
     auto error = reply->error();
     displayReplyStatus(reply);
     delete reply;
 
     if(error == QNetworkReply::NoError){
-        //TODO : BUG ，连点可以强行登录
+        qDebug() << "error : " << error;
         //登录成功
         emit emailPasswordLoginSuccess(account,password);
     }
@@ -125,7 +127,6 @@ void LoginWindow::sendVerificationCode()
     QNetworkRequest sendCodeRequest(EMAIL_SEND_CODE_URL);
     sendCodeRequest.setHeader(QNetworkRequest::ContentTypeHeader, "application/x-www-form-urlencoded");
     QUrlQuery postData;
-
     QString account = ui->email_send_account_edit->text();
     if(account.isEmpty()){
         qDebug() << "account cannot be empty";
@@ -134,7 +135,9 @@ void LoginWindow::sendVerificationCode()
     postData.addQueryItem("account",account);
     qDebug() << "send code to account: " << account;
     QNetworkReply* reply = mManager->post(sendCodeRequest,postData.toString(QUrl::FullyEncoded).toUtf8());
+    ui->email_send_get_code_button->setDisabled(true);
     eventLoop.exec();
+    ui->email_send_get_code_button->setEnabled(true);
     displayReplyStatus(reply);
     delete reply;
 }
@@ -162,13 +165,14 @@ void LoginWindow::emailCodeLogin()
     postData.addQueryItem("code",code);
     qDebug() << "try login: " << account;
     QNetworkReply* reply = mManager->post(loginRequest,postData.toString(QUrl::FullyEncoded).toUtf8());
+    ui->email_send_login_button->setDisabled(true);
     eventLoop.exec();
+    ui->email_send_login_button->setEnabled(true);
     auto error = reply->error();
     displayReplyStatus(reply);
     delete reply;
 
     if(error == QNetworkReply::NoError){
-        //TODO : BUG ，连点可以强行登录
         //登录成功
         emit emailCodeLoginSuccess(account);
     }
@@ -197,13 +201,14 @@ void LoginWindow::userPasswordLogin()
     postData.addQueryItem("password",password);
     qDebug() << "try login: " << username;
     QNetworkReply* reply = mManager->post(loginRequest,postData.toString(QUrl::FullyEncoded).toUtf8());
+    ui->login_login_button->setDisabled(true);
     eventLoop.exec();
+    ui->login_login_button->setEnabled(true);
     auto error = reply->error();
     displayReplyStatus(reply);
     delete reply;
 
     if(error == QNetworkReply::NoError){
-        //TODO : BUG ，连点可以强行登录
         //登录成功
         emit userPasswordLoginSuccess(username,password);
     }

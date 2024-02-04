@@ -26,7 +26,6 @@ Client::Client(QApplication *app)
     });
     connect(mLoginWindow,&LoginWindow::emailCodeLoginSuccess,this,[this](QString account){
         mAppModel->setLoginMode("emailCodeLogin");
-        //TODO : 使用验证码登录，密码为空
         mAppModel->setAccountAndNotify(account,"");
         switchMainWindow();
     });
@@ -208,7 +207,6 @@ void Client::parseCourseStatus(QString src)
 
 QByteArray Client::getSearchResult(const QString &query, int page)
 {
-    //TODO : merge with getCourseReview
     return getApiData(SEARCH_URL(query,page));
 }
 
@@ -341,7 +339,7 @@ QNetworkReply *Client::getApiReply(const QUrl &apiUrl)
             delete reply;
             continue;
         }
-        qDebug() << "该cookies存在问题";
+        qDebug() << "请求失败";
         qDebug() << reply->attribute(QNetworkRequest::HttpStatusCodeAttribute);
         qDebug() << QString::fromUtf8(reply->readAll());
         delete reply;
