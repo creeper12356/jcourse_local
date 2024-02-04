@@ -10,6 +10,8 @@ AppModel::AppModel(MainWindow *mainWindow, QObject *parent)
 
     connect(this,&AppModel::onlineChanged,mMainWindow,&MainWindow::onlineChangedSlot);
     connect(mMainWindow,&MainWindow::changeOnline,this,&AppModel::setOnline);
+
+    connect(this,&AppModel::loginModeChanged,mMainWindow,&MainWindow::loginModeChangedSlot);
 }
 
 bool AppModel::readFromFile(const QString &fileName)
@@ -27,8 +29,11 @@ bool AppModel::readFromFile(const QString &fileName)
         return false;
     }
     QJsonObject clientJsonObject = clientJsonDoc.object();
+
+    //设置在线/离线
+    setOnlineAndNotify(clientJsonObject["isOnline"].toBool());
     //读入登录模式
-    setLoginMode(clientJsonObject["loginMode"].toString());
+    setLoginModeAndNotify(clientJsonObject["loginMode"].toString());
     //读入账号密码
     setAccountAndNotify(clientJsonObject["account"].toObject()["account"].toString(),
             clientJsonObject["account"].toObject()["password"].toString());
@@ -39,7 +44,6 @@ bool AppModel::readFromFile(const QString &fileName)
     mCoreData.readFromFile("coredata.json");
     //TODO  : return false?
 
-    setOnlineAndNotify(clientJsonObject["isOnline"].toBool());
 
     //read history
     //TODO  : return false?
@@ -136,9 +140,13 @@ void AppModel::setOnlineAndNotify(bool isOnline)
     emit onlineChanged(isOnline);
 }
 
-void AppModel::setLoginMode(const QString &loginMode)
+void AppModel::setLoginModeAndNotify(const QString &loginMode)
 {
     mLoginMode = loginMode;
+    if(loginMode == "offlineLogin") {
+        setOnlineAndNotify(false);
+    }
+    emit loginModeChanged(loginMode);
 }
 
 void AppModel::clearData()

@@ -82,14 +82,14 @@ void Client::switchLoginWindow()
 
 void Client::emailPasswordLoginSuccess(QString account, QString password)
 {
-    mAppModel->setLoginMode("emailPasswordLogin");
+    mAppModel->setLoginModeAndNotify("emailPasswordLogin");
     mAppModel->setAccountAndNotify(account,password);
     switchMainWindow();
 }
 
 void Client::emailCodeLoginSuccess(QString account)
 {
-    mAppModel->setLoginMode("emailCodeLogin");
+    mAppModel->setLoginModeAndNotify("emailCodeLogin");
     mAppModel->setAccountAndNotify(account,"");
     switchMainWindow();
 
@@ -97,14 +97,14 @@ void Client::emailCodeLoginSuccess(QString account)
 
 void Client::userPasswordLoginSuccess(QString user, QString password)
 {
-    mAppModel->setLoginMode("userPasswordLogin");
+    mAppModel->setLoginModeAndNotify("userPasswordLogin");
     mAppModel->setAccountAndNotify(user,password);
     switchMainWindow();
 }
 
 void Client::offlineLoginSuccess()
 {
-    mAppModel->setLoginMode("offlineLogin");
+    mAppModel->setLoginModeAndNotify("offlineLogin");
     mAppModel->setAccountAndNotify("guest","");
     switchMainWindow();
 }

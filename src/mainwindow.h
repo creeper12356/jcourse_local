@@ -58,6 +58,12 @@ public slots:
      */
     void onlineChangedSlot(bool isOnline);
 
+    /*!
+     * \brief 登录模式改变的槽函数
+     * \sa AppModel::loginModeChanged
+     */
+    void loginModeChangedSlot(QString loginMode);
+
 private slots:
     /*!
      * \brief 用户使用搜索框搜索课程

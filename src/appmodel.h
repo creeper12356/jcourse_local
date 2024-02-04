@@ -83,7 +83,7 @@ public:
     NetworkReplyHistory* networkReplyHistory();     //!<指向请求历史的指针
 
 public slots:
-    void setLoginMode(const QString& loginMode);	                         //!<设置登录模式
+    void setLoginModeAndNotify(const QString& loginMode);	                         //!<设置登录模式
     void setAccountAndNotify(const Account& account);                           //!<设置账号并通知MainWindow
     void setAccountAndNotify(const QString& account , const QString& password); //!<设置账号并通知MainWindow
     void setCacheDirectory(const QString &cacheDirectory);                      //!<设置缓存目录
@@ -108,6 +108,12 @@ signals:
      * \param online 是否为在线模式
      */
     void onlineChanged(bool online);
+
+    /*!
+     * \brief 登录模式变化信号
+     * \param loginMode 登录模式
+     */
+    void loginModeChanged(QString loginMode);
 private:
     //显示界面
     MainWindow* mMainWindow = nullptr;
