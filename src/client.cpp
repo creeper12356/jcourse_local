@@ -83,6 +83,7 @@ void Client::switchLoginWindow()
 void Client::emailPasswordLoginSuccess(QString account, QString password)
 {
     mAppModel->setLoginModeAndNotify("emailPasswordLogin");
+    mAppModel->setOnlineAndNotify(true);
     mAppModel->setAccountAndNotify(account,password);
     switchMainWindow();
 }
@@ -90,6 +91,7 @@ void Client::emailPasswordLoginSuccess(QString account, QString password)
 void Client::emailCodeLoginSuccess(QString account)
 {
     mAppModel->setLoginModeAndNotify("emailCodeLogin");
+    mAppModel->setOnlineAndNotify(true);
     mAppModel->setAccountAndNotify(account,"");
     switchMainWindow();
 
@@ -98,6 +100,7 @@ void Client::emailCodeLoginSuccess(QString account)
 void Client::userPasswordLoginSuccess(QString user, QString password)
 {
     mAppModel->setLoginModeAndNotify("userPasswordLogin");
+    mAppModel->setOnlineAndNotify(true);
     mAppModel->setAccountAndNotify(user,password);
     switchMainWindow();
 }
@@ -107,6 +110,11 @@ void Client::offlineLoginSuccess()
     mAppModel->setLoginModeAndNotify("offlineLogin");
     mAppModel->setAccountAndNotify("guest","");
     switchMainWindow();
+}
+
+void Client::warning(const QString &msg)
+{
+    QMessageBox::warning(mMainWindow,"警告",msg);
 }
 
 bool Client::search(const QString &query,int page)
@@ -235,6 +243,10 @@ QByteArray Client::getCourseReview(int courseid, int page)
 
 void Client::cacheCourseReview(int courseid)
 {
+    if(!mAppModel->isOnline()){
+        warning("离线模式下，无法下载课程评价。");
+        return ;
+    }
     assert(mAppModel->isOnline());
     QByteArray replyData;
     int pageCount , pageCurrent = 1;
@@ -258,6 +270,10 @@ void Client::cacheCourseReview(int courseid)
 
 void Client::cacheCourseCodeReview(QString courseCode)
 {
+    if(!mAppModel->isOnline()){
+        warning("离线模式下，无法下载课程评价。");
+        return ;
+    }
     assert(mAppModel->isOnline());
     QByteArray replyData;
     int pageCount , pageCurrent = 1;

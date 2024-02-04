@@ -4,7 +4,7 @@
 CourseCodeListWidget::CourseCodeListWidget(QWidget *parent)
     : AbstractListWidget(parent)
 {
-    mCacheAction = new QAction("缓存这门课",this);
+    mCacheAction = new QAction("缓存所有课程和评价",this);
     mContextMenu->addAction(mCacheAction);
     this->setVerticalScrollMode(QAbstractItemView::ScrollPerPixel);
 }

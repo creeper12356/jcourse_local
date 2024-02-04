@@ -4,7 +4,7 @@
 CourseListWidget::CourseListWidget(QWidget *parent)
     : AbstractListWidget(parent)
 {
-    mCacheAction = new QAction("download all review",this);
+    mCacheAction = new QAction("缓存所有评价",this);
     mContextMenu->addAction(mCacheAction);
     setVerticalScrollMode(QAbstractItemView::ScrollPerPixel);
 }

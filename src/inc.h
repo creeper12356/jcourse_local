@@ -16,6 +16,7 @@
 #include <QListWidget>
 #include <QComboBox>
 #include <QMenu>
+#include <QMessageBox>
 
 #include <QApplication>
 #include <QEventLoop>

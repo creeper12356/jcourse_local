@@ -21,6 +21,8 @@ MainWindow::MainWindow(QWidget *parent)
     ui->switch_button->setFixedSize(70,30);
     ui->switch_button->setTextOn("在线");
     ui->switch_button->setTextOff("离线");
+    connect(ui->switch_button,&SwitchButton::statusChanged,this,&MainWindow::changeOnline);
+
     ui->course_info_label->setAlignment(Qt::AlignCenter);
     ui->review_info_label->setAlignment(Qt::AlignCenter);
 

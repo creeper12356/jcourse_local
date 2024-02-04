@@ -35,6 +35,8 @@ public slots:
     void userPasswordLoginSuccess(QString user , QString password);
     void offlineLoginSuccess();
 
+public:
+    void warning(const QString& msg);
 public slots:
 
     /*!
