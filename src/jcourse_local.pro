@@ -33,6 +33,7 @@ SOURCES += \
     reviewitem.cpp \
     reviewlistwidget.cpp \
     switchbutton.cpp \
+    taskmanager.cpp \
     userhead.cpp \
     customnetworkreply.cpp \
     networkreplyhistory.cpp
@@ -55,6 +56,7 @@ HEADERS += \
     reviewitem.h \
     reviewlistwidget.h \
     switchbutton.h \
+    taskmanager.h \
     userhead.h \
     circularqueue.h \
     customnetworkreply.h \

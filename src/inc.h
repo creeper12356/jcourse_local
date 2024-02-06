@@ -76,8 +76,8 @@
 
 //缓存评价文件名
 //int courseid , int page
-#define CACHE_REVIEW_BASENAME(courseid,page) \
-        QString("review_%1_%2.json").arg(QString::number(courseid),QString::number(page))
+#define CACHE_REVIEW_FILE_NAME(courseid , page) \
+    QString("cache/review_%1_%2.json").arg(QString::number(courseid),QString::number(page))
 
 class MainWindow;
 class LoginWindow;
@@ -86,5 +86,6 @@ class CustomNetworkCookieJar;
 class AppModel;
 class PaginationWidget;
 class AbstractItem;
+class TaskManager;
 
 #endif // INC_H

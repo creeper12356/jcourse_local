@@ -3,6 +3,7 @@
 #include "loginwindow.h"
 #include "pinyin.h"
 
+#include "taskmanager.h"
 #include "appmodel.h"
 #include "paginationwidget.h"
 
@@ -11,9 +12,10 @@ Client::Client(QApplication *app)
     , mApp(app)
 {
     mEventLoop = new QEventLoop(this);
-    mManager = new QNetworkAccessManager(this);
+    mNetworkAccessManager = new QNetworkAccessManager(this);
+    mTaskManager = new TaskManager(this, mNetworkAccessManager);
 
-    mLoginWindow = new LoginWindow(mManager , nullptr);
+    mLoginWindow = new LoginWindow(mNetworkAccessManager , nullptr);
     mMainWindow = new MainWindow(nullptr);
 
     mAppModel = new AppModel(mMainWindow);
@@ -33,18 +35,29 @@ Client::Client(QApplication *app)
 
     connect(mMainWindow,&MainWindow::logout,this,&Client::logout);
 
-    connect(mManager,&QNetworkAccessManager::finished,mEventLoop,&QEventLoop::quit);
+    connect(mNetworkAccessManager,&QNetworkAccessManager::finished,mEventLoop,&QEventLoop::quit);
     connect(mLoginWindow,&LoginWindow::rejected,mApp,&QApplication::quit);
 
-    mManager->setCookieJar(mAppModel->cookieJarPtr());
+    mNetworkAccessManager->setCookieJar(mAppModel->cookieJarPtr());
     mAppModel->readFromFile("./client.json");
-    mAppModel->setCacheDirectory("cache");
+
+    //不存在自动创建缓存目录
+    if(!QDir("cache").exists()){
+        QDir::current().mkdir("cache");
+    }
 
     connect(mMainWindow,&MainWindow::parseCourseStatus,this,&Client::parseCourseStatus);
     connect(this,&Client::parseCourseStatusFinished,mMainWindow,&MainWindow::displayParseCourseStatusResult);
 
     connect(mMainWindow,&MainWindow::cacheCourseReview,this,&Client::cacheCourseReview);
     connect(mMainWindow,&MainWindow::cacheCourseCodeReview,this,&Client::cacheCourseCodeReview);
+
+
+
+    //taskManager
+    connect(mTaskManager,&TaskManager::searchFinished,this,&Client::searchFinished);
+    connect(mTaskManager,&TaskManager::checkReviewFinished,this,&Client::checkReviewFinished);
+    connect(mTaskManager,&TaskManager::cacheReviewTaskFinished,this,&Client::cacheReviewFinishedHandler);
 
     if(mAppModel->account().account.isEmpty()){
         //用户名为空，说明未登录
@@ -122,14 +135,8 @@ bool Client::search(const QString &query,int page)
     QByteArray replyData;
     if(mAppModel->isOnline()){
         //在线模式
-        //请求api,缓存资源到本地
-        replyData = getSearchResult(query,page);
-        if(replyData.isEmpty()){
-            return false;
-        }
-
-        //缓存数据
-        cacheSearchResult(replyData);
+        //添加异步请求任务
+        mTaskManager->addTask(new SearchTask(query,page));
     }
     else{
         //离线模式
@@ -172,21 +179,12 @@ bool Client::search(const QString &query,int page)
 bool Client::checkReview(int courseid, int page)
 {
     QByteArray replyData;
-    QString cacheReviewFileName = mAppModel->cacheDirectory() + "/" + CACHE_REVIEW_BASENAME(courseid,page);
-    qDebug() << "cacheReviewFileName: "  << cacheReviewFileName;
     if(mAppModel->isOnline()){
-
-        replyData = getCourseReview(courseid,page);
-        if(replyData.isEmpty()){
-            return false;
-        }
-
-        //缓存资源
-        cacheReplyData(replyData,cacheReviewFileName);
+        mTaskManager->addTask(new CheckReviewTask(courseid,page));
     }
     else{
         QFile loader;
-        loader.setFileName(cacheReviewFileName);
+        loader.setFileName(CACHE_REVIEW_FILE_NAME(courseid,page));
         loader.open(QIODevice::ReadOnly);
         if(loader.isOpen()){
             qDebug() << "read from cached file: " << loader.fileName();
@@ -198,9 +196,9 @@ bool Client::checkReview(int courseid, int page)
             //空JSON
             replyData = "{\"count\":0}";
         }
+        emit checkReviewFinished(replyData);
     }
 
-    emit checkReviewFinished(replyData);
     return true;
 }
 
@@ -248,25 +246,7 @@ void Client::cacheCourseReview(int courseid)
         return ;
     }
     assert(mAppModel->isOnline());
-    QByteArray replyData;
-    int pageCount , pageCurrent = 1;
-
-    do {
-        replyData = getCourseReview(courseid,pageCurrent);
-        if(replyData.isEmpty()){
-            qDebug() << "error";
-            return ;
-        }
-        if(pageCurrent == 1){
-            pageCount = PaginationWidget::divideTotal(QJsonDocument::fromJson(replyData).object()["count"].toInt(),PAGE_SIZE);
-        }
-
-        cacheReplyData(replyData , mAppModel->cacheDirectory() + "/" + CACHE_REVIEW_BASENAME(courseid,pageCurrent));
-        ++pageCurrent;
-    } while(pageCurrent <= pageCount);
-
-    qDebug() << "cache course " << courseid << " finished!";
-}
+    mTaskManager->addTask(new CacheCourseReviewTask(courseid));}
 
 void Client::cacheCourseCodeReview(QString courseCode)
 {
@@ -302,6 +282,27 @@ void Client::cacheCourseCodeReview(QString courseCode)
         cacheCourseReview(courseid);
     }
     qDebug() << "cache course code " << courseCode << " finished!";
+}
+
+void Client::searchFinishedHandler(QByteArray result)
+{
+    //缓存搜索结果
+    cacheSearchResult(result);
+
+    emit searchFinished(result);
+}
+
+void Client::checkReviewFinishedHandler(QByteArray result, int courseid, int page)
+{
+    //缓存课程评价
+    cacheReplyData(result,CACHE_REVIEW_FILE_NAME(courseid,page));
+
+    emit checkReviewFinished(result);
+}
+
+void Client::cacheReviewFinishedHandler(QByteArray result, int courseid, int page)
+{
+    cacheReplyData(result,CACHE_REVIEW_FILE_NAME(courseid,page));
 }
 
 void Client::cacheReplyData(const QByteArray &replyData, const QString &fileName)
@@ -354,13 +355,41 @@ void Client::logout()
     switchLoginWindow();
 }
 
+//QNetworkReply *Client::getApiReply(const QUrl &apiUrl)
+//{
+//    QNetworkRequest request(apiUrl);
+//    request.setHeader(QNetworkRequest::ContentTypeHeader, "application/x-www-form-urlencoded");
+//    QNetworkReply *reply = nullptr;
+//    while(true){
+//        reply = mNetworkAccessManager->get(request);
+//        mEventLoop->exec();
+//        if(reply->error() == QNetworkReply::NoError){
+//            //获取资源成功
+//            //reply需要caller手动销毁
+//            return reply;
+//        }
+//        //获取资源失败
+//        if(autoUpdateCookies()){
+//            //重新自动获取Cookies成功
+//            delete reply;
+//            continue;
+//        }
+//        qDebug() << "请求失败";
+//        qDebug() << reply->attribute(QNetworkRequest::HttpStatusCodeAttribute);
+//        qDebug() << QString::fromUtf8(reply->readAll());
+//        delete reply;
+//        //TODO : 登出
+//        return nullptr;
+//    }
+//}
+
 QNetworkReply *Client::getApiReply(const QUrl &apiUrl)
 {
     QNetworkRequest request(apiUrl);
     request.setHeader(QNetworkRequest::ContentTypeHeader, "application/x-www-form-urlencoded");
     QNetworkReply *reply = nullptr;
     while(true){
-        reply = mManager->get(request);
+        reply = mNetworkAccessManager->get(request);
         mEventLoop->exec();
         if(reply->error() == QNetworkReply::NoError){
             //获取资源成功
@@ -435,7 +464,7 @@ bool Client::autoUpdateCookies()
         //使用其他方式登录，无法自动更新Cookies
         return false;
     }
-    QNetworkReply* reply = mManager->post(loginRequest,postData.toString(QUrl::FullyEncoded).toUtf8());
+    QNetworkReply* reply = mNetworkAccessManager->post(loginRequest,postData.toString(QUrl::FullyEncoded).toUtf8());
     mEventLoop->exec();
     auto error = reply->error();
     delete reply;

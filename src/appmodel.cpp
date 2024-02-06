@@ -83,11 +83,6 @@ CustomNetworkCookieJar *AppModel::cookieJarPtr()
     return &mCookieJar;
 }
 
-const QString &AppModel::cacheDirectory() const
-{
-    return mCacheDirectory;
-}
-
 bool AppModel::isOnline() const
 {
     return mOnline;
@@ -119,14 +114,6 @@ void AppModel::setAccountAndNotify(const QString &arg_account, const QString &ar
     mAccount.account = arg_account;
     mAccount.password = arg_password;
     emit userNameChanged(mAccount.account);
-}
-
-void AppModel::setCacheDirectory(const QString& cacheDirectory)
-{
-    if(!QDir(cacheDirectory).exists()){
-        QDir::current().mkdir(cacheDirectory);
-    }
-    mCacheDirectory = cacheDirectory;
 }
 
 void AppModel::setOnline(bool isOnline)

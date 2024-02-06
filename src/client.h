@@ -95,6 +95,12 @@ public slots:
      * \sa cacheCourseReview
      */
     void cacheCourseCodeReview(QString courseCode);
+public slots:
+    //TODO : rename ...
+    //与TaskManager信号连接的槽
+    void searchFinishedHandler(QByteArray result);
+    void checkReviewFinishedHandler(QByteArray result,int courseid,int page);
+    void cacheReviewFinishedHandler(QByteArray result,int courseid,int page);
 public:
 
     /*!
@@ -184,7 +190,8 @@ private:
 private:
     QApplication *mApp = nullptr;
     QEventLoop *mEventLoop = nullptr;
-    QNetworkAccessManager* mManager = nullptr;
+    QNetworkAccessManager* mNetworkAccessManager = nullptr;
+    TaskManager* mTaskManager = nullptr;
     AppModel* mAppModel = nullptr;
 
 };

@@ -86,7 +86,6 @@ public slots:
     void setLoginModeAndNotify(const QString& loginMode);	                         //!<设置登录模式
     void setAccountAndNotify(const Account& account);                           //!<设置账号并通知MainWindow
     void setAccountAndNotify(const QString& account , const QString& password); //!<设置账号并通知MainWindow
-    void setCacheDirectory(const QString &cacheDirectory);                      //!<设置缓存目录
     void setOnline(bool isOnline);                                              //!<设置在线模式，不通知MainWindow
     void setOnlineAndNotify(bool isOnline);                                     //!<设置在线模式并通知MainWindow
 
@@ -127,8 +126,6 @@ private:
     //在线模式：从url获取资源，缓存到本地
     //离线模式：从本地缓存获取资源
     bool mOnline;
-    //缓存路径,默认为"cache"
-    QString mCacheDirectory;
     //核心数据
     CoreData mCoreData;
     //请求记录

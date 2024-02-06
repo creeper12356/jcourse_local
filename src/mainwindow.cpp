@@ -113,6 +113,9 @@ void MainWindow::parseCourseStatusTriggered()
 
 void MainWindow::showEvent(QShowEvent *event)
 {
+    ui->progressbar->hide();
+    ui->statusbar->clearMessage();
+
     ui->tab_widget->setCurrentIndex(0);
 
     ui->search_edit->clear();
