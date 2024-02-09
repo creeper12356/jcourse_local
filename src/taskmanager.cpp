@@ -24,11 +24,19 @@ TaskManager::~TaskManager()
     }
 }
 
-void TaskManager::addTask(Task *newTask)
+void TaskManager::appendTask(Task *newTask)
 {
     assert(newTask);
     mTasks.push_back(newTask);
-    qDebug() << "push : " << mTasks.size();
+    qDebug() << "append: " << mTasks.size();
+    emit taskQueueUpdated();
+}
+
+void TaskManager::prependTask(Task *newTask)
+{
+    assert(newTask);
+    mTasks.prepend(newTask);
+    qDebug() << "prepend: " << mTasks.size();
     emit taskQueueUpdated();
 }
 
@@ -57,6 +65,7 @@ void TaskManager::handleTaskQueueUpdated()
         else {
             SingleTask* singleTask = dynamic_cast<SingleTask*>(mTasks[0]);
             if(singleTask->isDoing) {
+                qDebug() << "first task doing . so skip.";
                 return ;
             }
             singleTask->isDoing = true;
@@ -76,7 +85,6 @@ void TaskManager::handleNetworkReply(QNetworkReply *reply)
             //跳过复合请求
             continue;
         }
-        assert(!task->isCompound);
         if(dynamic_cast<SingleTask*>(task)->url == reply->request().url()) {
             //按时间顺序查找请求，按照url匹配
             targetTask = dynamic_cast<SingleTask*>(task);
@@ -84,7 +92,11 @@ void TaskManager::handleNetworkReply(QNetworkReply *reply)
         }
     }
 
-    assert(targetTask);
+//    assert(targetTask);
+    if(!targetTask) {
+        qDebug() << "other network reply";
+        return ;
+    }
 
     auto taskType = targetTask->type;
 
@@ -157,7 +169,7 @@ Task::~Task()
 }
 
 SearchTask::SearchTask(const QString &arg_query, int arg_page)
-    : SingleTask(taskManager::search,QUrl(SEARCH_URL(arg_query,arg_page)))
+    : SingleTask(taskManager::search, QUrl(SEARCH_URL(arg_query,arg_page)))
     , query(arg_query)
     , page(arg_page)
 {

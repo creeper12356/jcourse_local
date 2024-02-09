@@ -69,7 +69,9 @@ class TaskManager : public QObject
 public:
     TaskManager(QObject* parent , QNetworkAccessManager* networkAccessManager);
     ~TaskManager();
-    void addTask(Task* newTask);
+
+    void appendTask(Task* newTask);
+    void prependTask(Task* newTask);
 public slots:
     void handleTaskQueueUpdated();
     void handleNetworkReply(QNetworkReply* reply);

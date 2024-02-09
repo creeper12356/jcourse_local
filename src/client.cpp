@@ -136,7 +136,7 @@ bool Client::search(const QString &query,int page)
     if(mAppModel->isOnline()){
         //在线模式
         //添加异步请求任务
-        mTaskManager->addTask(new SearchTask(query,page));
+        mTaskManager->prependTask(new SearchTask(query,page));
     }
     else{
         //离线模式
@@ -180,7 +180,7 @@ bool Client::checkReview(int courseid, int page)
 {
     QByteArray replyData;
     if(mAppModel->isOnline()){
-        mTaskManager->addTask(new CheckReviewTask(courseid,page));
+        mTaskManager->prependTask(new CheckReviewTask(courseid,page));
     }
     else{
         QFile loader;
@@ -246,7 +246,7 @@ void Client::cacheCourseReview(int courseid)
         return ;
     }
     assert(mAppModel->isOnline());
-    mTaskManager->addTask(new CacheCourseReviewTask(courseid));}
+    mTaskManager->appendTask(new CacheCourseReviewTask(courseid));}
 
 void Client::cacheCourseCodeReview(QString courseCode)
 {
@@ -349,7 +349,9 @@ void Client::cacheSearchResult(const QJsonObject &replyJsonObject)
 
 void Client::logout()
 {
-    getApiData(LOGOUT_URL);
+    if(mAppModel->loginMode() != "offlineLogin") {
+        getApiData(LOGOUT_URL);
+    }
     //清除数据
     mAppModel->clearData();
     switchLoginWindow();
