@@ -18,6 +18,7 @@ class SingleTask : public Task
 {
 public:
     QUrl url;
+    bool isDoing = false;
 
     SingleTask(taskManager::type type,const QUrl& url);
     virtual ~SingleTask();
@@ -80,8 +81,6 @@ signals:
 private:
     QVector<Task*> mTasks;
     QNetworkAccessManager* mNetworkAccessManager;
-private:
-    int mMaxCacheReviewId;
 };
 
 #endif // TASKMANAGER_H

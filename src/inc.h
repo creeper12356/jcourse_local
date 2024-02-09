@@ -43,6 +43,8 @@
 
 #include <QPainter>
 
+#include <QRegularExpression>
+
 #include <QDebug>
 
 #define PAGE_SIZE 20

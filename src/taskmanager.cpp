@@ -6,19 +6,19 @@ using namespace taskManager;
 TaskManager::TaskManager(QObject *parent, QNetworkAccessManager *networkAccessManager)
     : QObject(parent)
     , mNetworkAccessManager(networkAccessManager)
-    , mMaxCacheReviewId(0)
 {
     connect(mNetworkAccessManager,&QNetworkAccessManager::finished,this,&TaskManager::handleNetworkReply);
     connect(this,&TaskManager::taskQueueUpdated,this,&TaskManager::handleTaskQueueUpdated);
 //    QTimer* timer = new QTimer(this);
 //    connect(timer,&QTimer::timeout,this,[this]() {
-//        qDebug() << mTasks;
+//        qDebug() << mTasks.size();
 //    });
 //    timer->start(10);
 }
 
 TaskManager::~TaskManager()
 {
+    qDebug() << "delete";
     for(Task* task : mTasks) {
         delete task;
     }
@@ -28,12 +28,13 @@ void TaskManager::addTask(Task *newTask)
 {
     assert(newTask);
     mTasks.push_back(newTask);
+    qDebug() << "push : " << mTasks.size();
     emit taskQueueUpdated();
 }
 
 void TaskManager::handleTaskQueueUpdated()
 {
-    qDebug() << "handle task queue updated";
+    qDebug() << "handleTaskQueueUpdated";
     if(mTasks.empty()){
         qDebug() << "task queue now empty";
         return ;
@@ -44,6 +45,7 @@ void TaskManager::handleTaskQueueUpdated()
             case cacheCourseReview:
             {
                 mTasks.push_back(new CacheReviewTask(dynamic_cast<CacheCourseReviewTask*>(mTasks[0])->courseid,1));
+                delete mTasks[0];
                 mTasks.removeFirst();
                 emit taskQueueUpdated();
                 break;
@@ -53,16 +55,21 @@ void TaskManager::handleTaskQueueUpdated()
             }
         }
         else {
-            QNetworkRequest request(dynamic_cast<SingleTask*>(mTasks[0])->url);
+            SingleTask* singleTask = dynamic_cast<SingleTask*>(mTasks[0]);
+            if(singleTask->isDoing) {
+                return ;
+            }
+            singleTask->isDoing = true;
+            QNetworkRequest request(singleTask->url);
             request.setHeader(QNetworkRequest::ContentTypeHeader, "application/x-www-form-urlencoded");
             mNetworkAccessManager->get(request);
         }
-
     }
 }
 
 void TaskManager::handleNetworkReply(QNetworkReply *reply)
 {
+    qDebug() << "handleNetworkReply";
     SingleTask* targetTask = nullptr;
     for(Task* task : mTasks) {
         if(task->isCompound) {
@@ -80,14 +87,27 @@ void TaskManager::handleNetworkReply(QNetworkReply *reply)
     assert(targetTask);
 
     auto taskType = targetTask->type;
+
+    QByteArray replyData = reply->readAll();
     //TODO : reply.error?
     if(reply->error() != QNetworkReply::NoError) {
-        qDebug() << reply->error();
-        qDebug() << reply->readAll();
-        assert(false);
-    }
-    QByteArray replyData = reply->readAll();
+        if(reply->attribute(QNetworkRequest::HttpStatusCodeAttribute).toInt() == 429) {
+            //使用正则表达式解析等待的时间
+            QRegularExpression regex("\\d+");
+            QRegularExpressionMatchIterator matchIterator = regex.globalMatch(QString::fromUtf8(replyData));
+            while (matchIterator.hasNext()) {
+                QRegularExpressionMatch match = matchIterator.next();
+                QString matchedText = match.captured();
+                int waitTime = matchedText.toInt() * 1000;
+                qDebug() << "wait for " << waitTime << " ms.";
+                QTimer::singleShot(waitTime,this,&TaskManager::taskQueueUpdated);
+                break;
+            }
+        }
 
+        delete reply;
+        return ;
+    }
     switch(taskType) {
     case search:
     {
