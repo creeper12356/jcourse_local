@@ -50,6 +50,9 @@ Client::Client(QApplication *app)
     connect(this,&Client::parseCourseStatusFinished,mMainWindow,&MainWindow::displayParseCourseStatusResult);
 
     connect(mMainWindow,&MainWindow::cacheCourseReview,this,&Client::cacheCourseReview);
+    connect(this,&Client::cacheReviewFinished,mMainWindow,&MainWindow::cacheReviewFinishedSlot);
+    connect(this,&Client::cacheCourseReviewFinished,mMainWindow,&MainWindow::cacheCourseReviewFinishedSlot);
+
     connect(mMainWindow,&MainWindow::cacheCourseCodeReview,this,&Client::cacheCourseCodeReview);
 
 
@@ -57,7 +60,7 @@ Client::Client(QApplication *app)
     //taskManager
     connect(mTaskManager,&TaskManager::searchFinished,this,&Client::searchFinishedHandler);
     connect(mTaskManager,&TaskManager::checkReviewFinished,this,&Client::checkReviewFinishedHandler);
-    connect(mTaskManager,&TaskManager::cacheReviewTaskFinished,this,&Client::cacheReviewFinishedHandler);
+    connect(mTaskManager,&TaskManager::cacheReviewFinished,this,&Client::cacheReviewFinishedHandler);
 
     if(mAppModel->account().account.isEmpty()){
         //用户名为空，说明未登录
@@ -300,9 +303,14 @@ void Client::checkReviewFinishedHandler(QByteArray result, int courseid, int pag
     emit checkReviewFinished(result);
 }
 
-void Client::cacheReviewFinishedHandler(QByteArray result, int courseid, int page)
+void Client::cacheReviewFinishedHandler(QByteArray result, int courseid, int page, bool isLastPage)
 {
     cacheReplyData(result,CACHE_REVIEW_FILE_NAME(courseid,page));
+    emit cacheReviewFinished(courseid,page);
+    if(isLastPage) {
+        //课号courseid的所有评价缓存完成
+        emit cacheCourseReviewFinished(courseid);
+    }
 }
 
 void Client::cacheReplyData(const QByteArray &replyData, const QString &fileName)
@@ -356,34 +364,6 @@ void Client::logout()
     mAppModel->clearData();
     switchLoginWindow();
 }
-
-//QNetworkReply *Client::getApiReply(const QUrl &apiUrl)
-//{
-//    QNetworkRequest request(apiUrl);
-//    request.setHeader(QNetworkRequest::ContentTypeHeader, "application/x-www-form-urlencoded");
-//    QNetworkReply *reply = nullptr;
-//    while(true){
-//        reply = mNetworkAccessManager->get(request);
-//        mEventLoop->exec();
-//        if(reply->error() == QNetworkReply::NoError){
-//            //获取资源成功
-//            //reply需要caller手动销毁
-//            return reply;
-//        }
-//        //获取资源失败
-//        if(autoUpdateCookies()){
-//            //重新自动获取Cookies成功
-//            delete reply;
-//            continue;
-//        }
-//        qDebug() << "请求失败";
-//        qDebug() << reply->attribute(QNetworkRequest::HttpStatusCodeAttribute);
-//        qDebug() << QString::fromUtf8(reply->readAll());
-//        delete reply;
-//        //TODO : 登出
-//        return nullptr;
-//    }
-//}
 
 QNetworkReply *Client::getApiReply(const QUrl &apiUrl)
 {

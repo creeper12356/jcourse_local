@@ -37,6 +37,10 @@ public slots:
      */
     void displayCheckReviewResult(QByteArray result);
 
+    void cacheCourseReviewFinishedSlot(int courseid);
+
+    void cacheReviewFinishedSlot(int courseid, int page);
+
 
     void displayParseCourseStatusResult(QJsonObject resultJsonObject);
 

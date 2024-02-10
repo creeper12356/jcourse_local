@@ -60,7 +60,7 @@ void TaskManager::handleTaskQueueUpdated()
             switch(mTasks[0]->type) {
             case cacheCourseReview:
             {
-                mTasks.push_back(new CacheReviewTask(dynamic_cast<CacheCourseReviewTask*>(mTasks[0])->courseid,1));
+                mTasks.push_back(new CacheReviewTask(dynamic_cast<CacheCourseReviewTask*>(mTasks[0])->courseid,1,false));
                 delete mTasks[0];
                 mTasks.removeFirst();
                 notifyTaskQueueUpdated();
@@ -145,13 +145,19 @@ void TaskManager::handleNetworkReply(QNetworkReply *reply)
     {
         auto cacheReviewTask = dynamic_cast<CacheReviewTask*>(targetTask);
         if(cacheReviewTask->page == 1) {
+            //添加其他页面的课程评价缓存任务
             int pageCount = PaginationWidget::divideTotal(QJsonDocument::fromJson(replyData).object()["count"].toInt(),PAGE_SIZE);
-            for(int i = 2;i <= pageCount;++i) {
-                //添加剩余下载请求
-                mTasks.push_back(new CacheReviewTask(cacheReviewTask->courseid,i));
+            if(pageCount == 1) {
+                cacheReviewTask->isLastPage = true;
+            }
+            else {
+                for(int i = 2;i < pageCount;++i) {
+                    mTasks.push_back(new CacheReviewTask(cacheReviewTask->courseid,i,false));
+                }
+                mTasks.push_back(new CacheReviewTask(cacheReviewTask->courseid,pageCount,true));
             }
         }
-        emit cacheReviewTaskFinished(replyData,cacheReviewTask->courseid,cacheReviewTask->page);
+        emit cacheReviewFinished(replyData,cacheReviewTask->courseid,cacheReviewTask->page,cacheReviewTask->isLastPage);
         break;
     }
     default:
@@ -166,7 +172,7 @@ void TaskManager::handleNetworkReply(QNetworkReply *reply)
 
 void TaskManager::notifyTaskQueueUpdated()
 {
-    emit taskQueueUpdated(&mTasks);
+    emit taskQueueUpdated();
 }
 
 Task::Task(taskManager::type arg_type, bool arg_isCompound)
@@ -263,10 +269,11 @@ QJsonObject CheckReviewTask::toJsonObject() const
     return taskJsonObject;
 }
 
-CacheReviewTask::CacheReviewTask(int arg_courseid, int arg_page)
+CacheReviewTask::CacheReviewTask(int arg_courseid, int arg_page, bool arg_isLastPage)
     : SingleTask(taskManager::cacheReview, QUrl(REVIEW_URL(arg_courseid,arg_page)))
     , courseid(arg_courseid)
     , page(arg_page)
+    , isLastPage(arg_isLastPage)
 {
 
 }

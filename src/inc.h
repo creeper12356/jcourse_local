@@ -68,8 +68,12 @@
 
 #define SEARCH_MESSAGE(query, page) \
     QString("搜索课程：q=%1,page=%2...").arg(query,QString::number(page))
-#define REVIEW_MESSAGE(courseid,page) \
+#define CHECK_REVIEW_MESSAGE(courseid,page) \
     QString("查看评价：id=%1,page=%2...").arg(QString::number(courseid),QString::number(page))
+#define CACHE_REVIEW_FINISHED_MESSAGE(courseid,page) \
+    QString("缓存评价完成：id=%1,page=%2").arg(QString::number(courseid),QString::number(page))
+#define CACHE_COURSE_REVIEW_FINISHED_MESSAGE(courseid) \
+    QString("缓存课程评价完成（id=%1）").arg(courseid)
 #define COURSE_INFO(courseCount) \
     (courseCount ? QString("共有%1门课").arg(courseCount) : "暂无数据")
 #define REVIEW_INFO(reviewCount) \

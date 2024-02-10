@@ -100,7 +100,7 @@ public slots:
     //与TaskManager信号连接的槽
     void searchFinishedHandler(QByteArray result);
     void checkReviewFinishedHandler(QByteArray result,int courseid,int page);
-    void cacheReviewFinishedHandler(QByteArray result,int courseid,int page);
+    void cacheReviewFinishedHandler(QByteArray result,int courseid,int page,bool isLastPage);
 public:
 
     /*!
@@ -176,6 +176,19 @@ signals:
     void checkReviewFinished(QByteArray result);
 
     void parseCourseStatusFinished(QJsonObject resultJsonObject);
+
+    /*!
+     * \brief 缓存评价完成时，发送给MainWindow的信号
+     * \param courseid 课程id
+     * \param page 缓存页面
+     */
+    void cacheReviewFinished(int courseid,int page);
+
+    /*!
+     * \brief 缓存给定课程id的课程评价完成时，发送给MainWindow的信号
+     * \param courseid 课程id
+     */
+    void cacheCourseReviewFinished(int courseid);
 
 private:
     /*!

@@ -88,7 +88,8 @@ class CacheReviewTask : public SingleTask
 public:
     int courseid;
     int page;
-    CacheReviewTask(int courseid, int page);
+    bool isLastPage;
+    CacheReviewTask(int courseid, int page, bool isLastPage);
 
     QJsonObject toJsonObject() const override;
 };
@@ -110,10 +111,10 @@ protected slots:
     //TODO : change name
     void notifyTaskQueueUpdated();
 signals:
-    void taskQueueUpdated(QVector<Task*>* taskQueue);
+    void taskQueueUpdated();
     void searchFinished(QByteArray result,QString query,int page);
     void checkReviewFinished(QByteArray result,int courseid,int page);
-    void cacheReviewTaskFinished(QByteArray result, int courseid,int page);
+    void cacheReviewFinished(QByteArray result, int courseid, int page, bool isLastPage);
 private:
     QVector<Task*> mTasks;
     QNetworkAccessManager* mNetworkAccessManager;

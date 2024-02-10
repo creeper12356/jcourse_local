@@ -88,14 +88,14 @@ void MainWindow::checkReviewTriggered(int courseid)
     ui->review_page_widget->setCurrent(1);
     //保存请求
     mLastCourseid = courseid;
-    ui->statusbar->showMessage(REVIEW_MESSAGE(courseid,1));
+    ui->statusbar->showMessage(CHECK_REVIEW_MESSAGE(courseid,1));
     ui->progressbar->show();
     emit checkReview(courseid,1);
 }
 
 void MainWindow::checkReviewPageTriggered(int page)
 {
-    ui->statusbar->showMessage(REVIEW_MESSAGE(mLastCourseid,page));
+    ui->statusbar->showMessage(CHECK_REVIEW_MESSAGE(mLastCourseid,page));
     ui->progressbar->show();
     emit checkReview(mLastCourseid,page);
 }
@@ -148,6 +148,16 @@ void MainWindow::displayCheckReviewResult(QByteArray result)
     QJsonObject resultJsonObject = QJsonDocument::fromJson(result).object();
     ui->review_info_label->setText(REVIEW_INFO(resultJsonObject["count"].toInt()));
     ui->review_item_list->displayResult(resultJsonObject);
+}
+
+void MainWindow::cacheCourseReviewFinishedSlot(int courseid)
+{
+    ui->statusbar->showMessage(CACHE_COURSE_REVIEW_FINISHED_MESSAGE(courseid));
+}
+
+void MainWindow::cacheReviewFinishedSlot(int courseid, int page)
+{
+    ui->statusbar->showMessage(CACHE_REVIEW_FINISHED_MESSAGE(courseid, page));
 }
 
 void MainWindow::displayParseCourseStatusResult(QJsonObject resultJsonObject)
