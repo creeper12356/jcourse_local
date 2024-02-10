@@ -55,8 +55,8 @@ Client::Client(QApplication *app)
 
 
     //taskManager
-    connect(mTaskManager,&TaskManager::searchFinished,this,&Client::searchFinished);
-    connect(mTaskManager,&TaskManager::checkReviewFinished,this,&Client::checkReviewFinished);
+    connect(mTaskManager,&TaskManager::searchFinished,this,&Client::searchFinishedHandler);
+    connect(mTaskManager,&TaskManager::checkReviewFinished,this,&Client::checkReviewFinishedHandler);
     connect(mTaskManager,&TaskManager::cacheReviewTaskFinished,this,&Client::cacheReviewFinishedHandler);
 
     if(mAppModel->account().account.isEmpty()){

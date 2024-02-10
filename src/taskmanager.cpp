@@ -29,15 +29,23 @@ void TaskManager::appendTask(Task *newTask)
     assert(newTask);
     mTasks.push_back(newTask);
     qDebug() << "append: " << mTasks.size();
-    emit taskQueueUpdated();
+    notifyTaskQueueUpdated();
 }
 
 void TaskManager::prependTask(Task *newTask)
 {
     assert(newTask);
-    mTasks.prepend(newTask);
+    //manually fix bug
+    if(!mTasks.isEmpty() && !mTasks[0]->isCompound && dynamic_cast<SingleTask*>(mTasks[0])->isDoing) {
+        qDebug() << "insert at second place";
+        mTasks.insert(1,newTask);
+    }
+    else {
+        qDebug() << "normal prepend";
+        mTasks.prepend(newTask);
+    }
     qDebug() << "prepend: " << mTasks.size();
-    emit taskQueueUpdated();
+    notifyTaskQueueUpdated();
 }
 
 void TaskManager::handleTaskQueueUpdated()
@@ -55,7 +63,7 @@ void TaskManager::handleTaskQueueUpdated()
                 mTasks.push_back(new CacheReviewTask(dynamic_cast<CacheCourseReviewTask*>(mTasks[0])->courseid,1));
                 delete mTasks[0];
                 mTasks.removeFirst();
-                emit taskQueueUpdated();
+                notifyTaskQueueUpdated();
                 break;
             }
             default:
@@ -112,7 +120,7 @@ void TaskManager::handleNetworkReply(QNetworkReply *reply)
                 QString matchedText = match.captured();
                 int waitTime = matchedText.toInt() * 1000;
                 qDebug() << "wait for " << waitTime << " ms.";
-                QTimer::singleShot(waitTime,this,&TaskManager::taskQueueUpdated);
+                QTimer::singleShot(waitTime,this,&TaskManager::notifyTaskQueueUpdated);
                 break;
             }
         }
@@ -151,9 +159,14 @@ void TaskManager::handleNetworkReply(QNetworkReply *reply)
     }
 
     mTasks.removeOne(targetTask);
-    emit taskQueueUpdated();
+    notifyTaskQueueUpdated();
     delete targetTask;
     delete reply;
+}
+
+void TaskManager::notifyTaskQueueUpdated()
+{
+    emit taskQueueUpdated(&mTasks);
 }
 
 Task::Task(taskManager::type arg_type, bool arg_isCompound)
@@ -168,12 +181,69 @@ Task::~Task()
 
 }
 
+QJsonObject Task::toJsonObject() const
+{
+    QJsonObject taskJsonObject;
+    taskJsonObject.insert("type",type);
+    taskJsonObject.insert("isCompound",isCompound);
+    return taskJsonObject;
+}
+
+SearchTask *Task::toSearchTask()
+{
+    return dynamic_cast<SearchTask*>(this);
+}
+
+CheckReviewTask *Task::toCheckReviewTask()
+{
+    return dynamic_cast<CheckReviewTask*>(this);
+}
+
+CacheCourseReviewTask *Task::toCacheCourseReviewTask()
+{
+    return dynamic_cast<CacheCourseReviewTask*>(this);
+}
+
+CacheReviewTask *Task::toCacheReviewTask()
+{
+    return dynamic_cast<CacheReviewTask*>(this);
+}
+
+const SearchTask *Task::toSearchTask() const
+{
+    return dynamic_cast<const SearchTask*>(this);
+}
+
+const CheckReviewTask *Task::toCheckReviewTask() const
+{
+    return dynamic_cast<const CheckReviewTask*>(this);
+}
+
+const CacheCourseReviewTask *Task::toCacheCourseReviewTask() const
+{
+    return dynamic_cast<const CacheCourseReviewTask*>(this);
+}
+
+const CacheReviewTask *Task::toCacheReviewTask() const
+{
+    return dynamic_cast<const CacheReviewTask*>(this);
+}
+
 SearchTask::SearchTask(const QString &arg_query, int arg_page)
     : SingleTask(taskManager::search, QUrl(SEARCH_URL(arg_query,arg_page)))
     , query(arg_query)
     , page(arg_page)
 {
 
+}
+
+QJsonObject SearchTask::toJsonObject() const
+{
+    QJsonObject taskJsonObject = SingleTask::toJsonObject();
+    taskJsonObject.insert("query",query);
+    taskJsonObject.insert("page",page);
+
+    return taskJsonObject;
 }
 
 CheckReviewTask::CheckReviewTask(int arg_courseid, int arg_page)
@@ -184,6 +254,15 @@ CheckReviewTask::CheckReviewTask(int arg_courseid, int arg_page)
 
 }
 
+QJsonObject CheckReviewTask::toJsonObject() const
+{
+    QJsonObject taskJsonObject = SingleTask::toJsonObject();
+    taskJsonObject.insert("courseid",courseid);
+    taskJsonObject.insert("page",page);
+
+    return taskJsonObject;
+}
+
 CacheReviewTask::CacheReviewTask(int arg_courseid, int arg_page)
     : SingleTask(taskManager::cacheReview, QUrl(REVIEW_URL(arg_courseid,arg_page)))
     , courseid(arg_courseid)
@@ -192,11 +271,28 @@ CacheReviewTask::CacheReviewTask(int arg_courseid, int arg_page)
 
 }
 
+QJsonObject CacheReviewTask::toJsonObject() const
+{
+    QJsonObject taskJsonObject = SingleTask::toJsonObject();
+    taskJsonObject.insert("courseid",courseid);
+    taskJsonObject.insert("page",page);
+
+    return taskJsonObject;
+}
+
 CacheCourseReviewTask::CacheCourseReviewTask(int arg_courseid)
     : CompoundTask(taskManager::cacheCourseReview)
     , courseid(arg_courseid)
 {
 
+}
+
+QJsonObject CacheCourseReviewTask::toJsonObject() const
+{
+    QJsonObject taskJsonObject = CompoundTask::toJsonObject();
+    taskJsonObject.insert("courseid",courseid);
+
+    return taskJsonObject;
 }
 
 SingleTask::SingleTask(taskManager::type arg_type, const QUrl &arg_url)
@@ -211,6 +307,14 @@ SingleTask::~SingleTask()
 
 }
 
+QJsonObject SingleTask::toJsonObject() const
+{
+    QJsonObject taskJsonObject = Task::toJsonObject();
+    taskJsonObject.insert("url",url.toString());
+    taskJsonObject.insert("isDoing",isDoing);
+    return taskJsonObject;
+}
+
 CompoundTask::CompoundTask(taskManager::type arg_type)
     : Task(arg_type,true)
 {
@@ -220,4 +324,9 @@ CompoundTask::CompoundTask(taskManager::type arg_type)
 CompoundTask::~CompoundTask()
 {
 
+}
+
+QJsonObject CompoundTask::toJsonObject() const
+{
+    return Task::toJsonObject();
 }

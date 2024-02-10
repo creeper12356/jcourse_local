@@ -156,6 +156,7 @@ void MainWindow::displayParseCourseStatusResult(QJsonObject resultJsonObject)
     ui->download_course_list_widget->displayResult(resultJsonObject);
 }
 
+
 void MainWindow::userNameChangedSlot(QString userName)
 {
     ui->user_head->setUserName(userName);

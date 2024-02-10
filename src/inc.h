@@ -89,5 +89,6 @@ class AppModel;
 class PaginationWidget;
 class AbstractItem;
 class TaskManager;
+class Task;
 
 #endif // INC_H
