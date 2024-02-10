@@ -41,7 +41,6 @@ public slots:
 
     void cacheReviewFinishedSlot(int courseid, int page);
 
-
     void displayParseCourseStatusResult(QJsonObject resultJsonObject);
 
     /*!

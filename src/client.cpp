@@ -61,6 +61,7 @@ Client::Client(QApplication *app)
     connect(mTaskManager,&TaskManager::searchFinished,this,&Client::searchFinishedHandler);
     connect(mTaskManager,&TaskManager::checkReviewFinished,this,&Client::checkReviewFinishedHandler);
     connect(mTaskManager,&TaskManager::cacheReviewFinished,this,&Client::cacheReviewFinishedHandler);
+    connect(mTaskManager,&TaskManager::CacheCourseCodeReviewPartFinished,this,&Client::cacheCourseCodeReviewPartFinishedHandler);
 
     if(mAppModel->account().account.isEmpty()){
         //用户名为空，说明未登录
@@ -258,6 +259,10 @@ void Client::cacheCourseCodeReview(QString courseCode)
         return ;
     }
     assert(mAppModel->isOnline());
+    mTaskManager->appendTask(new CacheCourseCodeReviewTask(courseCode));
+    return ;
+
+
     QByteArray replyData;
     int pageCount , pageCurrent = 1;
     QVector<int> courseidList = {};
@@ -311,6 +316,14 @@ void Client::cacheReviewFinishedHandler(QByteArray result, int courseid, int pag
         //课号courseid的所有评价缓存完成
         emit cacheCourseReviewFinished(courseid);
     }
+}
+
+void Client::cacheCourseCodeReviewPartFinishedHandler(QByteArray result, QString courseCode, int page)
+{
+    //缓存结果
+    cacheSearchResult(result);
+
+    emit cacheCourseCodeReviewPartFinished(result, courseCode, page);
 }
 
 void Client::cacheReplyData(const QByteArray &replyData, const QString &fileName)

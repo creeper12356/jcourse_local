@@ -101,6 +101,7 @@ public slots:
     void searchFinishedHandler(QByteArray result);
     void checkReviewFinishedHandler(QByteArray result,int courseid,int page);
     void cacheReviewFinishedHandler(QByteArray result,int courseid,int page,bool isLastPage);
+    void cacheCourseCodeReviewPartFinishedHandler(QByteArray result, QString courseCode, int page);
 public:
 
     /*!
@@ -189,6 +190,9 @@ signals:
      * \param courseid 课程id
      */
     void cacheCourseReviewFinished(int courseid);
+
+    //TODO : rename
+    void cacheCourseCodeReviewPartFinished(QByteArray result, QString courseCode, int page);
 
 private:
     /*!

@@ -60,7 +60,15 @@ void TaskManager::handleTaskQueueUpdated()
             switch(mTasks[0]->type) {
             case cacheCourseReview:
             {
-                mTasks.push_back(new CacheReviewTask(dynamic_cast<CacheCourseReviewTask*>(mTasks[0])->courseid,1,false));
+                mTasks.push_back(new CacheReviewTask(mTasks[0]->toCacheCourseReviewTask()->courseid,1,false));
+                delete mTasks[0];
+                mTasks.removeFirst();
+                notifyTaskQueueUpdated();
+                break;
+            }
+            case cacheCourseCodeReview:
+            {
+                mTasks.push_back(new CacheCourseCodeReviewPartTask(mTasks[0]->toCacheCourseCodeReviewTask()->courseCode,1,false));
                 delete mTasks[0];
                 mTasks.removeFirst();
                 notifyTaskQueueUpdated();
@@ -120,6 +128,7 @@ void TaskManager::handleNetworkReply(QNetworkReply *reply)
                 QString matchedText = match.captured();
                 int waitTime = matchedText.toInt() * 1000;
                 qDebug() << "wait for " << waitTime << " ms.";
+                targetTask->isDoing = false;
                 QTimer::singleShot(waitTime,this,&TaskManager::notifyTaskQueueUpdated);
                 break;
             }
@@ -160,6 +169,38 @@ void TaskManager::handleNetworkReply(QNetworkReply *reply)
         emit cacheReviewFinished(replyData,cacheReviewTask->courseid,cacheReviewTask->page,cacheReviewTask->isLastPage);
         break;
     }
+    case cacheCourseCodeReviewPart:
+        //TODO : 与cacheReview合并
+    {
+        auto cacheCourseCodeReviewPartTask = dynamic_cast<CacheCourseCodeReviewPartTask*>(targetTask);
+        if(cacheCourseCodeReviewPartTask->page == 1) {
+            int pageCount = PaginationWidget::divideTotal(QJsonDocument::fromJson(replyData).object()["count"].toInt(),PAGE_SIZE);
+            if(pageCount == 1) {
+                cacheCourseCodeReviewPartTask->isLastPage = true;
+            }
+            else {
+                for(int i = 2;i < pageCount;++i) {
+                    mTasks.push_back(new CacheCourseCodeReviewPartTask(cacheCourseCodeReviewPartTask->courseCode,
+                                                                       pageCount,
+                                                                       false));
+                }
+                mTasks.push_back(new CacheCourseCodeReviewPartTask(cacheCourseCodeReviewPartTask->courseCode,
+                                                                       pageCount,
+                                                                       true));
+            }
+        }
+        emit CacheCourseCodeReviewPartFinished(replyData,
+                                               cacheCourseCodeReviewPartTask->courseCode,
+                                               cacheCourseCodeReviewPartTask->page,
+                                               cacheCourseCodeReviewPartTask->isLastPage);
+
+        //提取courseid
+        QJsonArray resultJsonArray = QJsonDocument::fromJson(replyData).object()["results"].toArray();
+        for(auto it = resultJsonArray.begin();it != resultJsonArray.end();++it){
+            mTasks.push_back(new CacheCourseReviewTask((*it).toObject()["id"].toInt()));
+        }
+        break;
+    }
     default:
         break;
     }
@@ -187,14 +228,6 @@ Task::~Task()
 
 }
 
-QJsonObject Task::toJsonObject() const
-{
-    QJsonObject taskJsonObject;
-    taskJsonObject.insert("type",type);
-    taskJsonObject.insert("isCompound",isCompound);
-    return taskJsonObject;
-}
-
 SearchTask *Task::toSearchTask()
 {
     return dynamic_cast<SearchTask*>(this);
@@ -213,6 +246,11 @@ CacheCourseReviewTask *Task::toCacheCourseReviewTask()
 CacheReviewTask *Task::toCacheReviewTask()
 {
     return dynamic_cast<CacheReviewTask*>(this);
+}
+
+CacheCourseCodeReviewTask *Task::toCacheCourseCodeReviewTask()
+{
+    return dynamic_cast<CacheCourseCodeReviewTask*>(this);
 }
 
 const SearchTask *Task::toSearchTask() const
@@ -235,6 +273,11 @@ const CacheReviewTask *Task::toCacheReviewTask() const
     return dynamic_cast<const CacheReviewTask*>(this);
 }
 
+const CacheCourseCodeReviewTask *Task::toCacheCourseCodeReviewTask() const
+{
+    return dynamic_cast<const CacheCourseCodeReviewTask*>(this);
+}
+
 SearchTask::SearchTask(const QString &arg_query, int arg_page)
     : SingleTask(taskManager::search, QUrl(SEARCH_URL(arg_query,arg_page)))
     , query(arg_query)
@@ -243,30 +286,12 @@ SearchTask::SearchTask(const QString &arg_query, int arg_page)
 
 }
 
-QJsonObject SearchTask::toJsonObject() const
-{
-    QJsonObject taskJsonObject = SingleTask::toJsonObject();
-    taskJsonObject.insert("query",query);
-    taskJsonObject.insert("page",page);
-
-    return taskJsonObject;
-}
-
 CheckReviewTask::CheckReviewTask(int arg_courseid, int arg_page)
     : SingleTask(taskManager::checkReview,QUrl(REVIEW_URL(arg_courseid,arg_page)))
     , courseid(arg_courseid)
     , page(arg_page)
 {
 
-}
-
-QJsonObject CheckReviewTask::toJsonObject() const
-{
-    QJsonObject taskJsonObject = SingleTask::toJsonObject();
-    taskJsonObject.insert("courseid",courseid);
-    taskJsonObject.insert("page",page);
-
-    return taskJsonObject;
 }
 
 CacheReviewTask::CacheReviewTask(int arg_courseid, int arg_page, bool arg_isLastPage)
@@ -278,28 +303,11 @@ CacheReviewTask::CacheReviewTask(int arg_courseid, int arg_page, bool arg_isLast
 
 }
 
-QJsonObject CacheReviewTask::toJsonObject() const
-{
-    QJsonObject taskJsonObject = SingleTask::toJsonObject();
-    taskJsonObject.insert("courseid",courseid);
-    taskJsonObject.insert("page",page);
-
-    return taskJsonObject;
-}
-
 CacheCourseReviewTask::CacheCourseReviewTask(int arg_courseid)
     : CompoundTask(taskManager::cacheCourseReview)
     , courseid(arg_courseid)
 {
 
-}
-
-QJsonObject CacheCourseReviewTask::toJsonObject() const
-{
-    QJsonObject taskJsonObject = CompoundTask::toJsonObject();
-    taskJsonObject.insert("courseid",courseid);
-
-    return taskJsonObject;
 }
 
 SingleTask::SingleTask(taskManager::type arg_type, const QUrl &arg_url)
@@ -314,14 +322,6 @@ SingleTask::~SingleTask()
 
 }
 
-QJsonObject SingleTask::toJsonObject() const
-{
-    QJsonObject taskJsonObject = Task::toJsonObject();
-    taskJsonObject.insert("url",url.toString());
-    taskJsonObject.insert("isDoing",isDoing);
-    return taskJsonObject;
-}
-
 CompoundTask::CompoundTask(taskManager::type arg_type)
     : Task(arg_type,true)
 {
@@ -333,7 +333,18 @@ CompoundTask::~CompoundTask()
 
 }
 
-QJsonObject CompoundTask::toJsonObject() const
+CacheCourseCodeReviewTask::CacheCourseCodeReviewTask(const QString &arg_courseCode)
+    : CompoundTask(taskManager::cacheCourseCodeReview)
+    , courseCode(arg_courseCode)
 {
-    return Task::toJsonObject();
+
+}
+
+CacheCourseCodeReviewPartTask::CacheCourseCodeReviewPartTask(const QString &arg_courseCode, int arg_page, bool arg_isLastPage)
+    : SingleTask(taskManager::cacheCourseCodeReviewPart, SEARCH_URL(arg_courseCode,arg_page))
+    , courseCode(arg_courseCode)
+    , page(arg_page)
+    , isLastPage(arg_isLastPage)
+{
+
 }
